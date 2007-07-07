@@ -1,0 +1,16 @@
+2007-07-07	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* configure.ac,
+	src/eggtrayicon.h,
+	src/gstplay.c,
+	src/sitelist.h,
+	src/channel.c,
+	src/gstplay.h,
+	src/Makefile.am,
+	src/betaradio.c,
+	src/eggtrayicon.c,
+	src/channel.h,
+	COPYING,
+	data/betaradio.desktop.in,
+	data/Makefile.am,
+	data/betaradio.png,
+	Makefile.am: betaradio v0.1.0 released
