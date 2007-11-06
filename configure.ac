@@ -1,4 +1,4 @@
-AC_INIT(betaradio, 0.1.0, Shih-Yuan Lee (Fourdollars) <fourdollars@gmail.com>)
+AC_INIT(betaradio, 0.1.1, Shih-Yuan Lee (Fourdollars) <fourdollars@gmail.com>)
 
 AM_INIT_AUTOMAKE([foreign])
 
