@@ -23,7 +23,7 @@
 #include <curl/curl.h>
 #include "channel.h"
 
-#define RADIO_URL "http://hichannel.hinet.net/api/streamRadio.jsp?id="
+#define RADIO_URL "http:\/\/hichannel.hinet.net\/api\/streamFreeRadio.jsp?id="
 
 struct FileStruct {
 	FILE *stream;
