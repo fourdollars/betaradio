@@ -49,9 +49,9 @@ void onStop( GtkWidget* item, gpointer user_data )
 	}
 }
 
-gpointer onPlay(gpointer *data)
+gpointer onRadioPlay(gpointer *data)
 {
-		gchar* url = get_channel_url_by_id((gchar*) data);
+		gchar* url = get_channel_url_by_id((gchar*) data, 0);
 		if (url != NULL) {
 			current = (gchar*) data;
 			//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
@@ -62,16 +62,38 @@ gpointer onPlay(gpointer *data)
 		g_thread_exit(NULL);
 }
 
-void onMenu( GtkWidget* item, gpointer user_data )
+gpointer onLivePlay(gpointer *data)
+{
+		gchar* url = get_channel_url_by_id((gchar*) data, 1);
+		if (url != NULL) {
+			current = (gchar*) data;
+			//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+			gstPlay(url);
+			//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+		}
+		g_free(url);
+		g_thread_exit(NULL);
+}
+
+void onRadioMenu( GtkWidget* item, gpointer user_data )
 {
 	if (GTK_CHECK_MENU_ITEM(item)->active) {
 		//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
 		gchar* id = g_object_get_data(G_OBJECT(item), "id");
-		g_thread_create(onPlay, id, FALSE, NULL);
+		g_thread_create(onRadioPlay, id, FALSE, NULL);
 	}
 }
 
-void appendSubMenu( const char *name, GtkWidget* menu, GSList *group, char **site_list )
+void onLiveMenu( GtkWidget* item, gpointer user_data )
+{
+	if (GTK_CHECK_MENU_ITEM(item)->active) {
+		//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+		gchar* id = g_object_get_data(G_OBJECT(item), "id");
+		g_thread_create(onLivePlay, id, FALSE, NULL);
+	}
+}
+
+void appendRadioMenu( const char *name, GtkWidget* menu, GSList *group, char **site_list )
 {
 	//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
 	GtkWidget *label = NULL;
@@ -89,7 +111,30 @@ void appendSubMenu( const char *name, GtkWidget* menu, GSList *group, char **sit
 		g_object_set_data( G_OBJECT(menu_item), "id", *(site_list + 1) );
 		if( current && 0 == strcmp( *(site_list + 1), current ) )
 			gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(menu_item), TRUE );
-		g_signal_connect( G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), NULL );
+		g_signal_connect( G_OBJECT(menu_item), "toggled", G_CALLBACK(onRadioMenu), NULL );
+		gtk_menu_shell_append( GTK_MENU_SHELL(sub_menu), menu_item );
+	} while (*(site_list += 2));
+}
+
+void appendLiveMenu( const char *name, GtkWidget* menu, GSList *group, char **site_list )
+{
+	//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+	GtkWidget *label = NULL;
+	GtkWidget *sub_menu = NULL;
+	GtkWidget *menu_item = NULL;
+
+	label = gtk_menu_item_new_with_label(name);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), label);
+	sub_menu = gtk_menu_new();
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(label), sub_menu);
+
+	do {
+		menu_item = gtk_radio_menu_item_new_with_label( group, *site_list );
+		group = gtk_radio_menu_item_get_group( GTK_RADIO_MENU_ITEM(menu_item) );
+		g_object_set_data( G_OBJECT(menu_item), "id", *(site_list + 1) );
+		if( current && 0 == strcmp( *(site_list + 1), current ) )
+			gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(menu_item), TRUE );
+		g_signal_connect( G_OBJECT(menu_item), "toggled", G_CALLBACK(onLiveMenu), NULL );
 		gtk_menu_shell_append( GTK_MENU_SHELL(sub_menu), menu_item );
 	} while (*(site_list += 2));
 }
@@ -108,13 +153,14 @@ void onEggTrayEvent( GtkWidget* widget, GdkEventButton* evt, gpointer user_data 
 
 	gtk_menu_shell_append( GTK_MENU_SHELL(menu), gtk_separator_menu_item_new() );
 
-	appendSubMenu("音樂", menu, group, music_site_list);
-	appendSubMenu("生活資訊", menu, group, life_site_list);
-	appendSubMenu("新聞", menu, group, news_site_list);
-	appendSubMenu("綜合", menu, group, others_site_list);
-	appendSubMenu("外語", menu, group, foreign_site_list);
-	appendSubMenu("多元文化", menu, group, culture_site_list);
-	appendSubMenu("交通", menu, group, traffic_site_list);
+	appendRadioMenu("音樂", menu, group, music_site_list);
+	appendRadioMenu("生活資訊", menu, group, life_site_list);
+	appendRadioMenu("新聞", menu, group, news_site_list);
+	appendRadioMenu("綜合", menu, group, others_site_list);
+	appendRadioMenu("外語", menu, group, foreign_site_list);
+	appendRadioMenu("多元文化", menu, group, culture_site_list);
+	appendRadioMenu("交通", menu, group, traffic_site_list);
+	appendLiveMenu("免費影視", menu, group, live_site_list);
 
 	gtk_menu_shell_append( GTK_MENU_SHELL(menu), gtk_separator_menu_item_new() );
 

@@ -23,7 +23,8 @@
 #include <curl/curl.h>
 #include "channel.h"
 
-#define RADIO_URL "http:\/\/hichannel.hinet.net\/api\/streamFreeRadio.jsp?id="
+#define RADIO_URL "http://hichannel.hinet.net/api/streamFreeRadio.jsp?id="
+#define LIVE_URL "http://hichannel.hinet.net/api/streamFreeLive.jsp?id="
 
 struct FileStruct {
 	FILE *stream;
@@ -112,14 +113,21 @@ static char *fetch_url(const char *keyword, char* content)
 	return url;
 }
 
-char *get_channel_url_by_id(const char *id)
+char *get_channel_url_by_id(const char *id, int bLive)
 {
-	char *url = (char *) malloc(strlen(RADIO_URL) + 4);
+	char *url = NULL;
 	char *content = NULL;
 	char *mms = NULL;
-
-	bzero(url, strlen(RADIO_URL) + 4);
-	sprintf(url, RADIO_URL "%s", id);
+	
+	if (bLive) {
+		url = (char *) malloc(strlen(LIVE_URL) + 4);
+		bzero(url, strlen(LIVE_URL) + 4);
+		sprintf(url, LIVE_URL "%s", id);
+	} else {
+		url = (char *) malloc(strlen(RADIO_URL) + 4);
+		bzero(url, strlen(RADIO_URL) + 4);
+		sprintf(url, RADIO_URL "%s", id);
+	}
 
 	wmp_init();
 	

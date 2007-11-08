@@ -1,3 +1,9 @@
+2007-11-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/sitelist.h,
+	src/channel.c,
+	src/betaradio.c,
+	src/channel.h: Add live channel.
+
 2007-11-06	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/channel.c: Change the url of stream source, and release 0.1.1
 
