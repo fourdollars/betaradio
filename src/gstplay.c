@@ -34,16 +34,21 @@ static gboolean my_bus_callback (GstBus *bus, GstMessage *message, gpointer data
 				g_print ("Error: %s\n", err->message);
 				g_error_free (err);
 				g_free (debug);
+				//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
 				g_main_loop_quit (loop);
 				break;
 			}
 		case GST_MESSAGE_EOS:
 			/* end-of-stream */
+			//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
 			g_main_loop_quit (loop);
+			break;
+		case GST_MESSAGE_STATE_CHANGED:
+			// be quite.
 			break;
 		default:
 			/* unhandled message */
-			//g_debug("%s %s %d %d\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE (message));
+			//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
 			break;
 	}
 

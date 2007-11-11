@@ -1,3 +1,8 @@
+2007-11-11	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/gstplay.c,
+	src/channel.c,
+	src/betaradio.c: Add error check, and polish source code.
+
 2007-11-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/sitelist.h,
 	src/channel.c,

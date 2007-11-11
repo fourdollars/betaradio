@@ -104,6 +104,10 @@ static char *fetch_url(const char *keyword, char* content)
 	char *url = NULL;
 
 	begin = strstr(content, keyword);
+
+	if (begin == NULL)
+		return NULL;
+
 	end = strstr(begin, "\"");
 
 	url = (char *) malloc(end - begin + 1);
@@ -147,6 +151,8 @@ char *get_channel_url_by_id(const char *id, int bLive)
 		content = wmp_get_content(url);
 		free(url);
 		mms = fetch_url("mms", content);
+		if (mms == NULL)
+			fprintf(stderr, "Can't get mms from %s.", url);
 		free(content);
 	}
 
