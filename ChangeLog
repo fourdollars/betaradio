@@ -1,3 +1,6 @@
+2007-11-15	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/channel.c: Add error check to prevent program's crash.
+
 2007-11-11	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/gstplay.c,
 	src/channel.c,

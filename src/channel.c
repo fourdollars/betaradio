@@ -141,7 +141,7 @@ char *get_channel_url_by_id(const char *id, int bLive)
 	if (content != NULL) {
 		url = fetch_url("http", content);
 	} else {
-		fprintf(stderr, "Can't get content from %s.", url);
+		fprintf(stderr, "Can't get content from %s.\n", url);
 		wmp_fini();
 		return NULL;
 	}
@@ -149,10 +149,16 @@ char *get_channel_url_by_id(const char *id, int bLive)
 	if (content != NULL && url != NULL) {
 		free(content);
 		content = wmp_get_content(url);
+		if (content == NULL) {
+			fprintf(stderr, "Can't get content from %s.\n", url);
+			free(url);
+			wmp_fini();
+			return NULL;
+		}
 		free(url);
 		mms = fetch_url("mms", content);
 		if (mms == NULL)
-			fprintf(stderr, "Can't get mms from %s.", url);
+			fprintf(stderr, "Can't get mms from %s.\n", url);
 		free(content);
 	}
 
