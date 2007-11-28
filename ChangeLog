@@ -1,3 +1,6 @@
+2007-11-28	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/sitelist.h: Update site list.
+
 2007-11-15	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/channel.c: Add error check to prevent program's crash.
 
