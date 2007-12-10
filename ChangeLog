@@ -1,3 +1,8 @@
+2007-12-10	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/sitelist.h: Modify site name.
+	* data/betaradio-on.png,
+	data/betaradio.png: Update new icons.
+
 2007-11-28	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/sitelist.h: Update site list.
 

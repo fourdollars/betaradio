@@ -2,7 +2,7 @@
 #define __SITE_LIST_H__
 static char *music_site_list[] =
 {
-	"ASIAFM衛星音樂台", "321",
+	"ASIAFM 衛星音樂台", "321",
 	"Apple line 蘋果線上", "248",
 	"BestRadio 台中好事903", "211",
 	"BestRadio 台北好事989", "212",
