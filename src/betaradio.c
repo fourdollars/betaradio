@@ -25,6 +25,8 @@
 #include <signal.h>
 #include <sys/wait.h>
 
+#include <config.h>
+
 #include "eggtrayicon.h"
 
 #include "gstplay.h"
@@ -33,9 +35,30 @@
 
 static const char* current = NULL;
 
+
+GtkWidget *icon;
+gchar *radio_on;
+gchar *radio_off;
+
+gboolean g_bRadioStatus = FALSE;
+
+gboolean updateRadioStatus(gpointer user_data)
+{
+	static gboolean s_bFlash = TRUE;
+	//g_debug("%s %s %d s_bFlash %d g_bRadioStatus %d\n", __FILE__, __FUNCTION__, __LINE__, s_bFlash, g_bRadioStatus);
+	if (g_bRadioStatus == TRUE && s_bFlash == TRUE) {
+		gtk_image_set_from_file(GTK_IMAGE(icon), radio_on);
+	} else {
+		gtk_image_set_from_file(GTK_IMAGE(icon), radio_off);
+	}
+	s_bFlash = s_bFlash == TRUE ? FALSE : TRUE;
+	return TRUE;
+}
+
 void onQuit( GtkWidget* item, gpointer user_data )
 {
 	//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+	g_bRadioStatus = FALSE;
 	gstStop();
 	gtk_main_quit();
 }
@@ -44,6 +67,7 @@ void onStop( GtkWidget* item, gpointer user_data )
 {
     if (GTK_CHECK_MENU_ITEM(item)->active) {
 		//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+		g_bRadioStatus = FALSE;
 		gstStop();
 		current = NULL;
 	}
@@ -56,6 +80,7 @@ gpointer onPlay(gpointer *data)
 		gchar* url = get_channel_url_by_id((gchar*) id, live ? 1 : 0);
 		//g_debug("%s:%d %s %p %p %p\n", __FILE__, __LINE__, __FUNCTION__, id, live, url);
 		if (url != NULL) {
+			g_bRadioStatus = TRUE;
 			current = (gchar*) id;
 			//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
 			gstPlay(url);
@@ -133,23 +158,34 @@ void onEggTrayEvent( GtkWidget* widget, GdkEventButton* evt, gpointer user_data 
 
 int main( int argc, char** argv )
 {
-	GtkWidget *icon;
 	GtkWidget *evt_box;
 	GtkTooltips *tooltips;
 	EggTrayIcon *tray_icon;
+	GtkSettings *settings;
 
 	g_thread_init(NULL);
-	gtk_init( &argc, &argv );
+	gtk_init(&argc, &argv);
 	
-	tooltips = gtk_tooltips_new ();
-	tray_icon = egg_tray_icon_new ("Beta Radio");
-	evt_box = gtk_event_box_new ();
-	gtk_container_add (GTK_CONTAINER (tray_icon), evt_box);
-	g_signal_connect (G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), NULL);
-	gtk_tooltips_set_tip (GTK_TOOLTIPS(tooltips), evt_box, "Beta Radio", NULL);
+	tooltips = gtk_tooltips_new();
+	tray_icon = egg_tray_icon_new("Beta Radio");
+	evt_box = gtk_event_box_new();
+	gtk_container_add(GTK_CONTAINER(tray_icon), evt_box);
+	g_signal_connect(G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), NULL);
+	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, "Beta Radio", NULL);
 
-	icon = gtk_image_new_from_stock( GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_MENU );
-	gtk_container_add (GTK_CONTAINER (evt_box), icon);
+	/* 
+	 * Check the following line if it exists in gtkrc.
+	 *    pixmap_path "/usr/share/pixmaps:/usr/local/share/pixmaps"
+	 * You can check this by `strace -e trace=open betaradio 2>&1 | grep gtkrc`
+	 */
+	settings = gtk_settings_get_default();
+	radio_on = gtk_rc_find_pixmap_in_path(settings, NULL, "betaradio-on.png");
+	radio_off = gtk_rc_find_pixmap_in_path(settings, NULL, "betaradio.png");
+
+	icon = gtk_image_new_from_file(radio_off);
+	gtk_container_add(GTK_CONTAINER(evt_box), icon);
+
+	g_timeout_add(500, updateRadioStatus, NULL);
 
 	gtk_widget_show_all (GTK_WIDGET (tray_icon));
 	gtk_main();

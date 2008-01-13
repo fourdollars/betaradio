@@ -1,3 +1,8 @@
+2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* configure.ac,
+	data/Makefile.am,
+	src/betaradio.c: Add new tray icon and make it flash when working.
+
 2007-12-10	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/sitelist.h: Modify site name.
 	* data/betaradio-on.png,

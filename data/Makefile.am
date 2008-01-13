@@ -3,7 +3,7 @@ EXTRA_DIST = \
 	betaradio.desktop.in
 
 icondir = $(datadir)/pixmaps
-icon_DATA = betaradio.png
+icon_DATA = betaradio.png betaradio-on.png
 
 desktopdir = $(datadir)/applications
 desktop_DATA = betaradio.desktop

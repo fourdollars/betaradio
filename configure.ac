@@ -1,6 +1,8 @@
-AC_INIT(betaradio, 0.1.1, Shih-Yuan Lee (Fourdollars) <fourdollars@gmail.com>)
+AC_INIT(betaradio, 0.1.1, Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>)
 
 AM_INIT_AUTOMAKE([foreign])
+
+AM_CONFIG_HEADER(config.h)
 
 AC_PROG_CC
 
