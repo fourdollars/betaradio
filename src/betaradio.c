@@ -172,8 +172,8 @@ int main( int argc, char** argv )
 	g_signal_connect(G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), NULL);
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, "BetaRadio 點播器", NULL);
 
-	radio_on = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-on.png");
-	radio_off = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-off.png");
+	radio_on = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-on.png", NULL);
+	radio_off = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-off.png", NULL);
 
 	icon = gtk_image_new_from_file(radio_off);
 	gtk_container_add(GTK_CONTAINER(evt_box), icon);

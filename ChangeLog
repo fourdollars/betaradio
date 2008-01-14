@@ -1,4 +1,7 @@
 2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/betaradio.c: Add the missing trailer 'NULL' of g_build_filename.
+
+2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/Makefile.am
 	src/betaradio.c
 	data/betaradio.desktop.in
