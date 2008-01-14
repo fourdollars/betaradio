@@ -161,7 +161,6 @@ int main( int argc, char** argv )
 	GtkWidget *evt_box;
 	GtkTooltips *tooltips;
 	EggTrayIcon *tray_icon;
-	GtkSettings *settings;
 
 	g_thread_init(NULL);
 	gtk_init(&argc, &argv);
@@ -171,16 +170,10 @@ int main( int argc, char** argv )
 	evt_box = gtk_event_box_new();
 	gtk_container_add(GTK_CONTAINER(tray_icon), evt_box);
 	g_signal_connect(G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), NULL);
-	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, "Beta Radio", NULL);
+	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, "BetaRadio 點播器", NULL);
 
-	/* 
-	 * Check the following line if it exists in gtkrc.
-	 *    pixmap_path "/usr/share/pixmaps:/usr/local/share/pixmaps"
-	 * You can check this by `strace -e trace=open betaradio 2>&1 | grep gtkrc`
-	 */
-	settings = gtk_settings_get_default();
-	radio_on = gtk_rc_find_pixmap_in_path(settings, NULL, "betaradio-on.png");
-	radio_off = gtk_rc_find_pixmap_in_path(settings, NULL, "betaradio.png");
+	radio_on = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-on.png");
+	radio_off = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-off.png");
 
 	icon = gtk_image_new_from_file(radio_off);
 	gtk_container_add(GTK_CONTAINER(evt_box), icon);

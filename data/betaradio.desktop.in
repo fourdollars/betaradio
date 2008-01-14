@@ -2,8 +2,9 @@
 Categories=GTK;Application;AudioVideo;Audio;Player;
 Encoding=UTF-8
 Exec=betaradio
-Icon=@prefix@/share/pixmaps/betaradio.png
+Icon=@prefix@/share/pixmaps/betaradio/betaradio.png
 Type=Application
 Terminal=false
-Name=Beta Radio
+Name=BetaRadio Tuner
+Name[zh_TW]=BetaRadio 點播器
 Comment=Listen the radio of Taiwan

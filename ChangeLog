@@ -1,4 +1,13 @@
 2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* src/Makefile.am
+	src/betaradio.c
+	data/betaradio.desktop.in
+	data/betaradio-on.png
+	data/Makefile.am
+	data/radio-off.png
+	data/radio-on.png: Modify the tray icon's size and location on disk.
+
+2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* configure.ac,
 	data/Makefile.am,
 	src/betaradio.c: Add new tray icon and make it flash when working.
