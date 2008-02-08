@@ -1,4 +1,7 @@
 2007-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* configure.ac: Bump to 0.1.2
+
+2007-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/betaradio.c: Adjust the source code of GTK+.
 
 2007-01-21	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
