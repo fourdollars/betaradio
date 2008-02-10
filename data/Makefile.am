@@ -1,4 +1,6 @@
 EXTRA_DIST = \
+	radio-on.png \
+	radio-off.png \
 	betaradio.png \
 	betaradio.desktop.in
 

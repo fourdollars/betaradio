@@ -1,3 +1,7 @@
+2007-02-11	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+	* data/Makefile.am: Fix the bug lack of radio-on.png and radio-off.png at
+	tags 0.1.2
+
 2007-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* configure.ac: Bump to 0.1.2
 
