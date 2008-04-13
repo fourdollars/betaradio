@@ -1,23 +1,28 @@
-2007-02-11	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-04-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* TODO,
+	autogen.sh: Add a TODO item.
+
+2008-02-11	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* data/Makefile.am: Fix the bug lack of radio-on.png and radio-off.png at
 	tags 0.1.2
 
-2007-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* configure.ac: Bump to 0.1.2
 
-2007-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-02-08	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/betaradio.c: Adjust the source code of GTK+.
 
-2007-01-21	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-01-21	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* TODO: Add this to record some ideas.
 	
-2007-01-21	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-01-21	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* autogen.sh: Add this for its convenience.
 
-2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/betaradio.c: Add the missing trailer 'NULL' of g_build_filename.
 
-2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* src/Makefile.am
 	src/betaradio.c
 	data/betaradio.desktop.in
@@ -26,7 +31,7 @@
 	data/radio-off.png
 	data/radio-on.png: Modify the tray icon's size and location on disk.
 
-2007-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+2008-01-14	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 	* configure.ac,
 	data/Makefile.am,
 	src/betaradio.c: Add new tray icon and make it flash when working.
