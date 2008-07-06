@@ -1,3 +1,7 @@
+2008-07-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/channel.c: Update the source url.
+
 2008-05-01	Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/sitelist.h: Update radio site list.

@@ -23,8 +23,9 @@
 #include <curl/curl.h>
 #include "channel.h"
 
-#define RADIO_URL "http://hichannel.hinet.net/api/streamFreeRadio.jsp?id="
-#define LIVE_URL "http://hichannel.hinet.net/api/streamFreeLive.jsp?id="
+#define SOURCE_URL "http://www.hichannel.hinet.net"
+#define RADIO_URL "http://www.hichannel.hinet.net/api/streamFreeRadio.jsp?id="
+#define LIVE_URL "http://www.hichannel.hinet.net/api/streamFreeLive.jsp?id="
 
 struct FileStruct {
 	FILE *stream;
@@ -72,7 +73,7 @@ static char *wmp_get_content(const char *url)
 	if (curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, url);
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, "Windows Media Player");
-		curl_easy_setopt(curl, CURLOPT_REFERER, "http://hichannel.hinet.net");
+		curl_easy_setopt(curl, CURLOPT_REFERER, SOURCE_URL);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, my_fwrite);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &file);
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
