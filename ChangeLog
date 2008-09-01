@@ -1,3 +1,7 @@
+2008-09-01  Stanley Lee <stanley@katdc.com>
+
+	* src/channel.c: update the source url.
+
 2008-07-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/channel.c: Update the source url.
