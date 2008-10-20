@@ -130,7 +130,6 @@ static char *live_site_list[] =
 	"Bloomberg Television", "1001",
 	"流行追蹤", "21",
 	"台灣樂起來(樂透開獎)", "58",
-	"世棒2台", "603",
 	"生命電視台", "54",
 	NULL
 };
