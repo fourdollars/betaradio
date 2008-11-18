@@ -1,3 +1,7 @@
+2008-11-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* autogen.sh: Update autogen.sh and add libtool initialize.
+
 2008-10-20  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/sitelist.h: update the source url.

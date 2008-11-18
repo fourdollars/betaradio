@@ -2,6 +2,6 @@
 
 aclocal
 autoheader
-automake --add-missing
+libtoolize --automake --copy
+automake --add-missing --foreign
 autoconf
-rm -fr autom4te.cache
