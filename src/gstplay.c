@@ -74,14 +74,6 @@ static void gstPlay(GstPlayer* gst, const char* const url)
 
     gst_element_set_state(data->bin, GST_STATE_PLAYING);
 
-    data->state = GstPlay;
-
-    if (data->func != NULL) {
-        if (data->func(gst, data->state) != 0) {
-            data->func = NULL;
-        }
-    }
-
     g_main_loop_run(data->loop);
 
     return;
@@ -134,12 +126,22 @@ static void gstRelease(GstPlayer* gst)
     return;
 }
 
-static gboolean gstBusCallback(GstBus *bus, GstMessage *message, gpointer pointer)
+static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointer)
 {
     GstPlayer* gst = (GstPlayer*) pointer;
     GstData* data = (GstData*) gst->data;
 
     switch (GST_MESSAGE_TYPE(message)) {
+        default:
+            break;
+        case GST_MESSAGE_NEW_CLOCK:
+            data->state = GstPlay;
+            if (data->func != NULL) {
+                if (data->func(gst, data->state) != 0) {
+                    data->func = NULL;
+                }
+            }
+            break;
         case GST_MESSAGE_ERROR:
         case GST_MESSAGE_EOS:
             data->state = GstError;
@@ -148,8 +150,6 @@ static gboolean gstBusCallback(GstBus *bus, GstMessage *message, gpointer pointe
                     data->func = NULL;
                 }
             }
-            break;
-        default:
             break;
     }
 

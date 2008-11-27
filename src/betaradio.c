@@ -84,6 +84,7 @@ static int myGstCallback(GstPlayer* gst, GstStatus state)
         default:
         case GstNull:
         case GstPlay:
+            g_bRadioStatus = TRUE;
             break;
         case GstError:
             gst->Stop(gst);
@@ -101,7 +102,6 @@ gpointer onPlay(gpointer *data)
     gchar* live = g_object_get_data(G_OBJECT(data), "live");
     gchar* url = get_channel_url_by_id((gchar*) id, live ? 1 : 0);
     if (url != NULL) {
-        g_bRadioStatus = TRUE;
         current = (gchar*) id;
         gstPlayer->Play(gstPlayer, url);
         g_free(url);
@@ -111,8 +111,10 @@ gpointer onPlay(gpointer *data)
 
 void onMenu(GtkWidget* item, gpointer user_data)
 {
-    if (GTK_CHECK_MENU_ITEM(item)->active)
+    if (GTK_CHECK_MENU_ITEM(item)->active) {
+        g_bRadioStatus = FALSE;
         g_thread_create((GThreadFunc) onPlay, item, FALSE, NULL);
+    }
 }
 
 GSList* appendMenu(const char *name, GtkWidget* menu, GSList *group, char **site_list, gboolean bLive)
