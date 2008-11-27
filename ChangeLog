@@ -1,3 +1,9 @@
+2008-11-27  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/gstplay.c,
+	src/gstplay.h,
+	src/betaradio.c: Add GstPlayer for GStreamer.
+
 2008-11-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* autogen.sh: Update autogen.sh and add libtool initialize.

@@ -16,91 +16,142 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <stdlib.h>
+#include <string.h>
 #include <gst/gst.h>
 #include "gstplay.h"
 
-static GMainLoop *g_loop = NULL;
+typedef struct {
+    GMainLoop*  loop;
+    GstElement* bin;
+    GstCallback func;
+    GstStatus   state;
+} GstData;
 
-static gboolean my_bus_callback (GstBus *bus, GstMessage *message, gpointer data)
+static gboolean gstBusCallback(GstBus*, GstMessage*, gpointer);
+static void gstPlay(GstPlayer*, const char* const);
+static void gstStop(GstPlayer*);
+static void gstRegister(GstPlayer*, GstCallback);
+static void gstRelease(GstPlayer*);
+
+GstPlayer GstFunsTable = {
+    .data     = NULL,
+    .Play     = gstPlay,
+    .Stop     = gstStop,
+    .Register = gstRegister,
+    .Release  = gstRelease,
+};
+
+GstPlayer* gstCreate(void)
 {
-	GMainLoop *loop = data;
-
-	switch (GST_MESSAGE_TYPE (message)) {
-		case GST_MESSAGE_ERROR:
-			{
-				GError *err;
-				gchar *debug;
-				gst_message_parse_error (message, &err, &debug);
-				g_print ("Error: %s\n", err->message);
-				g_error_free (err);
-				g_free (debug);
-				//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
-				g_main_loop_quit (loop);
-				break;
-			}
-		case GST_MESSAGE_EOS:
-			/* end-of-stream */
-			//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
-			g_main_loop_quit (loop);
-			break;
-		case GST_MESSAGE_STATE_CHANGED:
-			// be quite.
-			break;
-		default:
-			/* unhandled message */
-			//g_debug("%s %s %d %s\n", __FILE__, __FUNCTION__, __LINE__, GST_MESSAGE_TYPE_NAME(message));
-			break;
-	}
-
-	/* remove message from the queue */
-	return TRUE;
+    GstPlayer* gst = malloc(sizeof(GstPlayer));
+    memset(gst, 0, sizeof(GstPlayer));
+    memcpy(gst, &GstFunsTable, sizeof(GstPlayer));
+    gst->data = malloc(sizeof(GstData));
+    memset(gst->data, 0, sizeof(GstData));
+    gst->self = &gst;
+    return gst;
 }
 
-gboolean gstStop(void)
+static void gstPlay(GstPlayer* gst, const char* const url)
 {
-	return gstPlay(NULL);
+    GstData* data = (GstData*) gst->data;
+    GstBus*  bus  = NULL;
+
+    if (data->state == GstPlay)
+        gst->Stop(gst);
+
+    gst_init (NULL, NULL);
+
+    data->loop = g_main_loop_new(NULL, FALSE);
+
+    data->bin= gst_element_factory_make("playbin", "BetaRadio");
+    g_object_set(G_OBJECT(data->bin), "uri", url, NULL);
+
+    bus = gst_pipeline_get_bus(GST_PIPELINE(data->bin));
+    gst_bus_add_watch(bus, gstBusCallback, gst);
+    gst_object_unref(bus);
+
+    gst_element_set_state(data->bin, GST_STATE_PLAYING);
+
+    data->state = GstPlay;
+
+    if (data->func != NULL) {
+        if (data->func(gst, data->state) != 0) {
+            data->func = NULL;
+        }
+    }
+
+    g_main_loop_run(data->loop);
+
+    return;
 }
 
-gboolean gstPlay(gchar *uri)
+static void gstStop(GstPlayer* gst)
 {
-	//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-	GMainLoop *loop;
-	GstElement *play;
-	GstBus *bus;
+    GstData* data = (GstData*) gst->data;
 
-	/* stop the previous player */
-	if (g_loop != NULL) {
-		//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-		g_main_loop_quit(g_loop);
-		g_loop = NULL;
-	}
+    if (data->loop != NULL) {
+        gst_element_set_state(data->bin, GST_STATE_NULL);
+        gst_object_unref(GST_OBJECT(data->bin));
+        data->bin = NULL;
 
-	if (uri == NULL) {
-		//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-		return 0;
-	}
+        g_main_loop_quit(data->loop);
+        g_main_loop_unref(data->loop);
+        data->loop = NULL;
 
-	/* init GStreamer */
-	gst_init (NULL, NULL);
-	g_loop = loop = g_main_loop_new (NULL, FALSE);
-	//g_debug("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+        data->state = GstNull;
 
-	/* set up */
-	play = gst_element_factory_make ("playbin", "play");
-	g_object_set (G_OBJECT (play), "uri", uri, NULL);
+        if (data->func != NULL) {
+            if (data->func(gst, data->state) != 0) {
+                data->func = NULL;
+            }
+        }
+    }
 
-	bus = gst_pipeline_get_bus (GST_PIPELINE (play));
-	gst_bus_add_watch (bus, my_bus_callback, loop);
-	gst_object_unref (bus);
+    return;
+}
 
-	gst_element_set_state (play, GST_STATE_PLAYING);
+static void gstRegister(GstPlayer* gst, GstCallback func)
+{
+    GstData* data = (GstData*) gst->data;
+    data->func = func;
+    return;
+}
 
-	/* now run */
-	g_main_loop_run (loop);
+static void gstRelease(GstPlayer* gst)
+{
+    GstData* data = (GstData*) gst->data;
+    GstPlayer** self = gst->self;
 
-	/* also clean up */
-	gst_element_set_state (play, GST_STATE_NULL);
-	gst_object_unref (GST_OBJECT (play));
+    if (data->state == GstPlay)
+        gstStop(gst);
 
-	return 0;
+    free(gst->data);
+    free(gst);
+    *self = NULL;
+
+    return;
+}
+
+static gboolean gstBusCallback(GstBus *bus, GstMessage *message, gpointer pointer)
+{
+    GstPlayer* gst = (GstPlayer*) pointer;
+    GstData* data = (GstData*) gst->data;
+
+    switch (GST_MESSAGE_TYPE(message)) {
+        case GST_MESSAGE_ERROR:
+        case GST_MESSAGE_EOS:
+            data->state = GstError;
+            if (data->func != NULL) {
+                if (data->func(gst, data->state) != 0) {
+                    data->func = NULL;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+
+    return TRUE;
 }
