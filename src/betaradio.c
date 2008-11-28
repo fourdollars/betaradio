@@ -26,7 +26,9 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#include <config.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include "eggtrayicon.h"
 
@@ -191,7 +193,9 @@ int main(int argc, char *argv[])
     group = appendMenu("外語", menu, group, foreign_site_list, 0);
     group = appendMenu("多元文化", menu, group, culture_site_list, 0);
     group = appendMenu("交通", menu, group, traffic_site_list, 0);
+#ifdef TV
     group = appendMenu("免費影視", menu, group, live_site_list, 1);
+#endif
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 

@@ -5,6 +5,8 @@
 	* src/gstplay.c,
 	src/gstplay.h.
 	src/betaradio.c: Improve the mechanism of callback function.
+	* configure.ac,
+	src/betaradio.c: Add an option to enable tv (disable by default).
 
 2008-11-27  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
