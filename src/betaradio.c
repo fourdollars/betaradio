@@ -37,7 +37,7 @@
 static GstPlayer* gstPlayer = NULL;
 static const char* current = NULL;
 static gboolean g_bRadioStatus = FALSE;
-static int myGstCallback(GstPlayer*, GstStatus);
+static int myGstCallback(GstPlayer*, GstStatus, void*);
 
 typedef struct {
     GtkWidget *m_pIcon;
@@ -77,8 +77,12 @@ void onStop(GtkWidget* item, gpointer user_data)
     }
 }
 
-static int myGstCallback(GstPlayer* gst, GstStatus state)
+static int myGstCallback(GstPlayer* gst, GstStatus state, void* ptr)
 {
+    const char* const str = (const char* const) ptr;
+
+    g_print(" - %s %d\n", str, state);
+
     switch (state)
     {
         default:
@@ -164,10 +168,10 @@ int main(int argc, char *argv[])
     gtk_init(&argc, &argv);
 
     gstPlayer = gstCreate();
-    gstPlayer->Register(gstPlayer, myGstCallback);
+    gstPlayer->Register(gstPlayer, myGstCallback, "BetaRadio");
 
     tooltips = gtk_tooltips_new();
-    tray_icon = egg_tray_icon_new("Beta Radio");
+    tray_icon = egg_tray_icon_new("BetaRadio");
     evt_box = gtk_event_box_new();
     gtk_container_add(GTK_CONTAINER(tray_icon), evt_box);
 

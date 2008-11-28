@@ -26,13 +26,15 @@ typedef struct {
     GstElement* bin;
     GstCallback func;
     GstStatus   state;
+    void*       ptr;
 } GstData;
 
-static gboolean gstBusCallback(GstBus*, GstMessage*, gpointer);
+static void gstChangeStatus(GstPlayer*, GstStatus);
 static void gstPlay(GstPlayer*, const char* const);
 static void gstStop(GstPlayer*);
-static void gstRegister(GstPlayer*, GstCallback);
+static void gstRegister(GstPlayer*, GstCallback, void*);
 static void gstRelease(GstPlayer*);
+static gboolean gstBusCallback(GstBus*, GstMessage*, gpointer);
 
 GstPlayer GstFunsTable = {
     .data     = NULL,
@@ -51,6 +53,20 @@ GstPlayer* gstCreate(void)
     memset(gst->data, 0, sizeof(GstData));
     gst->self = &gst;
     return gst;
+}
+
+static void gstChangeStatus(GstPlayer* gst, GstStatus state)
+{
+    GstData* data = (GstData*) gst->data;
+    data->state = state;
+
+    if (data->func != NULL) {
+        if (data->func(gst, data->state, data->ptr) != 0) {
+            data->func = NULL;
+        }
+    }
+
+    return;
 }
 
 static void gstPlay(GstPlayer* gst, const char* const url)
@@ -92,22 +108,17 @@ static void gstStop(GstPlayer* gst)
         g_main_loop_unref(data->loop);
         data->loop = NULL;
 
-        data->state = GstNull;
-
-        if (data->func != NULL) {
-            if (data->func(gst, data->state) != 0) {
-                data->func = NULL;
-            }
-        }
+        gstChangeStatus(gst, GstNull);
     }
 
     return;
 }
 
-static void gstRegister(GstPlayer* gst, GstCallback func)
+static void gstRegister(GstPlayer* gst, GstCallback func, void* ptr)
 {
     GstData* data = (GstData*) gst->data;
     data->func = func;
+    data->ptr = ptr;
     return;
 }
 
@@ -131,25 +142,17 @@ static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointe
     GstPlayer* gst = (GstPlayer*) pointer;
     GstData* data = (GstData*) gst->data;
 
+    g_print("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));
+
     switch (GST_MESSAGE_TYPE(message)) {
         default:
             break;
         case GST_MESSAGE_NEW_CLOCK:
-            data->state = GstPlay;
-            if (data->func != NULL) {
-                if (data->func(gst, data->state) != 0) {
-                    data->func = NULL;
-                }
-            }
+            gstChangeStatus(gst, GstPlay);
             break;
         case GST_MESSAGE_ERROR:
         case GST_MESSAGE_EOS:
-            data->state = GstError;
-            if (data->func != NULL) {
-                if (data->func(gst, data->state) != 0) {
-                    data->func = NULL;
-                }
-            }
+            gstChangeStatus(gst, GstError);
             break;
     }
 

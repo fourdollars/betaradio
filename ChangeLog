@@ -2,6 +2,9 @@
 
 	* src/gstplay.c,
 	src/betaradio.c: Polish icon flash timing.
+	* src/gstplay.c,
+	src/gstplay.h.
+	src/betaradio.c: Improve the mechanism of callback function.
 
 2008-11-27  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

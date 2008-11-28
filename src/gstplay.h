@@ -13,14 +13,14 @@ extern "C" {
 
     GstPlayer* gstCreate(void);
 
-    typedef int (*GstCallback)(GstPlayer*, GstStatus);
+    typedef int (*GstCallback)(GstPlayer*, GstStatus, void*);
 
     struct _GstPlayer {
         void* data;
         GstPlayer** self;
         void (*Play)(GstPlayer*, const char* const);
         void (*Stop)(GstPlayer*);
-        void (*Register)(GstPlayer*, GstCallback);
+        void (*Register)(GstPlayer*, GstCallback, void*);
         void (*Release)(GstPlayer*);
     };
 #ifdef __cplusplus
