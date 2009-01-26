@@ -1,6 +1,11 @@
 2009-01-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* TODO: Update todo list.
+	* configure.ac,
+	m4/Makefile.am,
+	po/LINGUAS,
+	po/Makevars,
+	po/POTFILES.in: Try to add i18n support.
 
 2008-11-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
