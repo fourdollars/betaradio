@@ -8,6 +8,9 @@
 	po/zh_TW.po,
 	src/Makefile.am,
 	src/betaradio.c: The roughly working gettext support.
+	* autogen.sh,
+	configure.ac,
+	po/zh_TW.po: Polish to pass through `make distcheck`.
 
 2009-01-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

@@ -3,7 +3,7 @@ AC_PREREQ([2.61])
 AC_CONFIG_SRCDIR([src/betaradio.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_CONFIG_HEADER([config.h])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign dist-bzip2])
 
 AM_GNU_GETTEXT_VERSION(0.17)
 AM_GNU_GETTEXT([external])
