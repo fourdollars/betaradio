@@ -8,6 +8,8 @@
 	po/POTFILES.in: Try to add i18n support.
 	* Makefile.am: Add the missing SUBDIRS.
 	* po/zh_TW.po: Add zh_TW translation file.
+	* Makefile.am: Add the missing include header gettext.h from
+	/usr/share/gettext/gettext.
 
 2008-11-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

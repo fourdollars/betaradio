@@ -1,3 +1,4 @@
+noinst_HEADERS = gettext.h
 AUX_DIST = \
 	$(ac_aux_dir)/config.guess \
 	$(ac_aux_dir)/config.sub \
