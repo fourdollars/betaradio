@@ -26,6 +26,11 @@
 #include <signal.h>
 #include <sys/wait.h>
 
+/* Get gettext(), textdomain(), bindtextdomain() declaration.  */
+#include "gettext.h"
+/* Define shortcut for gettext().  */
+#define _(string) gettext (string)
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -165,6 +170,10 @@ int main(int argc, char *argv[])
     GSList* group = NULL;
     GtkWidget* menu_item = NULL;
     radio_icon_t t_RadioIcon = {NULL, NULL, NULL};
+
+    setlocale (LC_ALL, "");
+    textdomain ("BetaRadio");
+    bindtextdomain ("BetaRadio", LOCALEDIR);
 
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
