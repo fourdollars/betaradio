@@ -12,6 +12,7 @@
 	/usr/share/gettext/gettext.
 	* src/Makefile.am,
 	src/betaradio.c: Add the necessary work for gettext.
+	* autogen.sh: Polish autogen.sh for gettext.
 
 2008-11-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
