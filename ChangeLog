@@ -13,6 +13,8 @@
 	* src/Makefile.am,
 	src/betaradio.c: Add the necessary work for gettext.
 	* autogen.sh: Polish autogen.sh for gettext.
+	* po/zh_TW.po,
+	src/betaradio.c: Internationalize betaradio.c
 
 2008-11-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

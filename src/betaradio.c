@@ -26,11 +26,6 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-/* Get gettext(), textdomain(), bindtextdomain() declaration.  */
-#include "gettext.h"
-/* Define shortcut for gettext().  */
-#define _(string) gettext (string)
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -188,22 +183,22 @@ int main(int argc, char *argv[])
 
     menu = gtk_menu_new();
 
-    menu_item = gtk_radio_menu_item_new_with_label(group, "停止播放");
+    menu_item = gtk_radio_menu_item_new_with_label(group, _("Stop"));
     group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
     g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onStop), NULL);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    group = appendMenu("音樂", menu, group, music_site_list, 0);
-    group = appendMenu("生活資訊", menu, group, life_site_list, 0);
-    group = appendMenu("新聞", menu, group, news_site_list, 0);
-    group = appendMenu("綜合", menu, group, others_site_list, 0);
-    group = appendMenu("外語", menu, group, foreign_site_list, 0);
-    group = appendMenu("多元文化", menu, group, culture_site_list, 0);
-    group = appendMenu("交通", menu, group, traffic_site_list, 0);
+    group = appendMenu(_("Music"), menu, group, music_site_list, 0);
+    group = appendMenu(_("Life"), menu, group, life_site_list, 0);
+    group = appendMenu(_("News"), menu, group, news_site_list, 0);
+    group = appendMenu(_("Others"), menu, group, others_site_list, 0);
+    group = appendMenu(_("Foreign"), menu, group, foreign_site_list, 0);
+    group = appendMenu(_("Culture"), menu, group, culture_site_list, 0);
+    group = appendMenu(_("Traffic"), menu, group, traffic_site_list, 0);
 #ifdef TV
-    group = appendMenu("免費影視", menu, group, live_site_list, 1);
+    group = appendMenu(_("Free TV"), menu, group, live_site_list, 1);
 #endif
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
@@ -216,7 +211,7 @@ int main(int argc, char *argv[])
 
     g_signal_connect(G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), menu);
 
-    gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, "BetaRadio 點播器", NULL);
+    gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, _("BetaRadio Tuner"), NULL);
 
     t_RadioIcon.m_pcRadioOn = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-on.png", NULL);
     t_RadioIcon.m_pcRadioOff = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-off.png", NULL);
