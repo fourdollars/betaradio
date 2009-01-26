@@ -1,3 +1,14 @@
+2009-01-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* Makefile.am,
+	autogen.sh,
+	configure.ac,
+	m4/Makefile.am,
+	po/Makevars,
+	po/zh_TW.po,
+	src/Makefile.am,
+	src/betaradio.c: The roughly working gettext support.
+
 2009-01-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* TODO: Update todo list.

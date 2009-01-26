@@ -1,4 +1,3 @@
-noinst_HEADERS = gettext.h
 AUX_DIST = \
 	$(ac_aux_dir)/config.guess \
 	$(ac_aux_dir)/config.sub \
@@ -7,5 +6,6 @@ AUX_DIST = \
 	$(ac_aux_dir)/ltmain.sh \
 	$(ac_aux_dir)/missing \
 	$(ac_aux_dir)/depcomp
-SUBDIRS = m4 po src data
+SUBDIRS = po src data
+ACLOCAL_AMFLAGS = -I m4
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 configure config.h.in $(AUX_DIST)

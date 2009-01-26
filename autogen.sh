@@ -1,10 +1,8 @@
 #!/bin/sh
 
-ln -snf $(locate gettext.h) gettext.h
-
-autopoint -f
+autopoint --force
 aclocal -I m4
 autoheader
 libtoolize --automake --copy
-automake --add-missing --foreign
+automake --add-missing --copy --foreign --include-deps
 autoconf

@@ -15,9 +15,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
 #include <gst/gst.h>
 
 #include <unistd.h>
@@ -26,9 +24,12 @@
 #include <signal.h>
 #include <sys/wait.h>
 
+#include <locale.h>
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "gettext.h"
+#define _(string) gettext(string)
 
 #include "eggtrayicon.h"
 
@@ -166,9 +167,9 @@ int main(int argc, char *argv[])
     GtkWidget* menu_item = NULL;
     radio_icon_t t_RadioIcon = {NULL, NULL, NULL};
 
-    setlocale (LC_ALL, "");
-    textdomain ("BetaRadio");
-    bindtextdomain ("BetaRadio", LOCALEDIR);
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
 
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
