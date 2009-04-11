@@ -161,6 +161,11 @@ char *get_channel_url_by_id(const char *id, int bLive)
 		if (mms == NULL)
 			fprintf(stderr, "Can't get mms from %s.\n", url);
 		free(content);
+	} else if (content != NULL && url == NULL) {
+		mms = fetch_url("mms", content);
+		if (mms == NULL)
+			fprintf(stderr, "Can't get mms from %s.\n", url);
+		free(content);
 	}
 
 	wmp_fini();

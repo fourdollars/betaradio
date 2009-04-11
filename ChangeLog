@@ -1,3 +1,7 @@
+2009-04-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/channel.c: Fetch mms url if fetching http url failed.
+
 2009-01-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* Makefile.am,
