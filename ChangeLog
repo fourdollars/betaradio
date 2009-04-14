@@ -1,3 +1,12 @@
+2009-04-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	po/zh_TW.po,
+	src/betaradio.c,
+	src/channel.c,
+	src/channel.h,
+	src/sitelist.h: Update radio list and remove TV.
+
 2009-04-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/channel.c: Fetch mms url if fetching http url failed.

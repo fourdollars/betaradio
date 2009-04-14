@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: betaradio 0.1.2\n"
 "Report-Msgid-Bugs-To: http://code.google.com/p/betaradio\n"
-"POT-Creation-Date: 2009-01-26 15:00+0800\n"
+"POT-Creation-Date: 2009-04-14 23:41+0800\n"
 "PO-Revision-Date: 2009-01-25 20:30+0800\n"
 "Last-Translator: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
@@ -16,43 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/betaradio.c:187
+#: src/betaradio.c:185
 msgid "Stop"
 msgstr "停止播放"
 
-#: src/betaradio.c:194
+#: src/betaradio.c:192
 msgid "Music"
 msgstr "音樂"
 
-#: src/betaradio.c:195
+#: src/betaradio.c:193
 msgid "Life"
 msgstr "生活資訊"
 
-#: src/betaradio.c:196
+#: src/betaradio.c:194
 msgid "News"
 msgstr "新聞"
 
-#: src/betaradio.c:197
+#: src/betaradio.c:195
 msgid "Others"
 msgstr "綜合"
 
-#: src/betaradio.c:198
+#: src/betaradio.c:196
 msgid "Foreign"
 msgstr "外語"
 
-#: src/betaradio.c:199
+#: src/betaradio.c:197
 msgid "Culture"
 msgstr "多元文化"
 
-#: src/betaradio.c:200
-msgid "Traffic"
-msgstr "交通"
-
-#: src/betaradio.c:202
-msgid "Free TV"
-msgstr "免費影視"
-
-#: src/betaradio.c:215
+#: src/betaradio.c:209
 msgid "BetaRadio Tuner"
 msgstr "BetaRadio 點播器"
 

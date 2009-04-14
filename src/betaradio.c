@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 #include <gtk/gtk.h>
 #include <gst/gst.h>
 
@@ -25,9 +28,6 @@
 #include <sys/wait.h>
 
 #include <locale.h>
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 #include "gettext.h"
 #define _(string) gettext(string)
 
@@ -106,8 +106,7 @@ static int myGstCallback(GstPlayer* gst, GstStatus state, void* ptr)
 gpointer onPlay(gpointer *data)
 {
     gchar* id = g_object_get_data(G_OBJECT(data), "id");
-    gchar* live = g_object_get_data(G_OBJECT(data), "live");
-    gchar* url = get_channel_url_by_id((gchar*) id, live ? 1 : 0);
+    gchar* url = get_channel_url_by_id((gchar*) id);
     if (url != NULL) {
         current = (gchar*) id;
         gstPlayer->Play(gstPlayer, url);
@@ -124,7 +123,7 @@ void onMenu(GtkWidget* item, gpointer user_data)
     }
 }
 
-GSList* appendMenu(const char *name, GtkWidget* menu, GSList *group, char **site_list, gboolean bLive)
+GSList* appendMenu(const char *name, GtkWidget* menu, GSList *group, char **site_list)
 {
     GtkWidget *label = NULL;
     GtkWidget *sub_menu = NULL;
@@ -139,7 +138,6 @@ GSList* appendMenu(const char *name, GtkWidget* menu, GSList *group, char **site
         menu_item = gtk_radio_menu_item_new_with_label(group, *site_list);
         group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
         g_object_set_data(G_OBJECT(menu_item), "id", *(site_list + 1));
-        g_object_set_data(G_OBJECT(menu_item), "live", bLive ? *(site_list + 1) : NULL);
         g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), NULL);
         gtk_menu_shell_append(GTK_MENU_SHELL(sub_menu), menu_item);
     } while (*(site_list += 2));
@@ -191,16 +189,12 @@ int main(int argc, char *argv[])
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    group = appendMenu(_("Music"), menu, group, music_site_list, 0);
-    group = appendMenu(_("Life"), menu, group, life_site_list, 0);
-    group = appendMenu(_("News"), menu, group, news_site_list, 0);
-    group = appendMenu(_("Others"), menu, group, others_site_list, 0);
-    group = appendMenu(_("Foreign"), menu, group, foreign_site_list, 0);
-    group = appendMenu(_("Culture"), menu, group, culture_site_list, 0);
-    group = appendMenu(_("Traffic"), menu, group, traffic_site_list, 0);
-#ifdef TV
-    group = appendMenu(_("Free TV"), menu, group, live_site_list, 1);
-#endif
+    group = appendMenu(_("Music"), menu, group, music_site_list);
+    group = appendMenu(_("Life"), menu, group, life_site_list);
+    group = appendMenu(_("News"), menu, group, news_site_list);
+    group = appendMenu(_("Others"), menu, group, others_site_list);
+    group = appendMenu(_("Foreign"), menu, group, foreign_site_list);
+    group = appendMenu(_("Culture"), menu, group, culture_site_list);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 

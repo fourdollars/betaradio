@@ -24,8 +24,7 @@
 #include "channel.h"
 
 #define SOURCE_URL "http://hichannel.hinet.net"
-#define RADIO_URL "http://hichannel.hinet.net/api/streamFreeRadio.jsp?id="
-#define LIVE_URL "http://hichannel.hinet.net/api/streamFreeLive.jsp?id="
+#define RADIO_URL "http://hichannel.hinet.net/player/radio/index.jsp?radio_id="
 
 struct FileStruct {
 	FILE *stream;
@@ -33,7 +32,7 @@ struct FileStruct {
 	size_t nmemb;
 };
 
-static int my_fwrite(void *buffer, size_t size, size_t nmemb, void *stream)
+static size_t my_fwrite(void *buffer, size_t size, size_t nmemb, void *stream)
 {
 	struct FileStruct *out = (struct FileStruct *) stream;
 
@@ -64,6 +63,7 @@ static char *wmp_get_content(const char *url)
 	CURL *curl;
 	CURLcode res;
 	char *content = NULL;
+	int length = 0;
 	struct FileStruct file = {
 		NULL, 0, 0
 	};
@@ -89,7 +89,7 @@ static char *wmp_get_content(const char *url)
 		content = (char *) malloc(file.size * file.nmemb + 1);
 		bzero(content, file.size * file.nmemb + 1);
 		rewind(file.stream);
-		fread(content, file.size, file.nmemb, file.stream);
+		length = fread(content, file.size, file.nmemb, file.stream);
 	}
 
 	if (file.stream)
@@ -118,21 +118,15 @@ static char *fetch_url(const char *keyword, char* content)
 	return url;
 }
 
-char *get_channel_url_by_id(const char *id, int bLive)
+char *get_channel_url_by_id(const char *id)
 {
 	char *url = NULL;
 	char *content = NULL;
 	char *mms = NULL;
 
-	if (bLive) {
-		url = (char *) malloc(strlen(LIVE_URL) + 4);
-		bzero(url, strlen(LIVE_URL) + 4);
-		sprintf(url, LIVE_URL "%s", id);
-	} else {
-		url = (char *) malloc(strlen(RADIO_URL) + 4);
-		bzero(url, strlen(RADIO_URL) + 4);
-		sprintf(url, RADIO_URL "%s", id);
-	}
+	url = (char *) malloc(strlen(RADIO_URL) + 4);
+	bzero(url, strlen(RADIO_URL) + 4);
+	sprintf(url, RADIO_URL "%s", id);
 
 	wmp_init();
 
@@ -140,34 +134,16 @@ char *get_channel_url_by_id(const char *id, int bLive)
 	free(url);
 
 	if (content != NULL) {
-		url = fetch_url("http", content);
+		url = fetch_url("mms", content);
 	} else {
 		fprintf(stderr, "Can't get content from %s.\n", url);
 		wmp_fini();
 		return NULL;
 	}
 
-	if (content != NULL && url != NULL) {
-		free(content);
-		content = wmp_get_content(url);
-		if (content == NULL) {
-			fprintf(stderr, "Can't get content from %s.\n", url);
-			free(url);
-			wmp_fini();
-			return NULL;
-		}
-		free(url);
-		mms = fetch_url("mms", content);
-		if (mms == NULL)
-			fprintf(stderr, "Can't get mms from %s.\n", url);
-		free(content);
-	} else if (content != NULL && url == NULL) {
-		mms = fetch_url("mms", content);
-		if (mms == NULL)
-			fprintf(stderr, "Can't get mms from %s.\n", url);
+	if (content != NULL) {
 		free(content);
 	}
-
 	wmp_fini();
 
 	return mms;
