@@ -12,6 +12,15 @@
 	utils/hichannel.yaml: Add new mechanism about YAML.
 	* src/radiosite.h: Create the prototype for RadioSite.
 	* utils/hichannel.yaml: Replace 'mms' with 'http'.
+	* COPYING,
+	src/betaradio.c,
+	src/channel.c,
+	src/channel.h,
+	src/gstplay.c,
+	src/radiosite.c,
+	src/radiosite.h,
+	src/sitelist.h,
+	src/streamplayer.h: Change license from GPLv2 to GPLv3.
 
 2009-04-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
