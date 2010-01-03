@@ -4,6 +4,9 @@
 	src/betaradio.c,
 	src/gstplay.c,
 	src/streamplayer.h: Refactor for abstract stream player.
+	* autogen.sh,
+	po/POTFILES.in,
+	po/zh_TW.po: Fix compilation error and update po file.
 
 2009-04-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

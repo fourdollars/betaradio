@@ -4,5 +4,5 @@ src/channel.h
 src/eggtrayicon.c
 src/eggtrayicon.h
 src/gstplay.c
-src/gstplay.h
 src/sitelist.h
+src/streamplayer.h
