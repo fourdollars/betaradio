@@ -1,3 +1,9 @@
+2010-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/hichannel.html,
+	utils/hichannel.json,
+	utils/hichannel.py: Add new mechanism about JSON.
+
 2010-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/Makefile.am,

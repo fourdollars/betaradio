@@ -21,10 +21,7 @@ def fetchMMS(id):
         else:
             break
 
-def main():
-    file = open('hichannel.yaml')
-    data = yaml.load(file)
-    file.close()
+def genYAML(data):
     if 'content' in data:
         if 'title' in data: print 'title: ' + data['title'].encode('utf-8')
         if 'url' in data: print 'url: ' + data['url']
@@ -39,6 +36,36 @@ def main():
                     print "    url: %s" % channel['url']
                 else:
                     print "    url: %s" % fetchMMS(channel['id'])
+
+def genJSON(data):
+    if 'content' in data:
+        print '({'
+        if 'title' in data: print '\t"title": "%s",' % (data['title'].encode('utf-8'))
+        if 'url' in data: print '\t"url": "%s",' % (data['url'])
+        print '\t"content": ['
+        for item in data['content']:
+            print '\t\t{'
+            print '\t\t\t"category": "%s",' % (item['category'].encode('utf-8'))
+            print '\t\t\t"channel": ['
+            for channel in item['channel']:
+                print '\t\t\t\t{'
+                print '\t\t\t\t\t"title": "%s",' % (channel['title'].encode('utf-8'))
+                print '\t\t\t\t\t"id": "%d",' % (channel['id'])
+                if 'url' in channel:
+                    print '\t\t\t\t\t"url": "%s"' % (channel['url'])
+                else:
+                    print '\t\t\t\t\t"url": "%s"' % (fetchMMS(channel['id']))
+                print '\t\t\t\t},'
+            print '\t\t\t]'
+            print '\t\t},'
+        print '\t]'
+        print '})'
+
+def main():
+    file = open('hichannel.yaml')
+    data = yaml.load(file)
+    file.close()
+    genJSON(data)
 
 if __name__ == '__main__':
     main()
