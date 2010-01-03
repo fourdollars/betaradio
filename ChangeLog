@@ -7,6 +7,9 @@
 	* autogen.sh,
 	po/POTFILES.in,
 	po/zh_TW.po: Fix compilation error and update po file.
+	* utils/hichannel.html,
+	utils/hichannel.py,
+	utils/hichannel.yaml: Add new mechanism about YAML.
 
 2009-04-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
