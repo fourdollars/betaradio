@@ -11,6 +11,7 @@
 	utils/hichannel.py,
 	utils/hichannel.yaml: Add new mechanism about YAML.
 	* src/radiosite.h: Create the prototype for RadioSite.
+	* utils/hichannel.yaml: Replace 'mms' with 'http'.
 
 2009-04-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
