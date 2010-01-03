@@ -19,24 +19,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gst/gst.h>
-#include "gstplay.h"
+#include "streamplayer.h"
 
-typedef struct {
-    GMainLoop*  loop;
-    GstElement* bin;
-    GstCallback func;
-    GstStatus   state;
-    void*       ptr;
-} GstData;
+typedef struct StreamData StreamData;
 
-static void gstChangeStatus(GstPlayer*, GstStatus);
-static void gstPlay(GstPlayer*, const char* const);
-static void gstStop(GstPlayer*);
-static void gstRegister(GstPlayer*, GstCallback, void*);
-static void gstRelease(GstPlayer*);
+struct StreamData {
+    GMainLoop*     loop;
+    GstElement*    bin;
+    StreamCallback func;
+    StreamStatus   state;
+    void*          ptr;
+};
+
+static void gstChangeStatus(StreamPlayer*, StreamStatus);
+static void gstPlay(StreamPlayer*, const char* const);
+static void gstStop(StreamPlayer*);
+static void gstRegister(StreamPlayer*, StreamCallback, void*);
+static void gstRelease(StreamPlayer*);
+
 static gboolean gstBusCallback(GstBus*, GstMessage*, gpointer);
 
-GstPlayer GstFunsTable = {
+StreamPlayer GstFunsTable = {
     .data     = NULL,
     .Play     = gstPlay,
     .Stop     = gstStop,
@@ -44,20 +47,18 @@ GstPlayer GstFunsTable = {
     .Release  = gstRelease,
 };
 
-GstPlayer* gstCreate(void)
+StreamPlayer* StreamPlayerCreate(void)
 {
-    GstPlayer* gst = malloc(sizeof(GstPlayer));
-    memset(gst, 0, sizeof(GstPlayer));
-    memcpy(gst, &GstFunsTable, sizeof(GstPlayer));
-    gst->data = malloc(sizeof(GstData));
-    memset(gst->data, 0, sizeof(GstData));
-    gst->self = &gst;
+    StreamPlayer* gst = malloc(sizeof(StreamPlayer));
+    memcpy(gst, &GstFunsTable, sizeof(StreamPlayer));
+    gst->data = malloc(sizeof(StreamData));
+    memset(gst->data, 0, sizeof(StreamData));
     return gst;
 }
 
-static void gstChangeStatus(GstPlayer* gst, GstStatus state)
+static void gstChangeStatus(StreamPlayer* gst, StreamStatus state)
 {
-    GstData* data = (GstData*) gst->data;
+    StreamData* data = (StreamData*) gst->data;
     data->state = state;
 
     if (data->func != NULL) {
@@ -69,12 +70,12 @@ static void gstChangeStatus(GstPlayer* gst, GstStatus state)
     return;
 }
 
-static void gstPlay(GstPlayer* gst, const char* const url)
+static void gstPlay(StreamPlayer* gst, const char* const url)
 {
-    GstData* data = (GstData*) gst->data;
+    StreamData* data = (StreamData*) gst->data;
     GstBus*  bus  = NULL;
 
-    if (data->state == GstPlay)
+    if (data->state == SP_Play)
         gst->Stop(gst);
 
     gst_init (NULL, NULL);
@@ -95,9 +96,9 @@ static void gstPlay(GstPlayer* gst, const char* const url)
     return;
 }
 
-static void gstStop(GstPlayer* gst)
+static void gstStop(StreamPlayer* gst)
 {
-    GstData* data = (GstData*) gst->data;
+    StreamData* data = (StreamData*) gst->data;
 
     if (data->loop != NULL) {
         gst_element_set_state(data->bin, GST_STATE_NULL);
@@ -108,39 +109,37 @@ static void gstStop(GstPlayer* gst)
         g_main_loop_unref(data->loop);
         data->loop = NULL;
 
-        gstChangeStatus(gst, GstNull);
+        gstChangeStatus(gst, SP_Null);
     }
 
     return;
 }
 
-static void gstRegister(GstPlayer* gst, GstCallback func, void* ptr)
+static void gstRegister(StreamPlayer* gst, StreamCallback func, void* ptr)
 {
-    GstData* data = (GstData*) gst->data;
+    StreamData* data = (StreamData*) gst->data;
     data->func = func;
     data->ptr = ptr;
     return;
 }
 
-static void gstRelease(GstPlayer* gst)
+static void gstRelease(StreamPlayer* gst)
 {
-    GstData* data = (GstData*) gst->data;
-    GstPlayer** self = gst->self;
+    StreamData* data = (StreamData*) gst->data;
 
-    if (data->state == GstPlay)
+    if (data->state == SP_Play)
         gstStop(gst);
 
     free(gst->data);
     free(gst);
-    *self = NULL;
 
     return;
 }
 
 static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointer)
 {
-    GstPlayer* gst = (GstPlayer*) pointer;
-    GstData* data = (GstData*) gst->data;
+    StreamPlayer* gst = (StreamPlayer*) pointer;
+    StreamData* data = (StreamData*) gst->data;
 
     g_print("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));
 
@@ -148,11 +147,11 @@ static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointe
         default:
             break;
         case GST_MESSAGE_NEW_CLOCK:
-            gstChangeStatus(gst, GstPlay);
+            gstChangeStatus(gst, SP_Play);
             break;
         case GST_MESSAGE_ERROR:
         case GST_MESSAGE_EOS:
-            gstChangeStatus(gst, GstError);
+            gstChangeStatus(gst, SP_Error);
             break;
     }
 

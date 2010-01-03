@@ -19,7 +19,6 @@
 #include "config.h"
 #endif
 #include <gtk/gtk.h>
-#include <gst/gst.h>
 
 #include <unistd.h>
 #include <string.h>
@@ -33,14 +32,14 @@
 
 #include "eggtrayicon.h"
 
-#include "gstplay.h"
+#include "streamplayer.h"
 #include "channel.h"
 #include "sitelist.h"
 
-static GstPlayer* gstPlayer = NULL;
+static StreamPlayer* gPlayer = NULL;
 static const char* current = NULL;
 static gboolean g_bRadioStatus = FALSE;
-static int myGstCallback(GstPlayer*, GstStatus, void*);
+static int myCallback(StreamPlayer*, StreamStatus, void*);
 
 typedef struct {
     GtkWidget *m_pIcon;
@@ -67,20 +66,20 @@ gboolean updateRadioStatus(gpointer user_data)
 void onQuit(GtkWidget* item, gpointer user_data)
 {
     g_bRadioStatus = FALSE;
-    gstPlayer->Release(gstPlayer);
+    gPlayer->Release(gPlayer);
     gtk_main_quit();
 }
 
 void onStop(GtkWidget* item, gpointer user_data)
 {
     if (GTK_CHECK_MENU_ITEM(item)->active) {
-        gstPlayer->Stop(gstPlayer);
+        gPlayer->Stop(gPlayer);
         g_bRadioStatus = FALSE;
         current = NULL;
     }
 }
 
-static int myGstCallback(GstPlayer* gst, GstStatus state, void* ptr)
+static int myCallback(StreamPlayer* player, StreamStatus state, void* ptr)
 {
     const char* const str = (const char* const) ptr;
 
@@ -89,12 +88,12 @@ static int myGstCallback(GstPlayer* gst, GstStatus state, void* ptr)
     switch (state)
     {
         default:
-        case GstNull:
-        case GstPlay:
+        case SP_Null:
+        case SP_Play:
             g_bRadioStatus = TRUE;
             break;
-        case GstError:
-            gst->Stop(gst);
+        case SP_Error:
+            player->Stop(player);
             g_bRadioStatus = FALSE;
             current = NULL;
             return 1;
@@ -109,7 +108,7 @@ gpointer onPlay(gpointer *data)
     gchar* url = get_channel_url_by_id((gchar*) id);
     if (url != NULL) {
         current = (gchar*) id;
-        gstPlayer->Play(gstPlayer, url);
+        gPlayer->Play(gPlayer, url);
         g_free(url);
     }
     g_thread_exit(NULL);
@@ -172,8 +171,8 @@ int main(int argc, char *argv[])
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
 
-    gstPlayer = gstCreate();
-    gstPlayer->Register(gstPlayer, myGstCallback, "BetaRadio");
+    gPlayer = StreamPlayerCreate();
+    gPlayer->Register(gPlayer, myCallback, "BetaRadio");
 
     tooltips = gtk_tooltips_new();
     tray_icon = egg_tray_icon_new("BetaRadio");
