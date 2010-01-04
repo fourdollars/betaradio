@@ -1,9 +1,9 @@
 ({
 	"title": "hiChannel 廣播",
 	"url": "http://hichannel.hinet.net/radio.html",
-	"content": [
+	"category": [
 		{
-			"category": "音樂",
+			"title": "音樂",
 			"channel": [
 				{
 					"title": "Bravo FM913 台北都會休閒音樂台",
@@ -133,7 +133,7 @@
 			]
 		},
 		{
-			"category": "生活",
+			"title": "生活",
 			"channel": [
 				{
 					"title": "非凡音電台",
@@ -233,7 +233,7 @@
 			]
 		},
 		{
-			"category": "新聞",
+			"title": "新聞",
 			"channel": [
 				{
 					"title": "中廣新聞網",
@@ -248,7 +248,7 @@
 			]
 		},
 		{
-			"category": "綜合",
+			"title": "綜合",
 			"channel": [
 				{
 					"title": "正義電台",
@@ -298,7 +298,7 @@
 			]
 		},
 		{
-			"category": "外語",
+			"title": "外語",
 			"channel": [
 				{
 					"title": "ICRT",
@@ -323,7 +323,7 @@
 			]
 		},
 		{
-			"category": "多元文化",
+			"title": "多元文化",
 			"channel": [
 				{
 					"title": "寶島新聲廣播電台",

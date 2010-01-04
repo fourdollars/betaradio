@@ -12,57 +12,49 @@
                 $('#others').hide();
                 $('#foreign').hide();
                 $('#culture').hide();
-                $('#result').append('music:\n');
+                $('#result').append('title: hiChannel 廣播\n');
+                $('#result').append('url: http://hichannel.hinet.net/radio.html\n');
+                $('#result').append('category:\n');
+                $('#result').append('- title: 音樂\n');
+                $('#result').append('  channel:\n');
                 $('#music option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
                 });
-                $('#result').append('life:\n');
+                $('#result').append('- title: 生活\n');
+                $('#result').append('  channel:\n');
                 $('#life option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
                 });
-                $('#result').append('news:\n');
+                $('#result').append('- title: 新聞\n');
+                $('#result').append('  channel:\n');
                 $('#news option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
                 });
-                $('#result').append('others:\n');
+                $('#result').append('- title: 綜合\n');
+                $('#result').append('  channel:\n');
                 $('#others option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
                 });
-                $('#result').append('foreign:\n');
+                $('#result').append('- title: 外語\n');
+                $('#result').append('  channel:\n');
                 $('#foreign option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
                 });
-                $('#result').append('culture:\n');
+                $('#result').append('- title: 多元文化\n');
+                $('#result').append('  channel:\n');
                 $('#culture option').each(function(item) {
                     $('#result').append('  - id: ' + this.value + '\n');
                     $('#result').append('    title: ' + $(this).html() + '\n');
-                });
-                $.getJSON('hichannel.json', function(data, stat) {
-                    console.log(stat);
-                    if (stat == 'success') {
-                        var box = $('#box pre');
-                        $.each(data.content, function(i, category) {
-                            console.log(category.category);
-                            box.append(category.category + '\n');
-                            $.each(category.channel, function(i, channel) {
-                                console.log('\t' + channel.title);
-                                box.append('\t<a href="' + channel.url + '">'+ channel.title + '</a>\n');
-                            });
-                        });
-                    }
                 });
             });
         </script>
     </head>
     <body>
-        <div id='box'>
-            <pre></pre>
-        </div>
         <pre id="result"></pre>
         <div id="music">
             <select><option value="1001">Bravo FM913 台北都會休閒音樂台</option><option value="308">KISS RADIO 網路音樂台</option><option value="156">KISS RADIO 大眾廣播電台</option><option value="255">KISS RADIO 台南知音廣播</option><option value="256">KISS RADIO 大苗栗廣播</option><option value="258">KISS RADIO 南投廣播</option><option value="206">中廣音樂網i radio</option><option value="205">中廣流行網 i like</option><option value="222">HitFM聯播網 北部</option><option value="88">HitFM聯播網 中部</option><option value="90">HitFM聯播網 南部</option><option value="370">POP Radio 917台北流行音樂電台</option><option value="228">台北愛樂</option><option value="294">奇美古典音樂網</option><option value="212">BestRadio 台北好事989</option><option value="213">BestRadio 高雄港都983</option><option value="211">BestRadio 台中好事903</option><option value="303">BestRadio 花蓮好事935</option><option value="248">Apple line 蘋果線上</option><option value="321">ASIAFM衛星音樂台</option><option value="357">Flyradio飛揚調頻895</option><option value="313">RTI央廣-音樂</option><option value="340">佳音現代聖樂網</option><option value="338">全國廣播音樂網</option><option value="289">太陽電台</option></select>

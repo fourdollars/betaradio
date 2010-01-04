@@ -1,7 +1,7 @@
 title: hiChannel 廣播
 url: http://hichannel.hinet.net/radio.html
-content:
-- category: 音樂
+category:
+- title: 音樂
   channel:
   - title: Bravo FM913 台北都會休閒音樂台
     id: 1001
@@ -78,7 +78,7 @@ content:
   - title: 太陽電台
     id: 289
     url: http://bcr.media.hinet.net/RA000064
-- category: 生活
+- title: 生活
   channel:
   - title: 非凡音電台
     id: 1040
@@ -137,7 +137,7 @@ content:
   - title: 真心之音廣播電台
     id: 217
     url: http://bcr.media.hinet.net/RA000033
-- category: 新聞
+- title: 新聞
   channel:
   - title: 中廣新聞網
     id: 207
@@ -145,7 +145,7 @@ content:
   - title: NEWS98新聞網
     id: 187
     url: http://bcr.media.hinet.net/RA000073
-- category: 綜合
+- title: 綜合
   channel:
   - title: 正義電台
     id: 1020
@@ -174,7 +174,7 @@ content:
   - title: 綠色和平台灣文化廣播電台
     id: 327
     url: http://bcr.media.hinet.net/RA000032
-- category: 外語
+- title: 外語
   channel:
   - title: ICRT
     id: 177
@@ -188,7 +188,7 @@ content:
   - title: RTI央廣-亞洲頻道
     id: 311
     url: http://bcr.media.hinet.net/RA000059
-- category: 多元文化
+- title: 多元文化
   channel:
   - title: 寶島新聲廣播電台
     id: 259
