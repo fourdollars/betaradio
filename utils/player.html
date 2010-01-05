@@ -4,33 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Radio Player</title>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                var cat = [];
-                $.getJSON('hichannel.json', function(data, stat) {
-                    if (stat == 'success') {
-                        $('fieldset legend').html(data.title);
-                        $.each(data.category, function(i, category) {
-                            cat[i] = category;
-                            $('#category').append('<option value="' + i + '">' + category.title + '</option>');
-                        });
-                        $.each(data.category[0].channel, function(i, channel) {
-                            $('#channel').append('<option value="' + i + '">' + channel.title + '</option>');
-                        });
-                        $('#category').bind('change', function() {
-                            $('#channel').empty();
-                            $.each(cat[this.value].channel, function(i, channel) {
-                                $('#channel').append('<option value="' + i + '">' + channel.title + '</option>');
-                            });
-                        });
-                        $('#play').bind('click', function() {
-                            $('#player').empty();
-                            $('#player').append('<audio src="' + cat[$('#category').val()].channel[$('#channel').val()].url + '" controls autobuffer autoplay></audio>');
-                        });
-                    }
-                });
-            });
-        </script>
+        <script type="text/javascript" src="player.js"></script>
     </head>
     <body>
         <fieldset>
