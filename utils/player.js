@@ -19,17 +19,38 @@ var play = function() {
 $.getJSON('hichannel.json', function(data, stat) {
     if (stat == 'success') {
         $('fieldset legend').html(data.title);
-        $.each(data.category, function(i, category) {
-            cat[i] = category;
-            $('#category').append(new Option(category.title, i));
+        $.each(data.category, function(i, item) {
+            if (item) {
+                var select = $('#category')[0];
+                cat[i] = item;
+                if (i == 0) {
+                    select.add(new Option(item.title, i));
+                } else {
+                    select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
+                }
+            }
         });
-        $.each(data.category[0].channel, function(i, channel) {
-            $('#channel').append(new Option(channel.title, i));
+        $.each(data.category[0].channel, function(i, item) {
+            if (item) {
+                var select = $('#channel')[0];
+                if (i == 0) {
+                    select.add(new Option(item.title, i));
+                } else {
+                    select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
+                }
+            }
         });
         $('#category').bind('change', function() {
             $('#channel').empty();
-            $.each(cat[this.value].channel, function(i, channel) {
-                $('#channel').append(new Option(channel.title, i));
+            $.each(cat[this.value].channel, function(i, item) {
+                if (item) {
+                    var select = $('#channel')[0];
+                    if (i == 0) {
+                        select.add(new Option(item.title, i));
+                    } else {
+                        select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
+                    }
+                }
             });
         });
         $('#control').bind('click', function() {
