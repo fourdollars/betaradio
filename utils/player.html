@@ -7,12 +7,14 @@
         <script type="text/javascript" src="player.js"></script>
     </head>
     <body>
-        <fieldset>
-            <legend>Radio Player</legend>
-            <select id="category"></select>
-            <select id="channel"></select>
-            <input id='play' type='button' value='play'/>
-        </fieldset>
-        <div id='player'></div>
+        <div id='panel' style='position:fixed;text-align:center;'>
+            <fieldset>
+                <legend>Radio Player</legend>
+                <select id="category"></select>
+                <select id="channel"></select>
+                <input id='control' type='button' value='play'/>
+            </fieldset>
+            <div id='player'></div>
+        </div>
     </body>
 </html>

@@ -1,6 +1,20 @@
 ;(function($) {
 
 var cat = [];
+var play = function() {
+    var url = cat[$('#category').val()].channel[$('#channel').val()].url;
+    var title = cat[$('#category').val()].channel[$('#channel').val()].title;
+    $('#player').empty().append(
+        '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
+        + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
+        + 'type="application/x-oleobject">'
+        + '<param name="url" value="' + url + '"'
+        + '<embed src="' + url + '"'
+        + 'type="application/x-mplayer2"'
+        + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
+        + '</object>'
+        + '<div>' + title + '</div>');
+}
 
 $.getJSON('hichannel.json', function(data, stat) {
     if (stat == 'success') {
@@ -18,19 +32,8 @@ $.getJSON('hichannel.json', function(data, stat) {
                 $('#channel').append('<option value="' + i + '">' + channel.title + '</option>');
             });
         });
-        $('#play').bind('click', function() {
-            var url = cat[$('#category').val()].channel[$('#channel').val()].url;
-            var title = cat[$('#category').val()].channel[$('#channel').val()].title;
-            $('#player').empty().append(
-                '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
-                + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
-                + 'type="application/x-oleobject">'
-                + '<param name="url" value="' + url + '"'
-                + '<embed src="' + url + '"'
-                + 'type="application/x-mplayer2"'
-                + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
-                + '</object>'
-                + '<div>' + title + '</div>');
+        $('#control').bind('click', function() {
+            play();
         });
     }
 });
