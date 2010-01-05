@@ -21,16 +21,16 @@ $.getJSON('hichannel.json', function(data, stat) {
         $('#play').bind('click', function() {
             var url = cat[$('#category').val()].channel[$('#channel').val()].url;
             var title = cat[$('#category').val()].channel[$('#channel').val()].title;
-            $('#player').empty();
-            $('#player').append('<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"' +
-                'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"' +
-                'type="application/x-oleobject">' +
-                '<param name="url" value="' + url + '"' +
-                '<embed src="' + url + '"' +
-                'type="application/x-mplayer2"' +
-                'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>' +
-                '</object>' +
-                '<div>' + title + '</div>');
+            $('#player').empty().append(
+                '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
+                + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
+                + 'type="application/x-oleobject">'
+                + '<param name="url" value="' + url + '"'
+                + '<embed src="' + url + '"'
+                + 'type="application/x-mplayer2"'
+                + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
+                + '</object>'
+                + '<div>' + title + '</div>');
         });
     }
 });

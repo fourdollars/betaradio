@@ -2,6 +2,7 @@
 
 	* utils/player.html,
 	utils/player.js: Use unobtrusive JavaScript.
+	* utils/player.js: Refactor.
 
 2010-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
