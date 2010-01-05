@@ -5,6 +5,9 @@
 	* utils/player.js: Refactor.
 	* utils/player.html,
 	utils/player.js: Refactor.
+	* utils/hichannel.json,
+	utils/hichannel.yaml,
+	utils/player.js: Refactor and remove bad url.
 
 2010-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

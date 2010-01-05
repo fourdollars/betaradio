@@ -21,15 +21,15 @@ $.getJSON('hichannel.json', function(data, stat) {
         $('fieldset legend').html(data.title);
         $.each(data.category, function(i, category) {
             cat[i] = category;
-            $('#category').append('<option value="' + i + '">' + category.title + '</option>');
+            $('#category').append(new Option(category.title, i));
         });
         $.each(data.category[0].channel, function(i, channel) {
-            $('#channel').append('<option value="' + i + '">' + channel.title + '</option>');
+            $('#channel').append(new Option(channel.title, i));
         });
         $('#category').bind('change', function() {
             $('#channel').empty();
             $.each(cat[this.value].channel, function(i, channel) {
-                $('#channel').append('<option value="' + i + '">' + channel.title + '</option>');
+                $('#channel').append(new Option(channel.title, i));
             });
         });
         $('#control').bind('click', function() {

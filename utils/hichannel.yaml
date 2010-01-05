@@ -3,9 +3,6 @@ url: http://hichannel.hinet.net/radio.html
 category:
 - title: 音樂
   channel:
-  - title: Bravo FM913 台北都會休閒音樂台
-    id: 1001
-    url: http://bcr.media.hinet.net/RA000081
   - title: KISS RADIO 網路音樂台
     id: 308
     url: http://bcr.media.hinet.net/RA000042
