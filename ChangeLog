@@ -1,6 +1,7 @@
 2010-01-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/player.js: Fix the compatible problem with IE8.
+	* utils/player.js: Refactor for max compatibility.
 
 2010-01-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

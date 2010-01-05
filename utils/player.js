@@ -16,40 +16,34 @@ var play = function() {
         + '<div>' + title + '</div>');
 }
 
+var insert = function(selector, item, i) {
+    var select = $.browser.msie ? $(selector)[0] : $(selector);
+    if ($.browser.msie) {
+        select.add(new Option(item.title, i), i);
+    } else {
+        select.append(new Option(item.title, i));
+    }
+}
+
 $.getJSON('hichannel.json', function(data, stat) {
     if (stat == 'success') {
         $('fieldset legend').html(data.title);
         $.each(data.category, function(i, item) {
             if (item) {
-                var select = $('#category')[0];
                 cat[i] = item;
-                if (i == 0) {
-                    select.add(new Option(item.title, i));
-                } else {
-                    select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
-                }
+                insert('#category', item, i);
             }
         });
         $.each(data.category[0].channel, function(i, item) {
             if (item) {
-                var select = $('#channel')[0];
-                if (i == 0) {
-                    select.add(new Option(item.title, i));
-                } else {
-                    select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
-                }
+                insert('#channel', item, i);
             }
         });
         $('#category').bind('change', function() {
             $('#channel').empty();
             $.each(cat[this.value].channel, function(i, item) {
                 if (item) {
-                    var select = $('#channel')[0];
-                    if (i == 0) {
-                        select.add(new Option(item.title, i));
-                    } else {
-                        select.add(new Option(item.title, i), $.browser.msie ? i : select.options[i]);
-                    }
+                    insert('#channel', item, i);
                 }
             });
         });
