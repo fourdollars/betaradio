@@ -29,3 +29,7 @@ div#panel {
     padding: 5px;
     font-weight: bold;
 }
+
+div#player {
+    visibility: hidden;
+}

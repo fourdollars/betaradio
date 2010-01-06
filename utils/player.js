@@ -48,7 +48,14 @@ $.getJSON('hichannel.json', function(data, stat) {
             });
         });
         $('#control').bind('click', function() {
-            play();
+            console.log($(this).val());
+            if ($(this).val() == '播放') {
+                play();
+                $(this).val('停止');
+            } else {
+                $('#player').empty();
+                $(this).val('播放');
+            }
         });
     }
 });
