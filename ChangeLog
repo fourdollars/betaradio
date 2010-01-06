@@ -2,6 +2,7 @@
 
 	* utils/player.js: Fix the compatible problem with IE8.
 	* utils/player.js: Refactor for max compatibility.
+	* utils/player.html: Adjust UI.
 
 2010-01-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
