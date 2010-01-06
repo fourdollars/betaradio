@@ -11,7 +11,7 @@ var play = function() {
         + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
         + 'type="application/x-oleobject">'
         + '<param name="url" value="' + url + '"'
-        + '<embed src="' + url + '"'
+        + '<embed autostart="1" src="' + url + '"'
         + 'type="application/x-mplayer2"'
         + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
         + '</object>'
