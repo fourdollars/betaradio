@@ -18,6 +18,12 @@ var play = function() {
         + '<div>' + title + '</div>');
     player.width(panel.width());
     player.height(panel.height());
+    $('#control').val('停止');
+}
+
+var stop = function() {
+    $('#player').empty();
+    $('#control').val('播放');
 }
 
 var insert = function(selector, item, i) {
@@ -50,15 +56,16 @@ $.getJSON('hichannel.json', function(data, stat) {
                     insert('#channel', item, i);
                 }
             });
+            play();
+        });
+        $('#channel').bind('change', function() {
+            play();
         });
         $('#control').bind('click', function() {
-            console.log($(this).val());
             if ($(this).val() == '播放') {
                 play();
-                $(this).val('停止');
             } else {
-                $('#player').empty();
-                $(this).val('播放');
+                stop();
             }
         });
     }

@@ -11,6 +11,7 @@
 	utils/player.js: Adjust UI.
 	* utils/player.css,
 	utils/player.js: Adjust UI.
+	* utils/player.js: Change the behavior of control.
 
 2010-01-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
