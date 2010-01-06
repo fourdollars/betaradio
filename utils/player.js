@@ -27,7 +27,7 @@ var insert = function(selector, item, i) {
 
 $.getJSON('hichannel.json', function(data, stat) {
     if (stat == 'success') {
-        $('fieldset legend').html(data.title);
+        $('fieldset legend').html('<a href="' + data.url + '">' + data.title + '</a>');
         $.each(data.category, function(i, item) {
             if (item) {
                 cat[i] = item;

@@ -1,0 +1,31 @@
+body {
+    color: gray;
+    background-color: black;
+    position: fixed;
+    text-align: center;
+    font-weight: bold;
+}
+
+a {
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+select, input {
+    color: gray;
+    border: gray 1px solid;
+    background-color: black;
+    font-weight: bold;
+}
+
+fieldset {
+    border: gray 1px solid;
+    font-weight: bold;
+}
+
+div#panel {
+    border: gray 1px solid;
+    padding: 5px;
+    font-weight: bold;
+}
