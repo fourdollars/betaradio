@@ -4,7 +4,9 @@ var cat = [];
 var play = function() {
     var url = cat[$('#category').val()].channel[$('#channel').val()].url;
     var title = cat[$('#category').val()].channel[$('#channel').val()].title;
-    $('#player').empty().append(
+    var player = $('#player');
+    var panel = $('#panel');
+    player.empty().append(
         '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
         + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
         + 'type="application/x-oleobject">'
@@ -14,6 +16,8 @@ var play = function() {
         + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
         + '</object>'
         + '<div>' + title + '</div>');
+    player.width(panel.width());
+    player.height(panel.height());
 }
 
 var insert = function(selector, item, i) {

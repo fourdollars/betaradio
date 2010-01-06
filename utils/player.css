@@ -1,7 +1,6 @@
 body {
     color: gray;
     background-color: black;
-    position: fixed;
     text-align: center;
     font-weight: bold;
 }
@@ -26,10 +25,13 @@ fieldset {
 
 div#panel {
     border: gray 1px solid;
-    padding: 5px;
     font-weight: bold;
+    position: fixed;
+    padding: 5px;
 }
 
 div#player {
     visibility: hidden;
+    position: fixed;
+    padding: 6px;
 }
