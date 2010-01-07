@@ -16,14 +16,12 @@ var play = function() {
         + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
         + '</object>'
         + '<div>' + title + '</div>');
-    player.width(panel.width());
-    player.height(panel.height());
-    $('#control').val('停止');
+    $('#control').val('■');
 }
 
 var stop = function() {
     $('#player').empty();
-    $('#control').val('播放');
+    $('#control').val('▶');
 }
 
 var insert = function(selector, item, i) {
@@ -62,7 +60,7 @@ $.getJSON('hichannel.json', function(data, stat) {
             play();
         });
         $('#control').bind('click', function() {
-            if ($(this).val() == '播放') {
+            if ($(this).val() == '▶') {
                 play();
             } else {
                 stop();

@@ -1,3 +1,9 @@
+2010-01-08  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/player.css,
+	utils/player.html,
+	utils/player.js: Adjust UI.
+
 2010-01-07  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/player.js: Add autostart.
