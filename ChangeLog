@@ -1,3 +1,9 @@
+2010-01-10  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/jquery.timers.js,
+	utils/player.html,
+	utils/player.js: Add alarm support.
+
 2010-01-08  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/player.css,

@@ -5,7 +5,6 @@ var play = function() {
     var url = cat[$('#category').val()].channel[$('#channel').val()].url;
     var title = cat[$('#category').val()].channel[$('#channel').val()].title;
     var player = $('#player');
-    var panel = $('#panel');
     player.empty().append(
         '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
         + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
@@ -30,6 +29,57 @@ var insert = function(selector, item, i) {
         select.add(new Option(item.title, i), i);
     } else {
         select.append(new Option(item.title, i));
+    }
+}
+
+var setAlarm = function(alarm) {
+    alarm.bind('click', function() {
+        if (alarm[0].checked == true) {
+            var hour = $('#hour').val();
+            var minute = $('#minute').val();
+            alarm.everyTime(1000 , function () {
+                var now = new Date();
+                var now_hour = now.getHours();
+                var now_minute = now.getMinutes();
+                if (hour == now_hour && minute == now_minute) {
+                    play();
+                    alarm[0].checked = false;
+                    alarm.stopTime();
+                }
+            });
+        } else {
+            alarm.stopTime();
+        }
+    });
+}
+
+var addOptionHours = function() {
+    var hour = new Date().getHours();
+    var select = $('#hour');
+    for (var i = 0; i < 24; i++) {
+        if ($.browser.msie) {
+            select.add(new Option(i, i), i);
+        } else {
+            select.append(new Option(i, i));
+        }
+    }
+    select.val(hour);
+}
+
+var addOptionMinutes = function() {
+    var minute = Math.ceil(new Date().getMinutes() / 5) * 5;
+    var select = $('#minute');
+    for (var i = 0; i < 60; i+=5) {
+        if ($.browser.msie) {
+            select.add(new Option(i, i), i);
+        } else {
+            select.append(new Option(i, i));
+        }
+    }
+    if (minute == 60) {
+        select.val(0);
+    } else {
+        select.val(minute);
     }
 }
 
@@ -66,6 +116,9 @@ $.getJSON('hichannel.json', function(data, stat) {
                 stop();
             }
         });
+        addOptionHours();
+        addOptionMinutes();
+        setAlarm($('#alarm'));
     }
 });
 
