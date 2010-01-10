@@ -32,12 +32,13 @@ var insert = function(selector, item, i) {
     }
 }
 
-var setAlarm = function(alarm) {
+var setAlarm = function() {
+    var alarm = $('#alarm');
     alarm.bind('click', function() {
         if (alarm[0].checked == true) {
-            var hour = $('#hour').val();
-            var minute = $('#minute').val();
             alarm.everyTime(1000 , function () {
+                var hour = $('#hour').val();
+                var minute = $('#minute').val();
                 var now = new Date();
                 var now_hour = now.getHours();
                 var now_minute = now.getMinutes();
@@ -118,7 +119,7 @@ $.getJSON('hichannel.json', function(data, stat) {
         });
         addOptionHours();
         addOptionMinutes();
-        setAlarm($('#alarm'));
+        setAlarm();
     }
 });
 
