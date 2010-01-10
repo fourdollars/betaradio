@@ -56,7 +56,7 @@ var setAlarm = function() {
 
 var addOptionHours = function() {
     var hour = new Date().getHours();
-    var select = $('#hour');
+    var select = $.browser.msie ? $('#hour')[0] : $('#hour');
     for (var i = 0; i < 24; i++) {
         if ($.browser.msie) {
             select.add(new Option(i, i), i);
@@ -64,12 +64,12 @@ var addOptionHours = function() {
             select.append(new Option(i, i));
         }
     }
-    select.val(hour);
+    $('#hour').val(hour);
 }
 
 var addOptionMinutes = function() {
     var minute = Math.ceil(new Date().getMinutes() / 5) * 5;
-    var select = $('#minute');
+    var select = $.browser.msie ? $('#minute')[0] : $('#minute');
     for (var i = 0; i < 60; i+=5) {
         if ($.browser.msie) {
             select.add(new Option(i, i), i);
@@ -78,9 +78,9 @@ var addOptionMinutes = function() {
         }
     }
     if (minute == 60) {
-        select.val(0);
+        $('#minute').val(0);
     } else {
-        select.val(minute);
+        $('#minute').val(minute);
     }
 }
 

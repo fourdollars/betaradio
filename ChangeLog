@@ -4,6 +4,7 @@
 	utils/player.html,
 	utils/player.js: Add alarm support.
 	* utils/player.js: Fix the bug of alarm.
+	* utils/player.js: Fix the compatible problem with IE8.
 
 2010-01-08  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
