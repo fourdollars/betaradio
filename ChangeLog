@@ -1,3 +1,11 @@
+2010-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/radio-32.png,
+	utils/radio-19.png,
+	utils/radio-128.png,
+	utils/radio-48.png: Add icons with Public Domain license from
+	http://openclipart.org/media/files/neoguiri/8233
+
 2010-01-10  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/jquery.timers.js,
