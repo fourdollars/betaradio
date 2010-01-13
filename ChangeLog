@@ -14,6 +14,7 @@
 	web/radio-32.png,
 	web/radio-48.png: Move to folder 'web'.
 	* web/player.js: Improve Safari.
+	* web/player.js: Improve Safari on Mac only.
 
 2010-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

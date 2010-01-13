@@ -12,6 +12,12 @@ $.browser = {
     mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
 };
 
+$.os = {
+    windows: /windows/.test( userAgent ),
+    mac: /macintosh/.test( userAgent ),
+    linux: /linux/.test( userAgent )
+};
+
 var save = function(category, channel) {
     if (window.localStorage === undefined) {
         $.cookie('category', category);
@@ -56,7 +62,7 @@ var play = function() {
     var url = cat[category].channel[channel].url;
     var title = cat[category].channel[channel].title;
     var player = $('#player');
-    if ($.browser.safari) {
+    if ($.browser.safari && $.os.mac) {
         player.empty().append(
             '<audio controls="true" autoplay="true" autobuffer="true" src="'
             + url + '">UserAgent: ' + userAgent + '</audio>');
