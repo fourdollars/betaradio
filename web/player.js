@@ -1,6 +1,16 @@
 ;(function($) {
 
 var cat = [];
+var userAgent = navigator.userAgent.toLowerCase();
+
+$.browser = {
+    version: (userAgent.match( /.+(?:rv|it|ra|ie|me)[\/: ]([\d.]+)/ ) || [])[1],
+    chrome: /chrome/.test( userAgent ),
+    safari: /webkit/.test( userAgent ) && !/chrome/.test( userAgent ),
+    opera: /opera/.test( userAgent ),
+    msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
+    mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
+};
 
 var save = function(category, channel) {
     if (window.localStorage === undefined) {
@@ -46,16 +56,16 @@ var play = function() {
     var url = cat[category].channel[channel].url;
     var title = cat[category].channel[channel].title;
     var player = $('#player');
-    player.empty().append(
-        '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
-        + 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"'
-        + 'type="application/x-oleobject">'
-        + '<param name="url" value="' + url + '"'
-        + '<embed autostart="1" src="' + url + '"'
-        + 'type="application/x-mplayer2"'
-        + 'pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"></embed>'
-        + '</object>'
-        + '<div>' + title + '</div>');
+    if ($.browser.safari) {
+        player.empty().append(
+            '<audio controls="true" autoplay="true" autobuffer="true" src="'
+            + url + '">UserAgent: ' + userAgent + '</audio>');
+    } else {
+        player.empty().append(
+            '<embed autostart="1" src="' + url + '"'
+            + 'type="application/x-mplayer2"></embed>'
+            + '<div>' + title + '</div>');
+    }
     $('#control').val('■');
     save(category, channel);
 }

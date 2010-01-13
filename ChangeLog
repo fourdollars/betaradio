@@ -13,6 +13,7 @@
 	web/radio-19.png,
 	web/radio-32.png,
 	web/radio-48.png: Move to folder 'web'.
+	* web/player.js: Improve Safari.
 
 2010-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
