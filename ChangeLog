@@ -3,6 +3,16 @@
 	* utils/jquery.cookie.js,
 	utils/player.html,
 	utils/player.js: Remember last channel.
+	* web/hichannel.json,
+	web/jquery.cookie.js,
+	web/jquery.timers.js,
+	web/player.css,
+	web/player.html,
+	web/player.js,
+	web/radio-128.png,
+	web/radio-19.png,
+	web/radio-32.png,
+	web/radio-48.png: Move to folder 'web'.
 
 2010-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
