@@ -1,9 +1,50 @@
 ;(function($) {
 
 var cat = [];
+
+var save = function(category, channel) {
+    if (window.localStorage === undefined) {
+        $.cookie('category', category);
+        $.cookie('channel', channel);
+    } else {
+        localStorage['category'] = category;
+        localStorage['channel'] = channel;
+    }
+}
+
+var load_category = function() {
+    var category;
+    if (window.localStorage === undefined) {
+        category = $.cookie('category');
+    } else {
+        category = localStorage['category'];
+    }
+    if (category === undefined || category === null) {
+        category = 0;
+    }
+    $('#category').val(category);
+    return category;
+}
+
+var load_channel = function() {
+    var channel;
+    if (window.localStorage === undefined) {
+        channel = $.cookie('channel');
+    } else {
+        channel = localStorage['channel'];
+    }
+    if (channel === undefined || channel === null) {
+        channel = 0;
+    }
+    $('#channel').val(channel);
+    return channel;
+}
+
 var play = function() {
-    var url = cat[$('#category').val()].channel[$('#channel').val()].url;
-    var title = cat[$('#category').val()].channel[$('#channel').val()].title;
+    var category = $('#category').val();
+    var channel = $('#channel').val();
+    var url = cat[category].channel[channel].url;
+    var title = cat[category].channel[channel].title;
     var player = $('#player');
     player.empty().append(
         '<object codebase="http://www.apple.com/qtactivex/qtplugin.cab"'
@@ -16,6 +57,7 @@ var play = function() {
         + '</object>'
         + '<div>' + title + '</div>');
     $('#control').val('■');
+    save(category, channel);
 }
 
 var stop = function() {
@@ -93,11 +135,13 @@ $.getJSON('hichannel.json', function(data, stat) {
                 insert('#category', item, i);
             }
         });
-        $.each(data.category[0].channel, function(i, item) {
+        var category = load_category();
+        $.each(data.category[category].channel, function(i, item) {
             if (item) {
                 insert('#channel', item, i);
             }
         });
+        load_channel();
         $('#category').bind('change', function() {
             $('#channel').empty();
             $.each(cat[this.value].channel, function(i, item) {

@@ -1,3 +1,9 @@
+2010-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/jquery.cookie.js,
+	utils/player.html,
+	utils/player.js: Remember last channel.
+
 2010-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/radio-32.png,
