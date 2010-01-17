@@ -1,3 +1,11 @@
+2010-01-17  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* web/radio-128.png,
+	web/radio-19.png,
+	web/radio-32.png,
+	web/radio-48.png,
+	web/Icon.png: Keep one 128x128 icon.
+
 2010-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/jquery.cookie.js,
