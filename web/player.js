@@ -144,7 +144,6 @@ var addOptionMinutes = function() {
 
 $.getJSON('hichannel.json', function(data, stat) {
     if (stat == 'success') {
-        $('fieldset legend').html('<a href="' + data.url + '">' + data.title + '</a>');
         $.each(data.category, function(i, item) {
             if (item) {
                 cat[i] = item;

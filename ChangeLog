@@ -5,6 +5,9 @@
 	web/radio-32.png,
 	web/radio-48.png,
 	web/Icon.png: Keep one 128x128 icon.
+	* web/player.css,
+	web/player.html,
+	web/player.js: Adjust UI.
 
 2010-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

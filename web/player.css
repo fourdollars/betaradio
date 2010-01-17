@@ -20,6 +20,9 @@ select, input {
 fieldset {
     border: #dcdcdc 2px solid;
     font-weight: bold;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 div#panel {
