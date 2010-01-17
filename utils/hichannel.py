@@ -8,7 +8,7 @@ import yaml
 prog = re.compile('.*(mms://[^&"]*).*')
 
 def fetchMMS(id):
-    url = 'http://hichannel.hinet.net/player/radio/index.jsp?radio_id=%d' % id
+    url = 'http://hichannel.hinet.net/player/radio/mediaplay.jsp?radio_id=%d' % id
     opener = urllib2.build_opener()
     opener.addheaders = [('User-agent', 'Windows Media Player')]
     page = opener.open(url)

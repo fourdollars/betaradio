@@ -77,9 +77,6 @@ category:
     url: http://bcr.media.hinet.net/RA000064
 - title: 生活
   channel:
-  - title: 非凡音電台
-    id: 1040
-    url: http://bcr.media.hinet.net/RA000071
   - title: 飛碟電台
     id: 232
     url: http://bcr.media.hinet.net/RA000072
@@ -122,9 +119,6 @@ category:
   - title: 台北廣播電台- 都會資訊頻道
     id: 208
     url: http://bcr.media.hinet.net/RA000070
-  - title: 台中廣播
-    id: 230
-    url: http://bcr.media.hinet.net/RA000046
   - title: 大千電台
     id: 109
     url: http://bcr.media.hinet.net/RA000067
@@ -190,6 +184,9 @@ category:
   - title: 寶島新聲廣播電台
     id: 259
     url: http://bcr.media.hinet.net/RA000066
+  - title: 非凡音電台
+    id: 1040
+    url: http://bcr.media.hinet.net/RA000071
   - title: 中廣客家頻道
     id: 160
     url: http://bcr.media.hinet.net/RA000006

@@ -8,6 +8,10 @@
 	* web/player.css,
 	web/player.html,
 	web/player.js: Adjust UI.
+	* utils/hichannel.html,
+	utils/hichannel.py,
+	utils/hichannel.yaml,
+	web/hichannel.json: Update list.
 
 2010-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
