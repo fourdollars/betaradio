@@ -12,6 +12,7 @@
 	utils/hichannel.py,
 	utils/hichannel.yaml,
 	web/hichannel.json: Update list.
+	* web/player.html: Add site icon.
 
 2010-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
