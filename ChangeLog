@@ -3,6 +3,8 @@
 	* web/player.html,
 	web/player.ico,
 	web/Icon.png: Update site icon.
+	* web/player.html,
+	web/hichannel.json: Update to jQuery 1.4.2
 
 2010-01-17  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
