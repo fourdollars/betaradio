@@ -15,4 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "radiosite.h"
+#ifndef __GST_PLAYER_H__
+#define __GST_PLAYER_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+    typedef enum GstStatus GstStatus;
+    typedef struct GstPlayer GstPlayer;
+
+    enum GstStatus {
+        GP_Null,
+        GP_Play,
+        GP_Error,
+    };
+
+    GstPlayer* GstPlayerCreate(void);
+
+    typedef int (*GstCallback)(GstPlayer*, GstStatus, void*);
+
+    struct GstPlayer {
+        void* data;
+        void (*Play)(GstPlayer*, const char*);
+        void (*Stop)(GstPlayer*);
+        void (*Register)(GstPlayer*, GstCallback, void*);
+        void (*Release)(GstPlayer*);
+    };
+#ifdef __cplusplus
+}
+#endif
+#endif /* __GST_PLAYER_H__ */

@@ -1,3 +1,24 @@
+2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* data/radio-off.png,
+	data/radio-on.png,
+	src/channel.c,
+	src/channel.h,
+	src/eggtrayicon.c,
+	src/eggtrayicon.h,
+	src/radiosite.c,
+	src/radiosite.h,
+	src/sitelist.h: Remove unneeded files.
+	* data/betaradio.png: Change new icon.
+	* configure.ac,
+	data/Makefile.am,
+	src/Makefile.am: Update autotools config.
+	* po/POTFILES.in,
+	po/zh_TW.po: Update language translation.
+	* src/betaradio.c,
+	src/gstplay.c,
+	src/streamplayer.h -> src/gstplay.h: Apply to new architechure design.
+
 2010-06-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* web/player.html,

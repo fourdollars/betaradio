@@ -18,27 +18,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gst/gst.h>
-#include "streamplayer.h"
+#include "gstplay.h"
 
-typedef struct StreamData StreamData;
+typedef struct GstData GstData;
 
-struct StreamData {
-    GMainLoop*     loop;
-    GstElement*    bin;
-    StreamCallback func;
-    StreamStatus   state;
-    void*          ptr;
+struct GstData {
+    GMainLoop*  loop;
+    GstElement* bin;
+    GstCallback func;
+    GstStatus   state;
+    void*       ptr;
 };
 
-static void gstChangeStatus(StreamPlayer*, StreamStatus);
-static void gstPlay(StreamPlayer*, const char* const);
-static void gstStop(StreamPlayer*);
-static void gstRegister(StreamPlayer*, StreamCallback, void*);
-static void gstRelease(StreamPlayer*);
+static void gstChangeStatus(GstPlayer*, GstStatus);
+static void gstPlay(GstPlayer*, const char* const);
+static void gstStop(GstPlayer*);
+static void gstRegister(GstPlayer*, GstCallback, void*);
+static void gstRelease(GstPlayer*);
 
 static gboolean gstBusCallback(GstBus*, GstMessage*, gpointer);
 
-StreamPlayer GstFunsTable = {
+GstPlayer GstFunsTable = {
     .data     = NULL,
     .Play     = gstPlay,
     .Stop     = gstStop,
@@ -46,18 +46,18 @@ StreamPlayer GstFunsTable = {
     .Release  = gstRelease,
 };
 
-StreamPlayer* StreamPlayerCreate(void)
+GstPlayer* GstPlayerCreate(void)
 {
-    StreamPlayer* gst = malloc(sizeof(StreamPlayer));
-    memcpy(gst, &GstFunsTable, sizeof(StreamPlayer));
-    gst->data = malloc(sizeof(StreamData));
-    memset(gst->data, 0, sizeof(StreamData));
+    GstPlayer* gst = malloc(sizeof(GstPlayer));
+    memcpy(gst, &GstFunsTable, sizeof(GstPlayer));
+    gst->data = malloc(sizeof(GstData));
+    memset(gst->data, 0, sizeof(GstData));
     return gst;
 }
 
-static void gstChangeStatus(StreamPlayer* gst, StreamStatus state)
+static void gstChangeStatus(GstPlayer* gst, GstStatus state)
 {
-    StreamData* data = (StreamData*) gst->data;
+    GstData* data = (GstData*) gst->data;
     data->state = state;
 
     if (data->func != NULL) {
@@ -69,20 +69,39 @@ static void gstChangeStatus(StreamPlayer* gst, StreamStatus state)
     return;
 }
 
-static void gstPlay(StreamPlayer* gst, const char* const url)
+static void on_pad_added (GstElement *element, GstPad *pad, gpointer data)
 {
-    StreamData* data = (StreamData*) gst->data;
+    GstPad *sinkpad;
+    GstElement *decoder = (GstElement *) data;
+    sinkpad = gst_element_get_static_pad(decoder, "sink");
+    gst_pad_link (pad, sinkpad);
+    gst_object_unref (sinkpad);
+}
+
+static void gstPlay(GstPlayer* gst, const char* url)
+{
+    GstElement *source, *audio, *decoder, *demuxer;
+    GstData* data = (GstData*) gst->data;
     GstBus*  bus  = NULL;
 
-    if (data->state == SP_Play)
+    if (data->state == GP_Play)
         gst->Stop(gst);
 
     gst_init (NULL, NULL);
 
     data->loop = g_main_loop_new(NULL, FALSE);
 
-    data->bin= gst_element_factory_make("playbin", "BetaRadio");
-    g_object_set(G_OBJECT(data->bin), "uri", url, NULL);
+    data->bin = gst_element_factory_make("pipeline", "BetaRadio");
+    source = gst_element_factory_make ("mmssrc", "source");
+    g_object_set(G_OBJECT (source), "location", url, NULL);
+    demuxer = gst_element_factory_make("ffdemux_asf", "demuxer");
+    decoder = gst_element_factory_make("ffdec_wmav2", "decoder");
+    audio = gst_element_factory_make("autoaudiosink", "audio");
+    gst_bin_add_many(GST_BIN(data->bin), source, demuxer, decoder, audio, NULL);
+    gst_element_link(source, demuxer);
+    gst_element_link(decoder, audio);
+    g_signal_connect(demuxer, "pad-added", G_CALLBACK(on_pad_added), decoder);
+    gst_element_set_state(data->bin, GST_STATE_PLAYING);
 
     bus = gst_pipeline_get_bus(GST_PIPELINE(data->bin));
     gst_bus_add_watch(bus, gstBusCallback, gst);
@@ -95,9 +114,9 @@ static void gstPlay(StreamPlayer* gst, const char* const url)
     return;
 }
 
-static void gstStop(StreamPlayer* gst)
+static void gstStop(GstPlayer* gst)
 {
-    StreamData* data = (StreamData*) gst->data;
+    GstData* data = (GstData*) gst->data;
 
     if (data->loop != NULL) {
         gst_element_set_state(data->bin, GST_STATE_NULL);
@@ -108,25 +127,25 @@ static void gstStop(StreamPlayer* gst)
         g_main_loop_unref(data->loop);
         data->loop = NULL;
 
-        gstChangeStatus(gst, SP_Null);
+        gstChangeStatus(gst, GP_Null);
     }
 
     return;
 }
 
-static void gstRegister(StreamPlayer* gst, StreamCallback func, void* ptr)
+static void gstRegister(GstPlayer* gst, GstCallback func, void* ptr)
 {
-    StreamData* data = (StreamData*) gst->data;
+    GstData* data = (GstData*) gst->data;
     data->func = func;
     data->ptr = ptr;
     return;
 }
 
-static void gstRelease(StreamPlayer* gst)
+static void gstRelease(GstPlayer* gst)
 {
-    StreamData* data = (StreamData*) gst->data;
+    GstData* data = (GstData*) gst->data;
 
-    if (data->state == SP_Play)
+    if (data->state == GP_Play)
         gstStop(gst);
 
     free(gst->data);
@@ -137,20 +156,20 @@ static void gstRelease(StreamPlayer* gst)
 
 static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointer)
 {
-    StreamPlayer* gst = (StreamPlayer*) pointer;
-    StreamData* data = (StreamData*) gst->data;
+    GstPlayer* gst = (GstPlayer*) pointer;
+    GstData* data = (GstData*) gst->data;
 
-    g_print("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));
+/*    g_print("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));*/
 
     switch (GST_MESSAGE_TYPE(message)) {
         default:
             break;
         case GST_MESSAGE_NEW_CLOCK:
-            gstChangeStatus(gst, SP_Play);
+            gstChangeStatus(gst, GP_Play);
             break;
         case GST_MESSAGE_ERROR:
         case GST_MESSAGE_EOS:
-            gstChangeStatus(gst, SP_Error);
+            gstChangeStatus(gst, GP_Error);
             break;
     }
 

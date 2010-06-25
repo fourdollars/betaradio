@@ -1,8 +1,3 @@
 src/betaradio.c
-src/channel.c
-src/channel.h
-src/eggtrayicon.c
-src/eggtrayicon.h
 src/gstplay.c
-src/sitelist.h
-src/streamplayer.h
+src/gstplay.h

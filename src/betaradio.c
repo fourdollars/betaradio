@@ -30,72 +30,42 @@
 #include "gettext.h"
 #define _(string) gettext(string)
 
-#include "eggtrayicon.h"
+#include "gstplay.h"
+#include "json_cat.h"
 
-#include "streamplayer.h"
-#include "channel.h"
-#include "sitelist.h"
-
-static StreamPlayer* gPlayer = NULL;
-static const char* current = NULL;
-static gboolean g_bRadioStatus = FALSE;
-static int myCallback(StreamPlayer*, StreamStatus, void*);
-
-typedef struct {
-    GtkWidget *m_pIcon;
-    gchar *m_pcRadioOn;
-    gchar *m_pcRadioOff;
-} radio_icon_t;
-
-gboolean updateRadioStatus(gpointer user_data)
-{
-    static gboolean s_bFlash = TRUE;
-    radio_icon_t *t_pRadioIcon = (radio_icon_t*) user_data;
-
-    if (g_bRadioStatus == TRUE && s_bFlash == TRUE) {
-        gtk_image_set_from_file(GTK_IMAGE(t_pRadioIcon->m_pIcon), t_pRadioIcon->m_pcRadioOn);
-    } else {
-        gtk_image_set_from_file(GTK_IMAGE(t_pRadioIcon->m_pIcon), t_pRadioIcon->m_pcRadioOff);
-    }
-
-    s_bFlash = s_bFlash == TRUE ? FALSE : TRUE;
-
-    return TRUE;
-}
+static GstPlayer* gPlayer = NULL;
+static int myCallback(GstPlayer*, GstStatus, void*);
 
 void onQuit(GtkWidget* item, gpointer user_data)
 {
-    g_bRadioStatus = FALSE;
     gPlayer->Release(gPlayer);
     gtk_main_quit();
 }
 
 void onStop(GtkWidget* item, gpointer user_data)
 {
+    GtkStatusIcon *tray_icon = (GtkStatusIcon*) user_data;
+
     if (GTK_CHECK_MENU_ITEM(item)->active) {
         gPlayer->Stop(gPlayer);
-        g_bRadioStatus = FALSE;
-        current = NULL;
+        gtk_status_icon_set_blinking(tray_icon, FALSE);
     }
 }
 
-static int myCallback(StreamPlayer* player, StreamStatus state, void* ptr)
+static int myCallback(GstPlayer* player, GstStatus state, void* ptr)
 {
-    const char* const str = (const char* const) ptr;
-
-    g_print(" - %s %d\n", str, state);
+    GtkStatusIcon *tray_icon = (GtkStatusIcon*) ptr;
 
     switch (state)
     {
         default:
-        case SP_Null:
-        case SP_Play:
-            g_bRadioStatus = TRUE;
+        case GP_Null:
+        case GP_Play:
+            gtk_status_icon_set_blinking(tray_icon, TRUE);
             break;
-        case SP_Error:
+        case GP_Error:
             player->Stop(player);
-            g_bRadioStatus = FALSE;
-            current = NULL;
+            gtk_status_icon_set_blinking(tray_icon, FALSE);
             return 1;
     }
 
@@ -104,12 +74,10 @@ static int myCallback(StreamPlayer* player, StreamStatus state, void* ptr)
 
 gpointer onPlay(gpointer *data)
 {
-    gchar* id = g_object_get_data(G_OBJECT(data), "id");
-    gchar* url = get_channel_url_by_id((gchar*) id);
+    gchar* url = g_object_get_data(G_OBJECT(data), "url");
+
     if (url != NULL) {
-        current = (gchar*) id;
         gPlayer->Play(gPlayer, url);
-        g_free(url);
     }
     g_thread_exit(NULL);
 }
@@ -117,52 +85,25 @@ gpointer onPlay(gpointer *data)
 void onMenu(GtkWidget* item, gpointer user_data)
 {
     if (GTK_CHECK_MENU_ITEM(item)->active) {
-        g_bRadioStatus = FALSE;
         g_thread_create((GThreadFunc) onPlay, item, FALSE, NULL);
     }
 }
 
-GSList* appendMenu(const char *name, GtkWidget* menu, GSList *group, char **site_list)
+gboolean onTrayEvent(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer user_data)
 {
-    GtkWidget *label = NULL;
-    GtkWidget *sub_menu = NULL;
-    GtkWidget *menu_item = NULL;
-
-    label = gtk_menu_item_new_with_label(name);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), label);
-    sub_menu = gtk_menu_new();
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(label), sub_menu);
-
-    do {
-        menu_item = gtk_radio_menu_item_new_with_label(group, *site_list);
-        group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
-        g_object_set_data(G_OBJECT(menu_item), "id", *(site_list + 1));
-        g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), NULL);
-        gtk_menu_shell_append(GTK_MENU_SHELL(sub_menu), menu_item);
-    } while (*(site_list += 2));
-
-    return group;
-}
-
-gboolean onEggTrayEvent(GtkWidget* widget, GdkEventButton* evt, gpointer user_data)
-{
-    if (widget != NULL) {
-        gtk_menu_popup(GTK_MENU(user_data), NULL, NULL, NULL, NULL, evt->button, evt->time);
-        return TRUE;
-    }
+    gtk_menu_popup(GTK_MENU(user_data), NULL, NULL, NULL, NULL, 0, 0);
     return FALSE;
 }
 
 int main(int argc, char *argv[])
 {
+    json_cat *json = NULL;
+    GtkStatusIcon *tray_icon = NULL;
     GtkWidget *icon = NULL;
-    GtkWidget *evt_box = NULL;
     GtkTooltips *tooltips = NULL;
-    EggTrayIcon *tray_icon = NULL;
     GtkWidget* menu = NULL;
     GSList* group = NULL;
     GtkWidget* menu_item = NULL;
-    radio_icon_t t_RadioIcon = {NULL, NULL, NULL};
 
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);
@@ -171,52 +112,74 @@ int main(int argc, char *argv[])
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
 
-    gPlayer = StreamPlayerCreate();
-    gPlayer->Register(gPlayer, myCallback, "BetaRadio");
+    json = json_cat_create();
 
     tooltips = gtk_tooltips_new();
-    tray_icon = egg_tray_icon_new("BetaRadio");
-    evt_box = gtk_event_box_new();
-    gtk_container_add(GTK_CONTAINER(tray_icon), evt_box);
+    tray_icon = gtk_status_icon_new();
+    gtk_status_icon_set_from_file(tray_icon, "data/betaradio.png");
+    gtk_status_icon_set_tooltip(tray_icon, _("BetaRadio Tuner"));
+    gtk_status_icon_set_visible(tray_icon, TRUE);
+
+    gPlayer = GstPlayerCreate();
+    gPlayer->Register(gPlayer, myCallback, tray_icon);
 
     menu = gtk_menu_new();
 
     menu_item = gtk_radio_menu_item_new_with_label(group, _("Stop"));
     group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
-    g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onStop), NULL);
+    g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onStop), tray_icon);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    group = appendMenu(_("Music"), menu, group, music_site_list);
-    group = appendMenu(_("Life"), menu, group, life_site_list);
-    group = appendMenu(_("News"), menu, group, news_site_list);
-    group = appendMenu(_("Others"), menu, group, others_site_list);
-    group = appendMenu(_("Foreign"), menu, group, foreign_site_list);
-    group = appendMenu(_("Culture"), menu, group, culture_site_list);
+    if (json->http(json, "http://fd.idv.tw/radio/hichannel.json")->isObject(json) == true &&
+        json->object(json, "category")->isArray(json) == true) {
+        unsigned int i = 0;
+        unsigned int length = json->length(json);
+        for (i = 0; i < length; i++) {
+            unsigned int j = 0;
+            unsigned int size = 0;
+            GtkWidget *label = NULL;
+            GtkWidget *sub_menu = NULL;
+
+            json->array(json, i)->object(json, "title");
+/*            g_printf("%s\n", json->getString(json));*/
+            label = gtk_menu_item_new_with_label(json->getString(json));
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), label);
+
+            sub_menu = gtk_menu_new();
+            gtk_menu_item_set_submenu(GTK_MENU_ITEM(label), sub_menu);
+
+            size = json->sibling(json, "channel")->length(json);
+            for (j = 0; j < size; j++) {
+                GtkWidget *menu_item = NULL;
+                json->array(json, j)->object(json, "title");
+/*                g_printf("\t%s\n", json->getString(json));*/
+                menu_item = gtk_radio_menu_item_new_with_label(group, json->getString(json));
+                group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
+                g_object_set_data(G_OBJECT(menu_item), "url", (gpointer) json->sibling(json, "url")->getString(json));
+/*                g_printf("\t\t%s\n", json->getString(json));*/
+                g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), tray_icon);
+                gtk_menu_shell_append(GTK_MENU_SHELL(sub_menu), menu_item);
+                json->grandparent(json);
+            }
+            json->grandparent(json);
+        }
+    }
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
+    menu_item = gtk_radio_menu_item_new_with_label(group, _("Quit"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
     g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(onQuit), NULL);
 
     gtk_widget_show_all(GTK_WIDGET(menu));
 
-    g_signal_connect(G_OBJECT(evt_box), "button-press-event", G_CALLBACK(onEggTrayEvent), menu);
+    g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(onTrayEvent), menu);
 
-    gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), evt_box, _("BetaRadio Tuner"), NULL);
-
-    t_RadioIcon.m_pcRadioOn = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-on.png", NULL);
-    t_RadioIcon.m_pcRadioOff = g_build_filename(DATADIR, "pixmaps", "betaradio", "radio-off.png", NULL);
-
-    t_RadioIcon.m_pIcon = gtk_image_new_from_file(t_RadioIcon.m_pcRadioOff);
-    gtk_container_add(GTK_CONTAINER(evt_box), t_RadioIcon.m_pIcon);
-
-    g_timeout_add(500, updateRadioStatus, &t_RadioIcon);
-
-    gtk_widget_show_all(GTK_WIDGET(tray_icon));
     gtk_main();
+
+    json->destroy(json);
 
     return 0;
 }
