@@ -16,6 +16,7 @@
 	* autogen.sh,
 	po/zh_TW.po,
 	src/betaradio.c: Polish.
+	* data/betaradio.desktop.in: Update language translation.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
