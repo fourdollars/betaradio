@@ -10,6 +10,7 @@
 	web/player.html,
 	web/player.ico,
 	web/player.js: Remove unneeded files.
+	* po/zh_TW.po: Update language translation.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
