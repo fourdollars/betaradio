@@ -13,6 +13,9 @@
 	* po/zh_TW.po: Update language translation.
 	* src/betaradio.c: Check icon before use.
 	* configure.ac: Update GTK+ requirement.
+	* autogen.sh,
+	po/zh_TW.po,
+	src/betaradio.c: Polish.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

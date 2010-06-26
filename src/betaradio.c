@@ -136,8 +136,9 @@ int main(int argc, char *argv[])
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    if (json->http(json, "http://betaradio.googlecode.com/svn/trunk/utils/hichannel.json")->isObject(json) == true &&
-        json->object(json, "category")->isArray(json) == true) {
+    if (json->http(json, "http://betaradio.googlecode.com/svn/trunk/utils/hichannel.json")
+            ->object(json, "category")
+            ->isArray(json) == true) {
         unsigned int i = 0;
         unsigned int length = json->length(json);
         for (i = 0; i < length; i++) {
