@@ -124,7 +124,7 @@
 					"title": "太陽電台",
 					"id": "289",
 					"url": "http://bcr.media.hinet.net/RA000064"
-				},
+				}
 			]
 		},
 		{
@@ -214,7 +214,7 @@
 					"title": "真心之音廣播電台",
 					"id": "217",
 					"url": "http://bcr.media.hinet.net/RA000033"
-				},
+				}
 			]
 		},
 		{
@@ -229,7 +229,7 @@
 					"title": "NEWS98新聞網",
 					"id": "187",
 					"url": "http://bcr.media.hinet.net/RA000073"
-				},
+				}
 			]
 		},
 		{
@@ -279,7 +279,7 @@
 					"title": "綠色和平台灣文化廣播電台",
 					"id": "327",
 					"url": "http://bcr.media.hinet.net/RA000032"
-				},
+				}
 			]
 		},
 		{
@@ -304,7 +304,7 @@
 					"title": "RTI央廣-亞洲頻道",
 					"id": "311",
 					"url": "http://bcr.media.hinet.net/RA000059"
-				},
+				}
 			]
 		},
 		{
@@ -349,8 +349,8 @@
 					"title": "中廣寶島網",
 					"id": "162",
 					"url": "http://bcr.media.hinet.net/RA000005"
-				},
+				}
 			]
-		},
+		}
 	]
 }

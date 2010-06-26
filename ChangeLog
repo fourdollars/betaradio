@@ -2,6 +2,14 @@
 
 	* src/Makefile.am: Not to install header files.
 	* src/betaradio.c: Not to blink icon.
+	* src/betaradio.c, 
+	web/hichannel.json -> utils/hichannel.json: Change source.
+	* web/jquery.cookie.js,
+	web/jquery.timers.js,
+	web/player.css,
+	web/player.html,
+	web/player.ico,
+	web/player.js: Remove unneeded files.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
