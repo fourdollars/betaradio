@@ -48,7 +48,6 @@ void onStop(GtkWidget* item, gpointer user_data)
 
     if (GTK_CHECK_MENU_ITEM(item)->active) {
         gPlayer->Stop(gPlayer);
-        gtk_status_icon_set_blinking(tray_icon, FALSE);
     }
 }
 
@@ -61,11 +60,9 @@ static int myCallback(GstPlayer* player, GstStatus state, void* ptr)
         default:
         case GP_Null:
         case GP_Play:
-            gtk_status_icon_set_blinking(tray_icon, TRUE);
             break;
         case GP_Error:
             player->Stop(player);
-            gtk_status_icon_set_blinking(tray_icon, FALSE);
             return 1;
     }
 

@@ -1,3 +1,8 @@
+2010-06-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/Makefile.am: Not to install header files.
+	* src/betaradio.c: Not to blink icon.
+
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* data/radio-off.png,

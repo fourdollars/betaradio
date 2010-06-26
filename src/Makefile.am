@@ -1,6 +1,4 @@
-include_HEADERS = \
-                  gstplay.h \
-                  gettext.h
+noinst_HEADERS = gettext.h gstplay.h
 
 bin_PROGRAMS = betaradio
 
