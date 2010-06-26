@@ -12,6 +12,7 @@
 	web/player.js: Remove unneeded files.
 	* po/zh_TW.po: Update language translation.
 	* src/betaradio.c: Check icon before use.
+	* configure.ac: Update GTK+ requirement.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
