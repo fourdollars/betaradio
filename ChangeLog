@@ -11,6 +11,7 @@
 	web/player.ico,
 	web/player.js: Remove unneeded files.
 	* po/zh_TW.po: Update language translation.
+	* src/betaradio.c: Check icon before use.
 
 2010-06-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

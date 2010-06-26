@@ -113,7 +113,14 @@ int main(int argc, char *argv[])
 
     tooltips = gtk_tooltips_new();
     tray_icon = gtk_status_icon_new();
-    gtk_status_icon_set_from_file(tray_icon, "data/betaradio.png");
+
+    if (g_file_test(DATADIR"/pixmaps/betaradio/betaradio.png", G_FILE_TEST_EXISTS) == TRUE) { /* System */
+        gtk_status_icon_set_from_file(tray_icon, DATADIR"/pixmaps/betaradio/betaradio.png");
+    } else if (g_file_test("data/betaradio.png", G_FILE_TEST_EXISTS) == TRUE) { /* Develop */
+        gtk_status_icon_set_from_file(tray_icon, "data/betaradio.png");
+    } else {
+        gtk_status_icon_set_from_stock(tray_icon, GTK_STOCK_MISSING_IMAGE);
+    }
     gtk_status_icon_set_tooltip(tray_icon, _("BetaRadio Tuner"));
     gtk_status_icon_set_visible(tray_icon, TRUE);
 
