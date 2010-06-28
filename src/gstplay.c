@@ -95,7 +95,8 @@ static void gstPlay(GstPlayer* gst, const char* type, const char* url)
 
     if (strcmp("mms", type) == 0) {
         source = gst_element_factory_make ("mmssrc", "source");
-        g_object_set(G_OBJECT (source), "location", url, NULL);
+        g_object_set(G_OBJECT(source), "location", url, NULL);
+        g_object_set(G_OBJECT(source), "blocksize", 327680, NULL);
         demuxer = gst_element_factory_make("ffdemux_asf", "demuxer");
         decoder = gst_element_factory_make("ffdec_wmav2", "decoder");
         audio = gst_element_factory_make("autoaudiosink", "audio");
@@ -105,7 +106,8 @@ static void gstPlay(GstPlayer* gst, const char* type, const char* url)
         g_signal_connect(demuxer, "pad-added", G_CALLBACK(on_pad_added), decoder);
     } else if (strcmp("mp3", type) == 0) {
         source = gst_element_factory_make ("souphttpsrc", "source");
-        g_object_set(G_OBJECT (source), "location", url, NULL);
+        g_object_set(G_OBJECT(source), "location", url, NULL);
+        g_object_set(G_OBJECT(source), "blocksize", 327680, NULL);
         decoder = gst_element_factory_make("mad", "decoder");
         audio = gst_element_factory_make("autoaudiosink", "audio");
         gst_bin_add_many(GST_BIN(data->bin), source, decoder, audio, NULL);
@@ -170,7 +172,7 @@ static gboolean gstBusCallback(GstBus* bus, GstMessage* message, gpointer pointe
     GstPlayer* gst = (GstPlayer*) pointer;
     GstData* data = (GstData*) gst->data;
 
-/*    g_print("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));*/
+/*    g_debug("%s %s\n", GST_MESSAGE_SRC(message)->name, GST_MESSAGE_TYPE_NAME(message));*/
 
     switch (GST_MESSAGE_TYPE(message)) {
         default:
