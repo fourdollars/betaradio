@@ -35,7 +35,7 @@ extern "C" {
 
     struct GstPlayer {
         void* data;
-        void (*Play)(GstPlayer*, const char*);
+        void (*Play)(GstPlayer*, const char*, const char*);
         void (*Stop)(GstPlayer*);
         void (*Register)(GstPlayer*, GstCallback, void*);
         void (*Release)(GstPlayer*);

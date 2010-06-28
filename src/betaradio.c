@@ -48,6 +48,7 @@ void onStop(GtkWidget* item, gpointer user_data)
 
     if (GTK_CHECK_MENU_ITEM(item)->active) {
         gPlayer->Stop(gPlayer);
+        gtk_status_icon_set_tooltip(tray_icon, _("BetaRadio Tuner"));
     }
 }
 
@@ -71,18 +72,25 @@ static int myCallback(GstPlayer* player, GstStatus state, void* ptr)
 
 gpointer onPlay(gpointer *data)
 {
+    gchar* type = g_object_get_data(G_OBJECT(data), "type");
     gchar* url = g_object_get_data(G_OBJECT(data), "url");
 
+    g_debug("type:%s url:%s\n", type, url);
+
     if (url != NULL) {
-        gPlayer->Play(gPlayer, url);
+        gPlayer->Play(gPlayer, type, url);
     }
+
     g_thread_exit(NULL);
 }
 
 void onMenu(GtkWidget* item, gpointer user_data)
 {
+    GtkStatusIcon* tray_icon = (GtkStatusIcon*) user_data;
     if (GTK_CHECK_MENU_ITEM(item)->active) {
         g_thread_create((GThreadFunc) onPlay, item, FALSE, NULL);
+        gtk_status_icon_set_tooltip(tray_icon,
+                g_strdup_printf("%s - %s", _("BetaRadio Tuner"), gtk_menu_item_get_label(GTK_MENU_ITEM(item))));
     }
 }
 
@@ -92,9 +100,113 @@ gboolean onTrayEvent(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer
     return FALSE;
 }
 
+GSList* menu_propagate(GtkWidget* menu, GSList* group, GtkStatusIcon* tray_icon)
+{
+    unsigned int k = 0;
+    unsigned int length = 0;
+
+    json_cat* source = json_cat_create();
+
+    if (source->http(source, "http://betaradio.googlecode.com/svn/trunk/utils/list.json")
+            ->isArray(source) == false) {
+        source->destroy(source);
+        return group;
+    }
+
+    length = source->length(source);
+
+    for (k = 0; k < length; k++) {
+        const char* property = NULL;
+        const char* title = NULL;
+        const char* url = NULL;
+
+        GtkWidget *site_label = NULL;
+        GtkWidget *site_menu = NULL;
+
+        json_cat* json = json_cat_create();
+        json->http(json, source->array(source, k)->getString(source));
+/*        g_debug("%s\n", source->getString(source));*/
+
+        if (json->object(json, "property")->isString(json) == false) {
+            json->destroy(json);
+            source->parent(source);
+            continue;
+        }
+
+        property = json->getString(json);
+        title = json->sibling(json, "title")->getString(json);
+        url = json->sibling(json, "url")->getString(json);
+
+        g_debug("%s - %s\n", title, url);
+
+        site_label = gtk_menu_item_new_with_label(title);
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), site_label);
+        site_menu = gtk_menu_new();
+        gtk_menu_item_set_submenu(GTK_MENU_ITEM(site_label), site_menu);
+
+        if (strcmp("category", property) == 0 &&
+                json->sibling(json, "category")->isArray(json) == true) {
+            unsigned int i = 0;
+            unsigned int length = json->length(json);
+            for (i = 0; i < length; i++) {
+                unsigned int j = 0;
+                unsigned int size = 0;
+                GtkWidget *label = NULL;
+                GtkWidget *sub_menu = NULL;
+
+                json->array(json, i)->object(json, "title");
+/*                g_debug("%s\n", json->getString(json));*/
+                label = gtk_menu_item_new_with_label(json->getString(json));
+                gtk_menu_shell_append(GTK_MENU_SHELL(site_menu), label);
+
+                sub_menu = gtk_menu_new();
+                gtk_menu_item_set_submenu(GTK_MENU_ITEM(label), sub_menu);
+
+                size = json->sibling(json, "channel")->length(json);
+                for (j = 0; j < size; j++) {
+                    GtkWidget *menu_item = NULL;
+                    json->array(json, j)->object(json, "title");
+/*                    g_debug("\t%s\n", json->getString(json));*/
+                    menu_item = gtk_radio_menu_item_new_with_label(group, json->getString(json));
+                    group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
+                    g_object_set_data(G_OBJECT(menu_item), "type", (gpointer) json->sibling(json, "type")->getString(json));
+/*                    g_debug("\t\t%s\n", json->getString(json));*/
+                    g_object_set_data(G_OBJECT(menu_item), "url", (gpointer) json->sibling(json, "url")->getString(json));
+/*                    g_debug("\t\t%s\n", json->getString(json));*/
+                    g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), tray_icon);
+                    gtk_menu_shell_append(GTK_MENU_SHELL(sub_menu), menu_item);
+                    json->grandparent(json);
+                }
+                json->grandparent(json);
+            }
+        } else if (strcmp("channel", property) == 0 &&
+                json->sibling(json, "channel")->isArray(json) == true) {
+            unsigned int j = 0;
+            unsigned int size = json->length(json);
+            for (j = 0; j < size; j++) {
+                GtkWidget *menu_item = NULL;
+                json->array(json, j)->object(json, "title");
+                menu_item = gtk_radio_menu_item_new_with_label(group, json->getString(json));
+                group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
+/*                g_debug("\t%s\n", json->getString(json));*/
+                g_object_set_data(G_OBJECT(menu_item), "type", (gpointer) json->sibling(json, "type")->getString(json));
+/*                g_debug("\t\t%s\n", json->getString(json));*/
+                g_object_set_data(G_OBJECT(menu_item), "url", (gpointer) json->sibling(json, "url")->getString(json));
+/*                g_debug("\t\t%s\n", json->getString(json));*/
+                g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), tray_icon);
+                gtk_menu_shell_append(GTK_MENU_SHELL(site_menu), menu_item);
+                json->grandparent(json);
+            }
+        }
+        json->destroy(json);
+        source->parent(source);
+    }
+    source->destroy(source);
+    return group;
+}
+
 int main(int argc, char *argv[])
 {
-    json_cat *json = NULL;
     GtkStatusIcon *tray_icon = NULL;
     GtkWidget *icon = NULL;
     GtkTooltips *tooltips = NULL;
@@ -108,8 +220,6 @@ int main(int argc, char *argv[])
 
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
-
-    json = json_cat_create();
 
     tooltips = gtk_tooltips_new();
     tray_icon = gtk_status_icon_new();
@@ -136,41 +246,7 @@ int main(int argc, char *argv[])
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    if (json->http(json, "http://betaradio.googlecode.com/svn/trunk/utils/hichannel.json")
-            ->object(json, "category")
-            ->isArray(json) == true) {
-        unsigned int i = 0;
-        unsigned int length = json->length(json);
-        for (i = 0; i < length; i++) {
-            unsigned int j = 0;
-            unsigned int size = 0;
-            GtkWidget *label = NULL;
-            GtkWidget *sub_menu = NULL;
-
-            json->array(json, i)->object(json, "title");
-/*            g_printf("%s\n", json->getString(json));*/
-            label = gtk_menu_item_new_with_label(json->getString(json));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), label);
-
-            sub_menu = gtk_menu_new();
-            gtk_menu_item_set_submenu(GTK_MENU_ITEM(label), sub_menu);
-
-            size = json->sibling(json, "channel")->length(json);
-            for (j = 0; j < size; j++) {
-                GtkWidget *menu_item = NULL;
-                json->array(json, j)->object(json, "title");
-/*                g_printf("\t%s\n", json->getString(json));*/
-                menu_item = gtk_radio_menu_item_new_with_label(group, json->getString(json));
-                group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menu_item));
-                g_object_set_data(G_OBJECT(menu_item), "url", (gpointer) json->sibling(json, "url")->getString(json));
-/*                g_printf("\t\t%s\n", json->getString(json));*/
-                g_signal_connect(G_OBJECT(menu_item), "toggled", G_CALLBACK(onMenu), tray_icon);
-                gtk_menu_shell_append(GTK_MENU_SHELL(sub_menu), menu_item);
-                json->grandparent(json);
-            }
-            json->grandparent(json);
-        }
-    }
+    group = menu_propagate(menu, group, tray_icon);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
@@ -183,8 +259,6 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(onTrayEvent), menu);
 
     gtk_main();
-
-    json->destroy(json);
 
     return 0;
 }
