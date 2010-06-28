@@ -1,6 +1,7 @@
 {
 	"title": "hiChannel 廣播",
 	"url": "http://hichannel.hinet.net/radio.html",
+	"property": "category",
 	"category": [
 		{
 			"title": "音樂",

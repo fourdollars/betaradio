@@ -6,6 +6,8 @@
 	* utils/list.json: Fix wrong json format.
 	* utils/ptt.json: Fix wrong json format.
 	* utils/ptt.json: Fix wrong json format.
+	* utils/hichannel.json,
+	utils/ptt.json: Add property.
 
 2010-06-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

@@ -1,6 +1,7 @@
 {
 	"title": "PTT Radio",
 	"url": "http://pttradio.net/",
+	"property": "channel",
 	"channel": [
 		{
 			"title": "PTT Radio",
