@@ -1,3 +1,9 @@
+2010-06-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/hichannel.json,
+	utils/list.json,
+	utils/ptt.json: Prepare for new mechanism.
+
 2010-06-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/Makefile.am: Not to install header files.
