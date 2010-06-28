@@ -4,7 +4,7 @@
 	"property": "channel",
 	"channel": [
 		{
-			"title": "PTT Radio",
+			"title": "PTTradio @ Taiwan",
 			"type": "mp3",
 			"url": "http://cast.ptt.cc:8000/yes"
 		}

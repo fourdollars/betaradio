@@ -12,6 +12,8 @@
 	src/betaradio.c,
 	src/gstplay.c,
 	src/gstplay.h: Add mp3 streaming support and allow different sources.
+	* po/zh_TW.po,
+	utils/ptt.json: Rename pttradio's title.
 
 2010-06-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
