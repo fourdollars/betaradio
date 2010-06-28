@@ -3,7 +3,7 @@
 	"url": "http://pttradio.net/",
     "channel": [
         "title": "PTT Radio",
-        "type": "mp3"
-        "url": "http://cast.ptt.cc:8000/yes",
+        "type": "mp3",
+        "url": "http://cast.ptt.cc:8000/yes"
     ]
 }
