@@ -5,6 +5,7 @@
 	utils/ptt.json: Prepare for new mechanism.
 	* utils/list.json: Fix wrong json format.
 	* utils/ptt.json: Fix wrong json format.
+	* utils/ptt.json: Fix wrong json format.
 
 2010-06-26  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
