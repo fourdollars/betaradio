@@ -1,3 +1,7 @@
+2010-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.c: Add more debug options from gst.
+
 2010-06-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/gstplay.c: Adjust blocksize for mms.

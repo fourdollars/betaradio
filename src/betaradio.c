@@ -29,6 +29,7 @@
 #include <locale.h>
 #include "gettext.h"
 #define _(string) gettext(string)
+#include <gst/gst.h>
 
 #include "gstplay.h"
 #include "json_cat.h"
@@ -213,6 +214,8 @@ int main(int argc, char *argv[])
     GtkWidget* menu = NULL;
     GSList* group = NULL;
     GtkWidget* menu_item = NULL;
+    GOptionContext* ctx = NULL;
+    GError *err = NULL;
 
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);
@@ -220,6 +223,16 @@ int main(int argc, char *argv[])
 
     g_thread_init(NULL);
     gtk_init(&argc, &argv);
+
+    ctx = g_option_context_new("- BetaRadio");
+
+    g_option_context_add_group(ctx, gst_init_get_option_group());
+
+    if (!g_option_context_parse(ctx, &argc, &argv, &err)) {
+        g_print ("Failed to initialize: %s\n", err->message);
+        g_error_free(err);
+        return 1;
+    }
 
     tooltips = gtk_tooltips_new();
     tray_icon = gtk_status_icon_new();
