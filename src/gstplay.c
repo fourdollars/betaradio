@@ -96,7 +96,8 @@ static void gstPlay(GstPlayer* gst, const char* type, const char* url)
     if (strcmp("mms", type) == 0) {
         source = gst_element_factory_make ("mmssrc", "source");
         g_object_set(G_OBJECT(source), "location", url, NULL);
-        g_object_set(G_OBJECT(source), "blocksize", 327680, NULL);
+        g_object_set(G_OBJECT(source), "blocksize", 65536, NULL);
+        g_object_set(G_OBJECT(source), "do-timestamp", TRUE, NULL);
         demuxer = gst_element_factory_make("ffdemux_asf", "demuxer");
         decoder = gst_element_factory_make("ffdec_wmav2", "decoder");
         audio = gst_element_factory_make("autoaudiosink", "audio");

@@ -1,3 +1,7 @@
+2010-06-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/gstplay.c: Adjust blocksize for mms.
+
 2010-06-28  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* utils/hichannel.json,
