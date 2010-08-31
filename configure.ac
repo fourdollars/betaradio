@@ -12,7 +12,8 @@ AC_PROG_CC
 
 PKG_CHECK_MODULES([gtk2], [gtk+-2.0 >= 2.10],, AC_MSG_ERROR([gtk+-2.0 >= 2.10 not found]))
 PKG_CHECK_MODULES([gst], [gstreamer-0.10 >= 0.10],, AC_MSG_ERROR([gstreamer-0.10 >= 0.10 not found]))
-PKG_CHECK_MODULES([json], [json-cat],, AC_MSG_ERROR([json-cat not found]))
+PKG_CHECK_MODULES([json], [json-glib-1.0],, AC_MSG_ERROR([json-glib-1.0 not found]))
+PKG_CHECK_MODULES([soup], [libsoup-2.4],, AC_MSG_ERROR([libsoup-2.4 not found]))
 
 AC_CONFIG_FILES([
                  Makefile

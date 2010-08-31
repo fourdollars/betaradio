@@ -17,6 +17,13 @@
 	debian/source/format,
 	man/Makefile.am,
 	man/betaradio.1: Debianized.
+	* configure.ac,
+	debian/control,
+	debian/copyright,
+	debian/rules,
+	src/Makefile.am,
+	src/json_cat.c,
+	src/json_cat.h: Import json-cat as built-in function.
 
 2010-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
