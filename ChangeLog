@@ -24,6 +24,9 @@
 	src/Makefile.am,
 	src/json_cat.c,
 	src/json_cat.h: Import json-cat as built-in function.
+	* Makefile.am: Distributed with debian folder.
+	* autogen.sh: Add ./configure
+	* po/zh_TW.po: Update po file.
 
 2010-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
