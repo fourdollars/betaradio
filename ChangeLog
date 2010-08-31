@@ -3,6 +3,20 @@
 	* po/zh_TW.po: Update po file.
 	* src/betaradio.c: Replace url by some condition.
 	* src/gstplay.c: Use playbin2.
+	* Makefile.am,
+	autogen.sh,
+	configure.ac,
+	debian/README,
+	debian/README.source,
+	debian/changelog,
+	debian/compat,
+	debian/control,
+	debian/copyright,
+	debian/patches/series,
+	debian/rules,
+	debian/source/format,
+	man/Makefile.am,
+	man/betaradio.1: Debianized.
 
 2010-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

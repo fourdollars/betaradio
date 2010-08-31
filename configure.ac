@@ -18,6 +18,7 @@ AC_CONFIG_FILES([
                  Makefile
                  po/Makefile.in
                  data/Makefile
+                 man/Makefile
                  src/Makefile
                  data/betaradio.desktop
                  ])
