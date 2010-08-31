@@ -80,7 +80,6 @@ static void on_pad_added (GstElement *element, GstPad *pad, gpointer data)
 
 static void gstPlay(GstPlayer* gst, const char* type, const char* url)
 {
-    GstElement *source, *audio, *decoder, *demuxer;
     GstData* data = (GstData*) gst->data;
     GstBus*  bus  = NULL;
 
@@ -91,29 +90,8 @@ static void gstPlay(GstPlayer* gst, const char* type, const char* url)
 
     data->loop = g_main_loop_new(NULL, FALSE);
 
-    data->bin = gst_element_factory_make("pipeline", "BetaRadio");
-
-    if (strcmp("mms", type) == 0) {
-        source = gst_element_factory_make ("mmssrc", "source");
-        g_object_set(G_OBJECT(source), "location", url, NULL);
-        g_object_set(G_OBJECT(source), "blocksize", 65536, NULL);
-        g_object_set(G_OBJECT(source), "do-timestamp", TRUE, NULL);
-        demuxer = gst_element_factory_make("ffdemux_asf", "demuxer");
-        decoder = gst_element_factory_make("ffdec_wmav2", "decoder");
-        audio = gst_element_factory_make("autoaudiosink", "audio");
-        gst_bin_add_many(GST_BIN(data->bin), source, demuxer, decoder, audio, NULL);
-        gst_element_link(source, demuxer);
-        gst_element_link(decoder, audio);
-        g_signal_connect(demuxer, "pad-added", G_CALLBACK(on_pad_added), decoder);
-    } else if (strcmp("mp3", type) == 0) {
-        source = gst_element_factory_make ("souphttpsrc", "source");
-        g_object_set(G_OBJECT(source), "location", url, NULL);
-        g_object_set(G_OBJECT(source), "blocksize", 327680, NULL);
-        decoder = gst_element_factory_make("mad", "decoder");
-        audio = gst_element_factory_make("autoaudiosink", "audio");
-        gst_bin_add_many(GST_BIN(data->bin), source, decoder, audio, NULL);
-        gst_element_link_many(source, decoder, audio, NULL);
-    }
+    data->bin = gst_element_factory_make("playbin2", "BetaRadio");
+    g_object_set(G_OBJECT (data->bin), "uri", url, NULL);
 
     gst_element_set_state(data->bin, GST_STATE_PLAYING);
 

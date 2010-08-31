@@ -1,3 +1,9 @@
+2010-08-31  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* po/zh_TW.po: Update po file.
+	* src/betaradio.c: Replace url by some condition.
+	* src/gstplay.c: Use playbin2.
+
 2010-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.c: Add more debug options from gst.
