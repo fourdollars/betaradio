@@ -1,5 +1,5 @@
 AC_PREREQ(2.65)
-AC_INIT([betaradio],[1.0],[http://code.google.com/p/betaradio])
+AC_INIT([betaradio],[1.1],[http://code.google.com/p/betaradio])
 AC_CONFIG_SRCDIR([src/betaradio.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])

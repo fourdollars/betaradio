@@ -4,6 +4,10 @@
 	configure.ac,
 	src/Makefile.am,
 	src/betaradio.c: Polish gettext usage.
+	* TODO,
+	configure.ac,
+	debian/changelog,
+	po/zh_TW.po: Bump to v1.1 release.
 
 2010-09-27  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
