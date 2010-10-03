@@ -1,12 +1,12 @@
-AC_PREREQ([2.65])
-AC_INIT([betaradio], [1.0], [http://code.google.com/p/betaradio])
+AC_PREREQ(2.65)
+AC_INIT([betaradio],[1.0],[http://code.google.com/p/betaradio])
 AC_CONFIG_SRCDIR([src/betaradio.c])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
-AM_GNU_GETTEXT_VERSION(0.17)
 AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION(0.17)
 
 AC_PROG_CC
 

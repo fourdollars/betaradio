@@ -26,9 +26,9 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#include <locale.h>
-#include "gettext.h"
-#define _(string) gettext(string)
+#include <libintl.h>
+#define _(String) gettext (String)
+
 #include <gst/gst.h>
 
 #include "gstplay.h"

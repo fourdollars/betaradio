@@ -1,4 +1,4 @@
-noinst_HEADERS = gettext.h gstplay.h json_cat.h
+noinst_HEADERS = gstplay.h json_cat.h
 
 bin_PROGRAMS = betaradio
 
