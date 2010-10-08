@@ -9,4 +9,3 @@ AUX_DIST = \
 SUBDIRS = po src data man
 ACLOCAL_AMFLAGS = -I m4
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 configure config.h.in $(AUX_DIST)
-EXTRA_DIST = debian

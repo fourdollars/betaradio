@@ -1,3 +1,9 @@
+2010-10-08  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* Makefile.am,
+	debian/changelog: 'debian' folder should not be included in release
+	tarball but can be maintained under VCS.
+
 2010-10-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* autogen.sh,

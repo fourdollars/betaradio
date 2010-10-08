@@ -1,10 +1,10 @@
-betaradio (1.1) unstable; urgency=low
+betaradio (1.1-1) unstable; urgency=low
 
   * Add multiple radio list support.
 
  -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Sun, 03 Oct 2010 21:41:30 +0800
 
-betaradio (1.0) unstable; urgency=low
+betaradio (1.0-1) unstable; urgency=low
 
   * Initial Release.
 
