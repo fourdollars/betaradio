@@ -9,6 +9,7 @@
 	debian/copyright,
 	debian/source/format,
 	man/betaradio.1: Adjust for official Debian package application.
+	* mkdeb.sh: Create a script to generate Debian package.
 
 2010-10-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
