@@ -4,14 +4,14 @@ Priority: extra
 Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 Build-Depends: quilt (>= 0.46-7~), debhelper (>= 7.0.50~), autotools-dev,
     libgtk2.0-dev (>= 2.10), libgstreamer0.10-dev, libjson-glib-dev, libsoup2.4-dev
-Standards-Version: 3.8.4
+Standards-Version: 3.9.1
 Homepage: http://code.google.com/p/betaradio/
 
 Package: betaradio
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libjson-glib-1.0-0, libsoup2.4-1,
     gstreamer0.10-plugins-bad, gstreamer0.10-plugins-ugly, gstreamer0.10-ffmpeg
-Description: hiChannel internet radio client on GNU/Linux
- With this client you can listen to the hiChannel internet radio without
- opening a browser. It displays an icon on system tray that you can click and
- select the channel you want to listen to.
+Description: Just another internet radio system tray for Taiwan users.
+ With this client you can listen to hiChannel radio and PTT Radio without opening a browser.
+ .
+ It displays a icon on system tray that you can click and select the channel you want to listen to.

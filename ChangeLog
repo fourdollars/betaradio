@@ -3,6 +3,12 @@
 	* Makefile.am,
 	debian/changelog: 'debian' folder should not be included in release
 	tarball but can be maintained under VCS.
+	* debian/README,
+	debian/changelog,
+	debian/control,
+	debian/copyright,
+	debian/source/format,
+	man/betaradio.1: Adjust for official Debian package application.
 
 2010-10-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

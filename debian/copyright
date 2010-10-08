@@ -1,10 +1,10 @@
 This work was packaged for Debian by:
 
-    Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com> on Sat, 26 Jun 2010 15:30:11 +0800
+    Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com> on Fri, 08 Oct 2010 12:18:06 +0800
 
 It was downloaded from:
 
-    http://betaradio.googlecode.com/svn/trunk/
+    http://code.google.com/p/betaradio/downloads/list
 
 Upstream Author(s):
 
@@ -35,11 +35,5 @@ Public License version 3 can be found in `/usr/share/common-licenses/GPL-3'.
 The Debian packaging is:
 
     Copyright (C) 2010 Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
-
-# Please chose a license for your packaging work. If the program you package
-# uses a mainstream license, using the same license is the safest choice.
-# Please avoid to pick license terms that are more restrictive than the
-# packaged work, as it may make Debian's contributions unacceptable upstream.
-# If you just want it to be GPL version 3, leave the following line in.
 
 and is licensed under the GPL version 3, see above.
