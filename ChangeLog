@@ -12,6 +12,7 @@
 	* mkdeb.sh: Create a script to generate Debian package.
 	* configure.ac,
 	debian/changelog: Bump to v1.1.1 release.
+	* mkdeb.sh: Use hard link instead of dullicate copy.
 
 2010-10-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

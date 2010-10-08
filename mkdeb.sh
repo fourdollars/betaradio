@@ -10,7 +10,7 @@ make dist-bzip2
 
 VERSION="$(./configure --version | head -n1 | cut -d ' ' -f 3)"
 
-mv betaradio-${VERSION}.tar.bz2 betaradio_${VERSION}.orig.tar.bz2
+ln betaradio-${VERSION}.tar.bz2 betaradio_${VERSION}.orig.tar.bz2
 
 tar xf betaradio_${VERSION}.orig.tar.bz2
 
