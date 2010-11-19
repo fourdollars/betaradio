@@ -1,3 +1,9 @@
+2010-11-19  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/academic.json,
+	utils/list.json,
+	utils/ptt.json: Add Pinewave Radio.
+
 2010-10-08  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* Makefile.am,

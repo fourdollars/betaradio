@@ -1,0 +1,17 @@
+{
+	"title": "學術電台",
+	"url": "http://www.edu.tw",
+	"property": "channel",
+	"channel": [
+		{
+			"title": "PTTradio @ Taiwan",
+			"type": "mp3",
+			"url": "http://cast.ptt.cc:8000/yes"
+		},
+		{
+			"title": "Pinewave Radio",
+			"type": "mp3",
+			"url": "http://broadcast.pinewave.tw:8000"
+		}
+	]
+}
