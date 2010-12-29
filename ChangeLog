@@ -1,6 +1,7 @@
 2010-12-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/json_soup.vala: Reimplement JsonSoup component by Vala.
+	* src/gst_player.vala: Reimplement GstPlayer component by Vala.
 
 2010-12-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
