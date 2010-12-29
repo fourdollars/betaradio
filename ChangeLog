@@ -2,6 +2,10 @@
 
 	* src/json_soup.vala: Reimplement JsonSoup component by Vala.
 	* src/gst_player.vala: Reimplement GstPlayer component by Vala.
+	* src/betaradio.vala: Reimplement BetaRadio component by Vala.
+	* src/gst_player.vala: Reduce unneeded inheritance.
+	* src/json_soup.vala: Fix array indexing bug.
+
 
 2010-12-06  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

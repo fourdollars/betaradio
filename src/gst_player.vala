@@ -19,7 +19,7 @@
 
 using Gst;
 
-class GstPlayer : Window {
+class GstPlayer : GLib.Object {
     private dynamic Element player = null;
     public GstPlayer(string name, string url) {
         player = ElementFactory.make("playbin2", name);

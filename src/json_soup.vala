@@ -89,7 +89,8 @@ class JsonSoup : GLib.Object {
             return this;
         }
         var array = node.get_array();
-        if (array.get_length() > idx || idx < 0) {
+        int length = (int) array.get_length();
+        if (idx > length || idx < 0) {
             warning("Out of index. %d", idx);
             return this;
         }
@@ -167,11 +168,11 @@ class JsonSoup : GLib.Object {
     public bool getBool() {
         return node.get_boolean();
     }
-    public uint length() {
+    public int length() {
         if (isArray() == false) {
             return 0;
         }
         var array = node.get_array();
-        return array.get_length();
+        return (int) array.get_length();
     }
 }
