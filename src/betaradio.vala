@@ -26,6 +26,9 @@ class BetaRadio : GLib.Object {
     private GstPlayer player = null;
 
     public static void main (string[] args) {
+        Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
+        Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
+        Intl.textdomain( Config.PACKAGE_NAME );
         Gst.init(ref args);
         Gtk.init(ref args);
         var app = new BetaRadio();
@@ -37,7 +40,7 @@ class BetaRadio : GLib.Object {
         menu = new Gtk.Menu();
         unowned SList<Gtk.RadioMenuItem> group = null;
 
-        var stop = new Gtk.RadioMenuItem.with_label(group, "Stop");
+        var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
         group = stop.get_group();
         menu.append(stop);
         stop.activate.connect((e) => {
@@ -53,7 +56,7 @@ class BetaRadio : GLib.Object {
 
         menu.append(new Gtk.SeparatorMenuItem());
 
-        var quit = new Gtk.RadioMenuItem.with_label(group, "Quit");
+        var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
         group = stop.get_group();
         menu.append(quit);
         quit.activate.connect((e) => {

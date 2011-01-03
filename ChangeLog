@@ -5,6 +5,15 @@
 	src/gstplay.h,
 	src/json_cat.c,
 	src/json_cat.h: Remove deprecated source codes.
+	* Makefile.am,
+	autogen.sh,
+	configure.ac,
+	po/POTFILES.in,
+	po/zh_TW.po,
+	src/Makefile.am,
+	src/betaradio.vala,
+	vapi/Makefile.am,
+	vapi/config.vapi: Deploy Vala program and gettextize.
 
 2010-12-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

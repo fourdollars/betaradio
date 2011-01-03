@@ -1,24 +1,16 @@
-noinst_HEADERS = gstplay.h json_cat.h
-
 bin_PROGRAMS = betaradio
 
 betaradio_SOURCES = \
-                    betaradio.c \
-                    json_cat.c \
-                    gstplay.c
+                    betaradio.vala \
+                    gst_player.vala \
+                    json_soup.vala
 
 betaradio_CPPFLAGS = \
-                     @gtk2_CFLAGS@ \
-                     @json_CFLAGS@ \
-                     @soup_CFLAGS@ \
-                     @gst_CFLAGS@ \
+                     -include config.h \
                      -DDATADIR=\"$(datadir)\" \
-                     -DLOCALEDIR=\"$(localedir)\"
+                     -DLOCALEDIR=\"$(localedir)\" \
+                     @VALA_CFLAGS@
 
-betaradio_LDFLAGS = \
-                     @gtk2_LIBS@ \
-                     @json_LIBS@ \
-                     @soup_LIBS@ \
-                     @gst_LIBS@
+betaradio_LDFLAGS = @VALA_LIBS@
 
-LDADD = $(LIBINTL)
+betaradio_VALAFLAGS = @VALA_FLAGS@ --vapidir=$(top_srcdir)/vapi --pkg config
