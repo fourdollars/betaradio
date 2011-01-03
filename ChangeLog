@@ -1,3 +1,11 @@
+2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.c,
+	src/gstplay.c,
+	src/gstplay.h,
+	src/json_cat.c,
+	src/json_cat.h: Remove deprecated source codes.
+
 2010-12-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/json_soup.vala: Reimplement JsonSoup component by Vala.
