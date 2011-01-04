@@ -36,7 +36,13 @@ class BetaRadio : GLib.Object {
     }
 
     public BetaRadio () {
-        icon = new Gtk.StatusIcon.from_stock(Gtk.STOCK_MISSING_IMAGE);
+        if (FileUtils.test(Config.DATADIR + "/pixmaps/betaradio/betaradio.png", FileTest.IS_REGULAR) == true) {
+            icon = new Gtk.StatusIcon.from_file(Config.DATADIR + "/pixmaps/betaradio/betaradio.png");
+        } else if (FileUtils.test("data/betaradio.png", FileTest.IS_REGULAR) == true) {
+            icon = new Gtk.StatusIcon.from_file("data/betaradio.png");
+        } else {
+            icon = new Gtk.StatusIcon.from_stock(Gtk.STOCK_MISSING_IMAGE);
+        }
         menu = new Gtk.Menu();
         unowned SList<Gtk.RadioMenuItem> group = null;
 

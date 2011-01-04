@@ -1,3 +1,7 @@
+2011-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala: Set default icon.
+
 2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.c,
