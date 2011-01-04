@@ -15,6 +15,8 @@
 	vapi/Makefile.am,
 	vapi/config.vapi: Deploy Vala program and gettextize.
 	* src/betaradio.c: Remove unneeded source codes.
+	* src/betaradio.vala,
+	src/json_soup.vala: Follow function naming rule of Vala.
 
 2010-12-29  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

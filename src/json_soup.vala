@@ -117,59 +117,59 @@ class JsonSoup : GLib.Object {
     }
 
     /* Type Checking */
-    private bool isValue() {
+    private bool is_value() {
         if (node.get_node_type() == NodeType.VALUE) {
             return true;
         } else {
             return false;
         }
     }
-    public bool isObject() {
+    public bool is_object() {
         return (node.get_node_type() == NodeType.OBJECT);
     }
-    public bool isArray() {
+    public bool is_array() {
         return (node.get_node_type() == NodeType.ARRAY);
     }
-    public bool isString() {
-        if (isValue() == false) {
+    public bool is_string() {
+        if (is_value() == false) {
             return false;
         }
         return (node.get_value_type() == typeof(string));
     }
-    public bool isInt() {
-        if (isValue() == false) {
+    public bool is_int() {
+        if (is_value() == false) {
             return false;
         }
         return (node.get_value_type() == typeof(int64));
     }
-    public bool isDouble() {
-        if (isValue() == false) {
+    public bool is_double() {
+        if (is_value() == false) {
             return false;
         }
         return (node.get_value_type() == typeof(double));
     }
-    public bool isBool() {
-        if (isValue() == false) {
+    public bool is_bool() {
+        if (is_value() == false) {
             return false;
         }
         return (node.get_value_type() == typeof(bool));
     }
 
     /* Fetch Data */
-    public string getString() {
+    public string get_string() {
         return node.get_string();
     }
-    public int64 getInt() {
+    public int64 get_int() {
         return node.get_int();
     }
-    public double getDouble() {
+    public double get_double() {
         return node.get_double();
     }
-    public bool getBool() {
+    public bool get_bool() {
         return node.get_boolean();
     }
     public int length() {
-        if (isArray() == false) {
+        if (is_array() == false) {
             return 0;
         }
         var array = node.get_array();

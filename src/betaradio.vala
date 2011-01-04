@@ -77,25 +77,25 @@ class BetaRadio : GLib.Object {
 
     private unowned SList<Gtk.RadioMenuItem> getMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group) {
         var list = new JsonSoup.http("http://betaradio.googlecode.com/svn/trunk/utils/list.json");
-        if (list.isArray() == false) {
+        if (list.is_array() == false) {
             return group;
         }
         int length = list.length();
         for (int i = 0; i < length; i++) {
-            string feed = list.array(i).getString();
+            string feed = list.array(i).get_string();
             var json = new JsonSoup.http(feed);
-            if (json.object("property").isString() == false) {
+            if (json.object("property").is_string() == false) {
                 continue;
             }
-            string title = json.sibling("title").getString();
+            string title = json.sibling("title").get_string();
             var item = new Gtk.MenuItem.with_label(title);
             menu.append(item);
             var submenu = new Gtk.Menu();
             item.set_submenu(submenu);
-            string property = json.sibling("property").getString();
-            if (property == "category" && json.sibling("category").isArray() == true) {
+            string property = json.sibling("property").get_string();
+            if (property == "category" && json.sibling("category").is_array() == true) {
                 group = getCategoryMenu(submenu, group, json);
-            } else if (property == "channel" && json.sibling("channel").isArray() == true) {
+            } else if (property == "channel" && json.sibling("channel").is_array() == true) {
                 group = getChannelMenu(submenu, group, json);
             }
             list.parent();
@@ -106,16 +106,16 @@ class BetaRadio : GLib.Object {
     private unowned SList<Gtk.RadioMenuItem> getCategoryMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group, JsonSoup json) {
         int length = json.length();
         for (int i = 0; i < length; i++) {
-            string category = json.array(i).object("title").getString();
+            string category = json.array(i).object("title").get_string();
             var item = new Gtk.MenuItem.with_label(category);
             var submenu = new Gtk.Menu();
             menu.append(item);
             item.set_submenu(submenu);
             int size = json.sibling("channel").length();
             for (int j = 0; j < size; j++) {
-                string title = json.array(j).object("title").getString();
-                string type = json.sibling("type").getString();
-                string url = filter_url(json.sibling("url").getString(), type);
+                string title = json.array(j).object("title").get_string();
+                string type = json.sibling("type").get_string();
+                string url = filter_url(json.sibling("url").get_string(), type);
                 var radio = new Gtk.RadioMenuItem.with_label(group, title);
                 group = radio.get_group();
                 radio.toggled.connect( (e) => {
@@ -136,9 +136,9 @@ class BetaRadio : GLib.Object {
     private unowned SList<Gtk.RadioMenuItem> getChannelMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group, JsonSoup json) {
         int length = json.length();
         for (int i = 0; i < length; i++) {
-            string title = json.array(i).object("title").getString();
-            string type = json.sibling("type").getString();
-            string url = filter_url(json.sibling("url").getString(), type);
+            string title = json.array(i).object("title").get_string();
+            string type = json.sibling("type").get_string();
+            string url = filter_url(json.sibling("url").get_string(), type);
             var radio = new Gtk.RadioMenuItem.with_label(group, title);
             group = radio.get_group();
             radio.toggled.connect( (e) => {
