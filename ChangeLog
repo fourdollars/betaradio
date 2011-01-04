@@ -11,6 +11,8 @@
 	debian/rules,
 	debian/source/format,
 	mkdeb.sh: Polish for Debian package.
+	* debian/control,
+	debian/source/format: Fix lintian warning and error.
 
 2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
