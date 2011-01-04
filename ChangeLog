@@ -1,6 +1,8 @@
 2011-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.vala: Set default icon.
+	* po/zh_TW.po,
+	src/betaradio.vala: Set tooltip text.
 
 2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

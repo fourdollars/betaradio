@@ -43,6 +43,7 @@ class BetaRadio : GLib.Object {
         } else {
             icon = new Gtk.StatusIcon.from_stock(Gtk.STOCK_MISSING_IMAGE);
         }
+        icon.set_tooltip_text(_("BetaRadio Tuner"));
         menu = new Gtk.Menu();
         unowned SList<Gtk.RadioMenuItem> group = null;
 
@@ -53,6 +54,7 @@ class BetaRadio : GLib.Object {
             if (player != null) {
                 player.stop();
                 player = null;
+                icon.set_tooltip_text(_("BetaRadio Tuner"));
             }
         });
 
@@ -69,6 +71,7 @@ class BetaRadio : GLib.Object {
             if (player != null) {
                 player.stop();
                 player = null;
+                icon.set_tooltip_text(_("BetaRadio Tuner"));
             }
             Gtk.main_quit();
         });
@@ -130,6 +133,7 @@ class BetaRadio : GLib.Object {
                     }
                     player = new GstPlayer("BetaRadio", url);
                     player.play();
+                    icon.set_tooltip_text(title);
                 });
                 submenu.append(radio);
                 json.grandparent();
@@ -153,6 +157,7 @@ class BetaRadio : GLib.Object {
                 }
                 player = new GstPlayer("BetaRadio", url);
                 player.play();
+                icon.set_tooltip_text(title);
             });
             menu.append(radio);
             json.grandparent();
