@@ -1,12 +1,12 @@
 #! /usr/bin/env sh
 
-set -e
+set -e -x
 
 if [ ! -e ./configure ]; then
     ./autogen.sh
 fi
 
-make dist-bzip2
+make dist
 
 VERSION="$(./configure --version | head -n1 | cut -d ' ' -f 3)"
 

@@ -5,6 +5,12 @@
 	src/betaradio.vala: Set tooltip text.
 	* data/betaradio.desktop.in,
 	man/betaradio.1: Adjust comment and description.
+	* debian/README,
+	debian/changelog,
+	debian/control,
+	debian/rules,
+	debian/source/format,
+	mkdeb.sh: Polish for Debian package.
 
 2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
