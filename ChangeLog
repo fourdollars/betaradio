@@ -13,6 +13,8 @@
 	mkdeb.sh: Polish for Debian package.
 	* debian/control,
 	debian/source/format: Fix lintian warning and error.
+	* mkdeb.sh: Polish script.
+	* po/zh_TW.po: Update po.
 
 2011-01-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
