@@ -7,5 +7,5 @@ Type=Application
 Terminal=false
 Name=BetaRadio Tuner
 Name[zh_TW]=BetaRadio 點播器
-Comment=Listen the radio of Taiwan
-Comment[zh_TW]=收聽台灣網路電台
+Comment=An easy way to listen to internet radio of Taiwan.
+Comment[zh_TW]=用簡單的方式收聽台灣網路電台
