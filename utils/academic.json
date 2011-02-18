@@ -4,14 +4,9 @@
 	"property": "channel",
 	"channel": [
 		{
-			"title": "PTT Radio - PTT Radio 網路電台",
+			"title": "PTT Radio 網路電台",
 			"type": "mp3",
 			"url": "http://cast.ptt.cc:8000/yes"
-		},
-		{
-			"title": "PTT Radio - OnlyMayDay",
-			"type": "mp3",
-			"url": "http://cast.ptt.cc:8000/wow"
 		},
 		{
 			"title": "Pinewave Radio - 中央大學松濤電台",

@@ -1,3 +1,7 @@
+2011-02-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/academic.json: Remove "PTT Radio - OnlyMayDay".
+
 2011-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.vala: Set default icon.
