@@ -7,6 +7,7 @@
 	debian/copyright,
 	debian/rules,
 	debian/watch: Polish for Debian package.
+	* debian/rules: Fix a syntax error.
 
 2011-02-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
