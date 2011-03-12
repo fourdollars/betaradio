@@ -13,7 +13,7 @@ Package: betaradio
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libjson-glib-1.0-0, libsoup2.4-1,
     gstreamer0.10-plugins-bad, gstreamer0.10-plugins-ugly, gstreamer0.10-ffmpeg
-Description: An easy way to listen to internet radio of Taiwan.
+Description: An easy way to listen to internet radio of Taiwan
  With this client you can listen to internet radio of Taiwan without opening a
  browser. It displays a icon on system tray that you can click and select the
  channel you want to listen to.

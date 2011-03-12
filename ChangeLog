@@ -8,6 +8,8 @@
 	debian/rules,
 	debian/watch: Polish for Debian package.
 	* debian/rules: Fix a syntax error.
+	* debian/control,
+	debian/copyright: Fix some lintian warning and error.
 
 2011-02-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
