@@ -10,6 +10,7 @@
 	* debian/rules: Fix a syntax error.
 	* debian/control,
 	debian/copyright: Fix some lintian warning and error.
+	* data/betaradio.desktop.in: Remove deprecated tag.
 
 2011-02-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

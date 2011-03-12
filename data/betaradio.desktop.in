@@ -1,6 +1,5 @@
 [Desktop Entry]
 Categories=GTK;Application;AudioVideo;Audio;Player;
-Encoding=UTF-8
 Exec=betaradio
 Icon=@prefix@/share/pixmaps/betaradio/betaradio.png
 Type=Application
