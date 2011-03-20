@@ -1,3 +1,7 @@
+2011-03-20  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/watch: Fix debian/watch.
+
 2011-03-15  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* debian/control: Remove unneeded dependency.
