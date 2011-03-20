@@ -1,6 +1,7 @@
 2011-03-20  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* debian/watch: Fix debian/watch.
+	* man/betaradio.1: Polish manpage.
 
 2011-03-15  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
