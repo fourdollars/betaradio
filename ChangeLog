@@ -1,3 +1,7 @@
+2011-04-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac: Enable silent-rules of automake.
+
 2011-03-20  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* debian/watch: Fix debian/watch.
