@@ -23,7 +23,6 @@ using Gst;
 class BetaRadio : GLib.Object {
     private Gtk.StatusIcon icon = null;
     private Gtk.Menu menu = null;
-    private GstPlayer player = null;
 
     public static void main (string[] args) {
         Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
@@ -32,7 +31,9 @@ class BetaRadio : GLib.Object {
         Gst.init(ref args);
         Gtk.init(ref args);
         var app = new BetaRadio();
+        message("Running");
         Gtk.main();
+        GLib.mem_profile();
     }
 
     public BetaRadio () {
@@ -41,7 +42,7 @@ class BetaRadio : GLib.Object {
         } else if (FileUtils.test("data/betaradio.png", FileTest.IS_REGULAR) == true) {
             icon = new Gtk.StatusIcon.from_file("data/betaradio.png");
         } else {
-            icon = new Gtk.StatusIcon.from_stock(Gtk.STOCK_MISSING_IMAGE);
+            icon = new Gtk.StatusIcon.from_stock(Gtk.Stock.MISSING_IMAGE);
         }
         icon.set_tooltip_text(_("BetaRadio Tuner"));
         menu = new Gtk.Menu();
@@ -50,10 +51,9 @@ class BetaRadio : GLib.Object {
         var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
         group = stop.get_group();
         menu.append(stop);
-        stop.activate.connect((e) => {
-            if (player != null) {
-                player.stop();
-                player = null;
+        stop.toggled.connect((e) => {
+            if (e.get_active() == true) {
+                GstPlayer.get_instance().stop();
                 icon.set_tooltip_text(_("BetaRadio Tuner"));
             }
         });
@@ -65,15 +65,14 @@ class BetaRadio : GLib.Object {
         menu.append(new Gtk.SeparatorMenuItem());
 
         var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
-        group = stop.get_group();
+        group = quit.get_group();
         menu.append(quit);
-        quit.activate.connect((e) => {
-            if (player != null) {
-                player.stop();
-                player = null;
+        quit.toggled.connect((e) => {
+            if (e.get_active() == true) {
+                GstPlayer.get_instance().stop();
                 icon.set_tooltip_text(_("BetaRadio Tuner"));
+                Gtk.main_quit();
             }
-            Gtk.main_quit();
         });
 
         menu.show_all();
@@ -127,15 +126,13 @@ class BetaRadio : GLib.Object {
                 string url = filter_url(json.sibling("url").get_string(), type);
                 var radio = new Gtk.RadioMenuItem.with_label(group, title);
                 group = radio.get_group();
-                radio.toggled.connect( (e) => {
-                    if (player != null) {
-                        player.stop();
-                    }
-                    player = new GstPlayer("BetaRadio", url);
-                    player.play();
-                    icon.set_tooltip_text(title);
-                });
                 submenu.append(radio);
+                radio.toggled.connect( (e) => {
+                    if (e.get_active() == true) {
+                        GstPlayer.get_instance().play(url);
+                        icon.set_tooltip_text(title);
+                    }
+                });
                 json.grandparent();
             }
             json.grandparent();
@@ -151,15 +148,13 @@ class BetaRadio : GLib.Object {
             string url = filter_url(json.sibling("url").get_string(), type);
             var radio = new Gtk.RadioMenuItem.with_label(group, title);
             group = radio.get_group();
-            radio.toggled.connect( (e) => {
-                if (player != null) {
-                    player.stop();
-                }
-                player = new GstPlayer("BetaRadio", url);
-                player.play();
-                icon.set_tooltip_text(title);
-            });
             menu.append(radio);
+            radio.toggled.connect( (e) => {
+                if (e.get_active() == true) {
+                    GstPlayer.get_instance().play(url);
+                    icon.set_tooltip_text(title);
+                }
+            });
             json.grandparent();
         }
         return group;

@@ -1,3 +1,9 @@
+2011-07-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala,
+	src/gst_player.vala: Improve the stability when switching to different
+	radio site.
+
 2011-04-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* configure.ac: Enable silent-rules of automake.

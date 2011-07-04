@@ -20,28 +20,68 @@
 using Gst;
 
 class GstPlayer : GLib.Object {
+
+    private static GstPlayer instance = null;
     private dynamic Element player = null;
-    public GstPlayer(string name, string url) {
+
+    private GstPlayer(string name) {
         player = ElementFactory.make("playbin2", name);
-        player.uri = url;
-        //player.get_bus().add_watch(bus_callback);
+        player.get_bus().add_watch(bus_callback);
     }
+
     ~GstPlayer() {
         player = null;
     }
-    public void play() {
+
+    public static GstPlayer get_instance() {
+        if (instance == null) {
+            instance = new GstPlayer("BetaRadio");
+        }
+        return instance;
+    }
+
+    public void play(string url) {
+        State state;
+        State pending;
+
+        while (player.get_state(out state, out pending, 2000) != Gst.StateChangeReturn.SUCCESS) {
+            message("state: %s, pending: %s", state.to_string(), pending.to_string());
+        }
+
+        if (state != State.READY) {
+            player.set_state(State.READY);
+        }
+
+        player.uri = url;
+
+        while (player.get_state(out state, out pending, 2000) != Gst.StateChangeReturn.SUCCESS) {
+            message("state: %s, pending: %s", state.to_string(), pending.to_string());
+        }
+
         player.set_state(State.PLAYING);
     }
+
     public void stop() {
-        player.set_state(State.NULL);
+        State state;
+        State pending;
+
+        while (player.get_state(out state, out pending, 2000) != Gst.StateChangeReturn.SUCCESS) {
+            message("state: %s, pending: %s", state.to_string(), pending.to_string());
+        }
+
+        if (state != State.READY) {
+            player.set_state(State.READY);
+        }
     }
-    private bool bus_callback(Gst.Bus bus, Gst.Message message) {
-        switch (message.type) {
+
+    private bool bus_callback(Gst.Bus bus, Gst.Message msg) {
+        switch (msg.type) {
             case Gst.MessageType.ERROR:
                 GLib.Error err;
                 string debug;
-                message.parse_error (out err, out debug);
-                error("Error: %s\n", err.message);
+                msg.parse_error (out err, out debug);
+                warning("Error: %s\n", err.message);
+                player.set_state(State.NULL);
                 break;
             case Gst.MessageType.EOS:
                 warning("end of stream\n");
@@ -50,13 +90,17 @@ class GstPlayer : GLib.Object {
                 Gst.State oldstate;
                 Gst.State newstate;
                 Gst.State pending;
-                message.parse_state_changed (out oldstate, out newstate,
+                msg.parse_state_changed (out oldstate, out newstate,
                         out pending);
                 GLib.stdout.printf ("state changed: %s->%s:%s\n",
                         oldstate.to_string (), newstate.to_string (),
                         pending.to_string ());
                 break;
+            case Gst.MessageType.BUFFERING:
+                /* ignore buffering message */
+                break;
             default:
+                message("message type: %s", msg.type.to_string());
                 break;
         }
 
