@@ -13,7 +13,7 @@ AM_GNU_GETTEXT_VERSION(0.17)
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
-AM_PROG_VALAC([0.8.0])
+AM_PROG_VALAC([0.12.0])
 
 GETTEXT_PACKAGE="$PACKAGE_NAME"
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext Package])
@@ -35,7 +35,7 @@ PKG_CHECK_MODULES([SOUP], [libsoup-2.4], [
                    VALA_CFLAGS="$VALA_CFLAGS $SOUP_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $SOUP_LIBS"
                    ], AC_MSG_ERROR([libsoup-2.4 not found]))
-VALA_FLAGS="--pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
+VALA_FLAGS="--enable-mem-profiler --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
 
 AC_SUBST(VALA_CFLAGS)
 AC_SUBST(VALA_FLAGS)
