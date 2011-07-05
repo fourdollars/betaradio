@@ -1,3 +1,7 @@
+2011-07-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/json_soup.vala: Avoid unneeded reference counting.
+
 2011-07-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.vala,
