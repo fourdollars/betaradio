@@ -65,7 +65,7 @@ class JsonSoup : GLib.Object {
     }
 
     /* Movement */
-    public JsonSoup object(string name) {
+    public unowned JsonSoup object(string name) {
         if (node.get_node_type() != NodeType.OBJECT) {
             warning("This is not a object.");
             return this;
@@ -78,12 +78,12 @@ class JsonSoup : GLib.Object {
         node = object.get_member(name);
         return this;
     }
-    public JsonSoup sibling(string name) {
+    public unowned JsonSoup sibling(string name) {
         parent();
         object(name);
         return this;
     }
-    public JsonSoup array(int idx) {
+    public unowned JsonSoup array(int idx) {
         if (node.get_node_type() != NodeType.ARRAY) {
             warning("This is not a array.");
             return this;
@@ -97,7 +97,7 @@ class JsonSoup : GLib.Object {
         node = array.get_element(idx);
         return this;
     }
-    public JsonSoup parent() {
+    public unowned JsonSoup parent() {
         unowned Json.Node parent_node = node.get_parent();
         if (parent_node == null) {
             warning("Already be root.");
@@ -106,12 +106,12 @@ class JsonSoup : GLib.Object {
         node = parent_node;
         return this;
     }
-    public JsonSoup grandparent() {
+    public unowned JsonSoup grandparent() {
         parent();
         parent();
         return this;
     }
-    public JsonSoup reset() {
+    public unowned JsonSoup reset() {
         node = parser.get_root();
         return this;
     }

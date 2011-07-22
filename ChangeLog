@@ -1,3 +1,55 @@
+2011-07-22  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac: Add libtool to avoid some compilation error.
+	* debian/control: Update Debian policy version.
+	* configure.ac: Bump to 1.3
+	* debian/control: Avoid lintian warning.
+	* debian/changelog: New upstream release.
+	* mkdeb.sh: Update utilities script.
+
+2011-07-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/json_soup.vala: Avoid unneeded reference counting.
+
+2011-07-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala,
+	src/gst_player.vala: Improve the stability when switching to different
+	radio site.
+	* configure.ac: Enable memory profile and update Vala to 0.12.
+
+2011-04-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac: Enable silent-rules of automake.
+
+2011-03-20  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/watch: Fix debian/watch.
+	* man/betaradio.1: Polish manpage.
+
+2011-03-15  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/control: Remove unneeded dependency.
+	* man/betaradio.1: Polish man page.
+
+2011-03-12  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/README,
+	debian/changelog,
+	debian/compat,
+	debian/control,
+	debian/copyright,
+	debian/rules,
+	debian/watch: Polish for Debian package.
+	* debian/rules: Fix a syntax error.
+	* debian/control,
+	debian/copyright: Fix some lintian warning and error.
+	* data/betaradio.desktop.in: Remove deprecated tag.
+
+2011-02-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* utils/academic.json: Remove "PTT Radio - OnlyMayDay".
+
 2011-01-04  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.vala: Set default icon.
