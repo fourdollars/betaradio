@@ -6,6 +6,8 @@ if [ ! -e ./configure ]; then
     ./autogen.sh
 fi
 
+./configure
+
 make dist
 
 VERSION="$(./configure --version | head -n1 | cut -d ' ' -f 3)"
@@ -18,19 +20,8 @@ cp -a ./debian betaradio-${VERSION}
 
 cd betaradio-${VERSION}
 
-case "$*" in
-    ('-S')
-        debuild -S -sa
-        ;;
-    ('-P')
-        pdebuild
-        ;;
-    ('-PS')
-        pdebuild --auto-debsign
-        ;;
-    (*)
-        debuild -us -uc -tc
-        ;;
-esac
+debuild -S -sa
 
 cd ..
+
+pbuilder-dist unstable i386 build $(ls betaradio_${VERSION}-*.dsc)

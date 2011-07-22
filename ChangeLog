@@ -5,6 +5,7 @@
 	* configure.ac: Bump to 1.3
 	* debian/control: Avoid lintian warning.
 	* debian/changelog: New upstream release.
+	* mkdeb.sh: Update utilities script.
 
 2011-07-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
