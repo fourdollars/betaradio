@@ -1,6 +1,7 @@
 2011-07-22  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* configure.ac: Add libtool to avoid some compilation error.
+	* debian/control: Update Debian policy version.
 
 2011-07-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
