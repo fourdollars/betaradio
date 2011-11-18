@@ -38,7 +38,7 @@ PKG_CHECK_MODULES([SOUP], [libsoup-2.4], [
                    VALA_CFLAGS="$VALA_CFLAGS $SOUP_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $SOUP_LIBS"
                    ], AC_MSG_ERROR([libsoup-2.4 not found]))
-VALA_FLAGS="--enable-mem-profiler --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
+VALA_FLAGS="--enable-mem-profiler --thread --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
 
 AC_SUBST(VALA_CFLAGS)
 AC_SUBST(VALA_FLAGS)

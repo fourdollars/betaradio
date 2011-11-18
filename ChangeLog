@@ -1,3 +1,10 @@
+2011-11-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	po/zh_TW.po,
+	src/betaradio.vala,
+	src/json_soup.vala: Add thread support to improve quick feedback.
+
 2011-07-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* debian/changelog: Add more information about the changes of debian/control.

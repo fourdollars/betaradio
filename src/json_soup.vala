@@ -44,7 +44,7 @@ class JsonSoup : GLib.Object {
         }
     }
     public JsonSoup.http(string url) {
-        var session = new SessionAsync();
+        var session = new SessionSync();
         var message = new Message.from_uri("GET", new URI(url));
         if (session.send_message(message) != 200) {
             warning("Can not connect to %s", url);

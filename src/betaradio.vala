@@ -44,43 +44,54 @@ class BetaRadio : GLib.Object {
         } else {
             icon = new Gtk.StatusIcon.from_stock(Gtk.Stock.MISSING_IMAGE);
         }
-        icon.set_tooltip_text(_("BetaRadio Tuner"));
-        menu = new Gtk.Menu();
-        unowned SList<Gtk.RadioMenuItem> group = null;
+        icon.set_tooltip_text(_("Data Synchronizing ..."));
 
-        var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
-        group = stop.get_group();
-        menu.append(stop);
-        stop.toggled.connect((e) => {
-            if (e.get_active() == true) {
-                GstPlayer.get_instance().stop();
+        try {
+            Thread.create<void*> ( () => {
+                menu = new Gtk.Menu();
+                unowned SList<Gtk.RadioMenuItem> group = null;
+
+                var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
+                group = stop.get_group();
+                menu.append(stop);
+                stop.toggled.connect((e) => {
+                    if (e.get_active() == true) {
+                        GstPlayer.get_instance().stop();
+                        icon.set_tooltip_text(_("BetaRadio Tuner"));
+                    }
+                });
+
+                menu.append(new Gtk.SeparatorMenuItem());
+
+                group = getMenu(menu, group);
+
+                menu.append(new Gtk.SeparatorMenuItem());
+
+                var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
+                group = quit.get_group();
+                menu.append(quit);
+                quit.toggled.connect((e) => {
+                    if (e.get_active() == true) {
+                        GstPlayer.get_instance().stop();
+                        icon.set_tooltip_text(_("BetaRadio Tuner"));
+                        Gtk.main_quit();
+                    }
+                });
+
+                menu.show_all();
+
+                icon.button_release_event.connect((e) => {
+                    menu.popup(null, null, null, e.button, e.time);
+                    return true;
+                });
+
                 icon.set_tooltip_text(_("BetaRadio Tuner"));
-            }
-        });
 
-        menu.append(new Gtk.SeparatorMenuItem());
-
-        group = getMenu(menu, group);
-
-        menu.append(new Gtk.SeparatorMenuItem());
-
-        var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
-        group = quit.get_group();
-        menu.append(quit);
-        quit.toggled.connect((e) => {
-            if (e.get_active() == true) {
-                GstPlayer.get_instance().stop();
-                icon.set_tooltip_text(_("BetaRadio Tuner"));
-                Gtk.main_quit();
-            }
-        });
-
-        menu.show_all();
-
-        icon.button_release_event.connect((e) => {
-            menu.popup(null, null, null, e.button, e.time);
-            return true;
-        });
+                return null;
+            }, true);
+        } catch(GLib.ThreadError e) {
+            debug("%s", e.message);
+        }
     }
 
     private unowned SList<Gtk.RadioMenuItem> getMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group) {
