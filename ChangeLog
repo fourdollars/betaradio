@@ -4,6 +4,8 @@
 	po/zh_TW.po,
 	src/betaradio.vala,
 	src/json_soup.vala: Add thread support to improve quick feedback.
+	* po/zh_TW.po,
+	src/betaradio.vala: Prompt to restart program.
 
 2011-07-25  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
