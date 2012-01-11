@@ -8,7 +8,7 @@ fi
 
 ./configure
 
-make dist
+make distcheck
 
 VERSION="$(./configure --version | head -n1 | cut -d ' ' -f 3)"
 
@@ -20,8 +20,18 @@ cp -a ./debian betaradio-${VERSION}
 
 cd betaradio-${VERSION}
 
-debuild -S -sa
+debuild -S -sa -us -uc
 
 cd ..
 
-pbuilder-dist unstable i386 build $(ls betaradio_${VERSION}-*.dsc)
+CODENAME="$(lsb_release -c -s)"
+
+if uname -a | grep x86_64; then
+    ARCH="amd64"
+else
+    ARCH="i386"
+fi
+
+DSC="$(ls betaradio_${VERSION}-*.dsc | head -n1)"
+
+pbuilder-dist $CODENAME $ARCH build $DSC

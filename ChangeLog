@@ -11,7 +11,7 @@
 	vapi/Makefile.am,
 	vapi/any_tray_icon.vapi: Apply any_tray_icon to use libappindicator
 	and fallback to gtk_status_icon.
-
+	* mkdeb.sh: Polish Debian packaging script.
 
 2011-11-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
