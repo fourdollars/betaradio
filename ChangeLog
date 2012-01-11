@@ -1,3 +1,18 @@
+2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* Makefile.am,
+	configure.ac,
+	debian/control,
+	src/Makefile.am: Add libltdl support.
+	* src/Makefile.am,
+	src/any_tray_icon.c,
+	src/any_tray_icon.h,
+	src/betaradio.vala,
+	vapi/Makefile.am,
+	vapi/any_tray_icon.vapi: Apply any_tray_icon to use libappindicator
+	and fallback to gtk_status_icon.
+
+
 2011-11-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* configure.ac,

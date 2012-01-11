@@ -7,8 +7,10 @@ AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-dist-gzip dist-bzip2 silent-rules])
 AM_SILENT_RULES([yes])
 
-LT_PREREQ([2.2.6b])
-LT_INIT
+LT_PREREQ([2.2.6])
+LT_CONFIG_LTDL_DIR([libltdl])
+LT_INIT([dlopen])
+LTDL_INIT
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION(0.17)

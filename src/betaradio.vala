@@ -21,7 +21,7 @@ using Gtk;
 using Gst;
 
 class BetaRadio : GLib.Object {
-    private Gtk.StatusIcon icon = null;
+    private AnyTray.Icon icon = null;
     private Gtk.Menu menu = null;
 
     public static void main (string[] args) {
@@ -38,13 +38,9 @@ class BetaRadio : GLib.Object {
 
     public BetaRadio () {
         if (FileUtils.test(Config.DATADIR + "/pixmaps/betaradio/betaradio.png", FileTest.IS_REGULAR) == true) {
-            icon = new Gtk.StatusIcon.from_file(Config.DATADIR + "/pixmaps/betaradio/betaradio.png");
-        } else if (FileUtils.test("data/betaradio.png", FileTest.IS_REGULAR) == true) {
-            icon = new Gtk.StatusIcon.from_file("data/betaradio.png");
-        } else {
-            icon = new Gtk.StatusIcon.from_stock(Gtk.Stock.MISSING_IMAGE);
+            icon = new AnyTray.Icon(Config.DATADIR + "/pixmaps/betaradio/betaradio.png", _("BetaRadio Tuner"));
         }
-        icon.set_tooltip_text(_("Data Synchronizing ..."));
+        icon.set_text(_("Data Synchronizing ..."));
 
         try {
             Thread.create<void*> ( () => {
@@ -57,7 +53,7 @@ class BetaRadio : GLib.Object {
                 stop.toggled.connect((e) => {
                     if (e.get_active() == true) {
                         GstPlayer.get_instance().stop();
-                        icon.set_tooltip_text(_("BetaRadio Tuner"));
+                        icon.set_text(_("BetaRadio Tuner"));
                     }
                 });
 
@@ -73,19 +69,16 @@ class BetaRadio : GLib.Object {
                 quit.toggled.connect((e) => {
                     if (e.get_active() == true) {
                         GstPlayer.get_instance().stop();
-                        icon.set_tooltip_text(_("BetaRadio Tuner"));
+                        icon.set_text(_("BetaRadio Tuner"));
                         Gtk.main_quit();
                     }
                 });
 
                 menu.show_all();
 
-                icon.button_release_event.connect((e) => {
-                    menu.popup(null, null, null, e.button, e.time);
-                    return true;
-                });
+                icon.set_menu(menu);
 
-                icon.set_tooltip_text(_("BetaRadio Tuner"));
+                icon.set_text(_("BetaRadio Tuner"));
 
                 return null;
             }, true);
@@ -143,7 +136,7 @@ class BetaRadio : GLib.Object {
                 radio.toggled.connect( (e) => {
                     if (e.get_active() == true) {
                         GstPlayer.get_instance().play(url);
-                        icon.set_tooltip_text(title);
+                        icon.set_text(title);
                     }
                 });
                 json.grandparent();
@@ -165,7 +158,7 @@ class BetaRadio : GLib.Object {
             radio.toggled.connect( (e) => {
                 if (e.get_active() == true) {
                     GstPlayer.get_instance().play(url);
-                    icon.set_tooltip_text(title);
+                    icon.set_text(title);
                 }
             });
             json.grandparent();
