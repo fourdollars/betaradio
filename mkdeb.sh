@@ -34,4 +34,4 @@ fi
 
 DSC="$(ls betaradio_${VERSION}-*.dsc | head -n1)"
 
-pbuilder-dist $CODENAME $ARCH build $DSC
+pbuilder-dist $CODENAME $ARCH build --buildresult $PWD $DSC

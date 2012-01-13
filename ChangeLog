@@ -9,6 +9,7 @@
 	src/any_tray_icon.c,
 	src/betaradio.vala: Use icon name instead of icon file.
 	* data/Makefile.am: Fix error of Automake.
+	* mkdeb.sh: Polish Debian packaging script.
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
