@@ -12,6 +12,7 @@
 	* mkdeb.sh: Polish Debian packaging script.
 	* src/betaradio.vala: Fix runtime error.
 	* po/zh_TW.po: Update zh_TW translation.
+	* configure.ac: Bump to 1.4
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
