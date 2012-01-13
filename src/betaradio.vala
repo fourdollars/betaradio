@@ -37,9 +37,7 @@ class BetaRadio : GLib.Object {
     }
 
     public BetaRadio () {
-        if (FileUtils.test(Config.DATADIR + "/pixmaps/betaradio/betaradio.png", FileTest.IS_REGULAR) == true) {
-            icon = new AnyTray.Icon(Config.PACKAGE_NAME, _("BetaRadio Tuner"));
-        }
+        icon = new AnyTray.Icon(Config.PACKAGE_NAME, _("BetaRadio Tuner"));
         icon.set_text(_("Data Synchronizing ..."));
 
         try {

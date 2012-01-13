@@ -10,6 +10,7 @@
 	src/betaradio.vala: Use icon name instead of icon file.
 	* data/Makefile.am: Fix error of Automake.
 	* mkdeb.sh: Polish Debian packaging script.
+	* src/betaradio.vala: Fix runtime error.
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
