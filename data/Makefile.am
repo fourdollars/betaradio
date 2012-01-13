@@ -1,5 +1,6 @@
-EXTRA_DIST = \
-             betaradio.png \
+EXTRA_DIST = 32x32/betaradio.png \
+             48x48/betaradio.png \
+             128x128/betaradio.png \
              betaradio.desktop.in
 
 icon32dir = @datadir@/icons/hicolor/32x32/apps/

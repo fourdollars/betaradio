@@ -8,6 +8,7 @@
 	data/betaradio.desktop.in,
 	src/any_tray_icon.c,
 	src/betaradio.vala: Use icon name instead of icon file.
+	* data/Makefile.am: Fix error of Automake.
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
