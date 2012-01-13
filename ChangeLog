@@ -1,6 +1,13 @@
 2012-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/any_tray_icon.c: Fix radio selecting issue. (Fixes issue 2)
+	* data/128x128/betaradio.png,
+	data/32x32/betaradio.png,
+	data/48x48/betaradio.png,
+	data/Makefile.am,
+	data/betaradio.desktop.in,
+	src/any_tray_icon.c,
+	src/betaradio.vala: Use icon name instead of icon file.
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 

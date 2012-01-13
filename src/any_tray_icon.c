@@ -221,7 +221,12 @@ any_tray_icon_new (const gchar *icon,
         priv->indicator_icon = app_indicator_new(text, icon, 0);
     }
     else {
-        priv->status_icon = gtk_status_icon_new_from_file(icon);
+        if (g_file_test (icon, G_FILE_TEST_IS_REGULAR) == TRUE) {
+            priv->status_icon = gtk_status_icon_new_from_file(icon);
+        }
+        else {
+            priv->status_icon = gtk_status_icon_new_from_icon_name(icon);
+        }
         gtk_status_icon_set_tooltip_text (priv->status_icon, text);
     }
 

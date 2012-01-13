@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=GTK;Application;AudioVideo;Audio;Player;
 Exec=betaradio
-Icon=@prefix@/share/pixmaps/betaradio/betaradio.png
+Icon=betaradio
 Type=Application
 Terminal=false
 Name=BetaRadio Tuner
