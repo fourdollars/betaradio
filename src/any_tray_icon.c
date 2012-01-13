@@ -229,7 +229,7 @@ any_tray_icon_new (const gchar *icon,
 }
 
 static gboolean
-gtk_status_icon_button_release_event (GtkStatusIcon* sender, GdkEventButton* event, gpointer self)
+gtk_status_icon_button_press_event (GtkStatusIcon* sender, GdkEventButton* event, gpointer self)
 {
     AnyTrayIcon        *icon = ANY_TRAY_ICON (self);
     AnyTrayIconPrivate *priv = icon->priv;
@@ -262,7 +262,7 @@ any_tray_icon_set_menu (AnyTrayIcon *self,
         app_indicator_set_status (priv->indicator_icon, priv->visible);
     }
     else {
-        g_signal_connect_object (priv->status_icon, "button-release-event", (GCallback) gtk_status_icon_button_release_event, self, 0);
+        g_signal_connect_object (priv->status_icon, "button-press-event", (GCallback) gtk_status_icon_button_press_event, self, 0);
     }
 }
 

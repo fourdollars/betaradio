@@ -1,3 +1,7 @@
+2012-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/any_tray_icon.c: Fix radio selecting issue. (Fixes issue 2)
+
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* Makefile.am,
