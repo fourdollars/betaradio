@@ -1,3 +1,11 @@
+betaradio (1.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/patches/00_dont_install_header: Don't install header file into the
+    system.
+
+ -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Sat, 14 Jan 2012 20:58:32 +0800
+
 betaradio (1.3-1) unstable; urgency=low
 
   * New upstream release.

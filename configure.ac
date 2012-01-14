@@ -1,5 +1,5 @@
 AC_PREREQ(2.65)
-AC_INIT([betaradio],[1.3],[http://code.google.com/p/betaradio])
+AC_INIT([betaradio],[1.4],[http://code.google.com/p/betaradio])
 AM_MAINTAINER_MODE([enable])
 AC_CONFIG_SRCDIR([src/betaradio.vala])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -7,8 +7,10 @@ AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-dist-gzip dist-bzip2 silent-rules])
 AM_SILENT_RULES([yes])
 
-LT_PREREQ([2.2.6b])
-LT_INIT
+LT_PREREQ([2.2.6])
+LT_CONFIG_LTDL_DIR([libltdl])
+LT_INIT([dlopen])
+LTDL_INIT
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION(0.17)
@@ -38,7 +40,7 @@ PKG_CHECK_MODULES([SOUP], [libsoup-2.4], [
                    VALA_CFLAGS="$VALA_CFLAGS $SOUP_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $SOUP_LIBS"
                    ], AC_MSG_ERROR([libsoup-2.4 not found]))
-VALA_FLAGS="--enable-mem-profiler --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
+VALA_FLAGS="--enable-mem-profiler --thread --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
 
 AC_SUBST(VALA_CFLAGS)
 AC_SUBST(VALA_FLAGS)

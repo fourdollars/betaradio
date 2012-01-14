@@ -21,7 +21,7 @@ using Gtk;
 using Gst;
 
 class BetaRadio : GLib.Object {
-    private Gtk.StatusIcon icon = null;
+    private AnyTray.Icon icon = null;
     private Gtk.Menu menu = null;
 
     public static void main (string[] args) {
@@ -37,55 +37,59 @@ class BetaRadio : GLib.Object {
     }
 
     public BetaRadio () {
-        if (FileUtils.test(Config.DATADIR + "/pixmaps/betaradio/betaradio.png", FileTest.IS_REGULAR) == true) {
-            icon = new Gtk.StatusIcon.from_file(Config.DATADIR + "/pixmaps/betaradio/betaradio.png");
-        } else if (FileUtils.test("data/betaradio.png", FileTest.IS_REGULAR) == true) {
-            icon = new Gtk.StatusIcon.from_file("data/betaradio.png");
-        } else {
-            icon = new Gtk.StatusIcon.from_stock(Gtk.Stock.MISSING_IMAGE);
+        icon = new AnyTray.Icon(Config.PACKAGE_NAME, _("BetaRadio Tuner"));
+        icon.set_text(_("Data Synchronizing ..."));
+
+        try {
+            Thread.create<void*> ( () => {
+                menu = new Gtk.Menu();
+                unowned SList<Gtk.RadioMenuItem> group = null;
+
+                var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
+                group = stop.get_group();
+                menu.append(stop);
+                stop.toggled.connect((e) => {
+                    if (e.get_active() == true) {
+                        GstPlayer.get_instance().stop();
+                        icon.set_text(_("BetaRadio Tuner"));
+                    }
+                });
+
+                menu.append(new Gtk.SeparatorMenuItem());
+
+                group = getMenu(menu, group);
+
+                menu.append(new Gtk.SeparatorMenuItem());
+
+                var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
+                group = quit.get_group();
+                menu.append(quit);
+                quit.toggled.connect((e) => {
+                    if (e.get_active() == true) {
+                        GstPlayer.get_instance().stop();
+                        icon.set_text(_("BetaRadio Tuner"));
+                        Gtk.main_quit();
+                    }
+                });
+
+                menu.show_all();
+
+                icon.set_menu(menu);
+
+                icon.set_text(_("BetaRadio Tuner"));
+
+                return null;
+            }, true);
+        } catch(GLib.ThreadError e) {
+            debug("%s", e.message);
         }
-        icon.set_tooltip_text(_("BetaRadio Tuner"));
-        menu = new Gtk.Menu();
-        unowned SList<Gtk.RadioMenuItem> group = null;
-
-        var stop = new Gtk.RadioMenuItem.with_label(group, _("Stop"));
-        group = stop.get_group();
-        menu.append(stop);
-        stop.toggled.connect((e) => {
-            if (e.get_active() == true) {
-                GstPlayer.get_instance().stop();
-                icon.set_tooltip_text(_("BetaRadio Tuner"));
-            }
-        });
-
-        menu.append(new Gtk.SeparatorMenuItem());
-
-        group = getMenu(menu, group);
-
-        menu.append(new Gtk.SeparatorMenuItem());
-
-        var quit = new Gtk.RadioMenuItem.with_label(group, _("Quit"));
-        group = quit.get_group();
-        menu.append(quit);
-        quit.toggled.connect((e) => {
-            if (e.get_active() == true) {
-                GstPlayer.get_instance().stop();
-                icon.set_tooltip_text(_("BetaRadio Tuner"));
-                Gtk.main_quit();
-            }
-        });
-
-        menu.show_all();
-
-        icon.button_release_event.connect((e) => {
-            menu.popup(null, null, null, e.button, e.time);
-            return true;
-        });
     }
 
     private unowned SList<Gtk.RadioMenuItem> getMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group) {
         var list = new JsonSoup.http("http://betaradio.googlecode.com/svn/trunk/utils/list.json");
         if (list.is_array() == false) {
+            var conn_err = new Gtk.MenuItem.with_label(_("Connection failed. Please restart this program."));
+            menu.append(conn_err);
             return group;
         }
         int length = list.length();
@@ -130,7 +134,7 @@ class BetaRadio : GLib.Object {
                 radio.toggled.connect( (e) => {
                     if (e.get_active() == true) {
                         GstPlayer.get_instance().play(url);
-                        icon.set_tooltip_text(title);
+                        icon.set_text(title);
                     }
                 });
                 json.grandparent();
@@ -152,7 +156,7 @@ class BetaRadio : GLib.Object {
             radio.toggled.connect( (e) => {
                 if (e.get_active() == true) {
                     GstPlayer.get_instance().play(url);
-                    icon.set_tooltip_text(title);
+                    icon.set_text(title);
                 }
             });
             json.grandparent();
