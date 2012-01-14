@@ -1,3 +1,7 @@
+2012-01-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/Makefile.am: Don't install header file into the system.
+
 2012-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/any_tray_icon.c: Fix radio selecting issue. (Fixes issue 2)
