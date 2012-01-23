@@ -1,3 +1,7 @@
+2012-01-23  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* data/betaradio.desktop.in: Update categories.
+
 2012-01-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/Makefile.am: Don't install header file into the system.
