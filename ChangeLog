@@ -1,3 +1,8 @@
+2012-04-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	src/betaradio.vala: Disable GLib memory profiler.
+
 2012-01-23  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* data/betaradio.desktop.in: Update categories.

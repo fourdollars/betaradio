@@ -33,7 +33,6 @@ class BetaRadio : GLib.Object {
         var app = new BetaRadio();
         message("Running");
         Gtk.main();
-        GLib.mem_profile();
     }
 
     public BetaRadio () {
