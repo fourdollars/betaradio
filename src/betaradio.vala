@@ -25,14 +25,17 @@ class BetaRadio : GLib.Object {
     private Gtk.Menu menu = null;
 
     public static void main (string[] args) {
+        Gdk.threads_init();
         Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
         Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
         Intl.textdomain( Config.PACKAGE_NAME );
+        Gdk.threads_enter();
         Gst.init(ref args);
         Gtk.init(ref args);
         var app = new BetaRadio();
         message("Running");
         Gtk.main();
+        Gdk.threads_leave();
     }
 
     public BetaRadio () {
@@ -41,6 +44,7 @@ class BetaRadio : GLib.Object {
 
         try {
             Thread.create<void*> ( () => {
+                Gdk.threads_enter();
                 menu = new Gtk.Menu();
                 unowned SList<Gtk.RadioMenuItem> group = null;
 
@@ -77,6 +81,7 @@ class BetaRadio : GLib.Object {
 
                 icon.set_text(_("BetaRadio Tuner"));
 
+                Gdk.threads_leave();
                 return null;
             }, true);
         } catch(GLib.ThreadError e) {
