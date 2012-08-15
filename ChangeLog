@@ -1,3 +1,9 @@
+2012-08-15  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/control,
+	src/betaradio.vala,
+	configure.ac: Add single instance support.
+
 2012-08-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/betaradio.vala: Correct thread usage.
