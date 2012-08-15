@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Unique;
 using Gtk;
 using Gst;
 
@@ -25,29 +24,29 @@ class BetaRadio : GLib.Object {
     private AnyTray.Icon icon = null;
     private Gtk.Menu menu = null;
 
-    public static void main (string[] args) {
+    public static int main (string[] args) {
         Gdk.threads_init();
+        Gst.init(ref args);
+        Gtk.init(ref args);
 
         Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
         Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
         Intl.textdomain( Config.PACKAGE_NAME );
 
-        Gdk.threads_enter();
-        Gst.init(ref args);
-        Gtk.init(ref args);
+        var app = new GLib.Application("org.sylee.betaradio", GLib.ApplicationFlags.FLAGS_NONE);
 
-        Unique.App app = new Unique.App("org.sylee.betaradio", null);
+        bool is_running = false;
+        app.activate.connect(() => {
+            if (is_running) return;
+            is_running = true;
 
-        if (app.is_running) {
-            message("There is already an BetaRadio instance running.");
-            return;
-        }
+            Gdk.threads_enter();
+            var instance = new BetaRadio();
+            Gtk.main();
+            Gdk.threads_leave();
+        });
 
-        var instance = new BetaRadio();
-        message("Running");
-
-        Gtk.main();
-        Gdk.threads_leave();
+        return app.run();
     }
 
     public BetaRadio () {

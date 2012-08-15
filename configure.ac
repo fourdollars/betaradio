@@ -40,11 +40,7 @@ PKG_CHECK_MODULES([SOUP], [libsoup-2.4], [
                    VALA_CFLAGS="$VALA_CFLAGS $SOUP_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $SOUP_LIBS"
                    ], AC_MSG_ERROR([libsoup-2.4 not found]))
-PKG_CHECK_MODULES([UNIQUE], [unique-1.0], [
-                   VALA_CFLAGS="$VALA_CFLAGS $UNIQUE_CFLAGS"
-                   VALA_LIBS="$VALA_LIBS $UNIQUE_LIBS"
-                   ], AC_MSG_ERROR([unique-1.0 not found]))
-VALA_FLAGS="--thread --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0 --pkg unique-1.0"
+VALA_FLAGS="--thread --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-0.10 --pkg gtk+-2.0"
 
 AC_SUBST(VALA_CFLAGS)
 AC_SUBST(VALA_FLAGS)
