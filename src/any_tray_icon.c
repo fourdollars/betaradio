@@ -103,7 +103,6 @@ static void
 any_tray_icon_init (AnyTrayIcon *icon)
 {
     AnyTrayIconPrivate *priv = G_TYPE_INSTANCE_GET_PRIVATE (icon, ANY_TRAY_TYPE_ICON, AnyTrayIconPrivate);
-    gchar* desktop = getenv("XDG_CURRENT_DESKTOP");
 
     icon->priv = priv;
 
@@ -114,9 +113,7 @@ any_tray_icon_init (AnyTrayIcon *icon)
     priv->indicator   = NULL;
     priv->visible     = TRUE;
 
-    if (desktop != NULL && strcmp("Unity", desktop) == 0) {
-        priv->indicator = lt_dlopen("libappindicator.so.1");
-    }
+    priv->indicator = lt_dlopen("libappindicator.so.1");
 
     return;
 }

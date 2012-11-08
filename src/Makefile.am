@@ -2,7 +2,7 @@ AM_CPPFLAGS = $(LTDLINCL)
 
 bin_PROGRAMS = betaradio
 
-include_HEADERS = any_tray_icon.h
+noinst_HEADERS = any_tray_icon.h
 
 betaradio_SOURCES = betaradio.vala \
                     gst_player.vala \

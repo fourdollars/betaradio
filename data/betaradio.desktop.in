@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=GTK;Application;AudioVideo;Audio;Player;
+Categories=GTK;AudioVideo;Audio;Tuner;Music;TrayIcon
 Exec=betaradio
 Icon=betaradio
 Type=Application

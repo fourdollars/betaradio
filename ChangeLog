@@ -1,3 +1,38 @@
+2012-10-21  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	debian/changelog: Bump to 1.5
+
+2012-08-15  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/control,
+	src/betaradio.vala,
+	configure.ac: Add single instance support.
+	* debian/control,
+	src/betaradio.vala,
+	configure.ac: Use GApplication to replace deprecated Unique.
+
+2012-08-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala: Correct thread usage.
+
+2012-07-09  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/any_tray_icon.c: Remove the check of Unity.
+
+2012-04-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	src/betaradio.vala: Disable GLib memory profiler.
+
+2012-01-23  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* data/betaradio.desktop.in: Update categories.
+
+2012-01-14  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/Makefile.am: Don't install header file into the system.
+
 2012-01-13  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* src/any_tray_icon.c: Fix radio selecting issue. (Fixes issue 2)
@@ -13,6 +48,7 @@
 	* src/betaradio.vala: Fix runtime error.
 	* po/zh_TW.po: Update zh_TW translation.
 	* configure.ac: Bump to 1.4
+	* debian/changelog: New upstream release.
 
 2012-01-11  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
