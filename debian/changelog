@@ -1,14 +1,19 @@
 betaradio (1.5-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/control:
+    - Update Debian Policy version to 3.9.3
+  * Drop debian/patches/00_dont_install_header because it has upstreamed.
 
- -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Sun, 21 Oct 2012 18:39:27 +0800
+ -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Fri, 09 Nov 2012 00:00:54 +0800
 
 betaradio (1.4-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/patches/00_dont_install_header: Don't install header file into the
+    system.
 
- -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Fri, 13 Jan 2012 18:12:07 +0800
+ -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Sat, 14 Jan 2012 20:58:32 +0800
 
 betaradio (1.3-1) unstable; urgency=low
 

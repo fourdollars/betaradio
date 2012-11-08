@@ -1,3 +1,8 @@
+2012-11-09  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/control,
+	debian/changelog: Sync Debian package information.
+
 2012-10-21  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* configure.ac,

@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 Build-Depends: debhelper (>= 8), autotools-dev, libgtk2.0-dev (>= 2.10),
     libgstreamer0.10-dev, libjson-glib-dev, libsoup2.4-dev, libltdl-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Vcs-Svn: http://betaradio.googlecode.com/svn/trunk/
 Vcs-Browser: http://code.google.com/p/betaradio/source/browse/
 Homepage: http://code.google.com/p/betaradio/
