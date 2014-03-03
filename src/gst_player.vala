@@ -25,8 +25,8 @@ class GstPlayer : GLib.Object {
     private dynamic Element player = null;
 
     private GstPlayer(string name) {
-        player = ElementFactory.make("playbin2", name);
-        player.get_bus().add_watch(bus_callback);
+        player = ElementFactory.make("playbin", name);
+        player.get_bus().add_watch(ThreadPriority.NORMAL, bus_callback);
     }
 
     ~GstPlayer() {

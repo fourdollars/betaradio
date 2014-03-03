@@ -1,3 +1,12 @@
+2014-03-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	debian/control,
+	po/zh_TW.po,
+	src/betaradio.vala,
+	src/gst_player.vala: Upgrade the dependencies of GTK+, GLib and
+	GStreamer.
+
 2012-11-09  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* debian/control,

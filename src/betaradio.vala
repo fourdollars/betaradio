@@ -25,7 +25,6 @@ class BetaRadio : GLib.Object {
     private Gtk.Menu menu = null;
 
     public static int main (string[] args) {
-        Gdk.threads_init();
         Gst.init(ref args);
         Gtk.init(ref args);
 
@@ -40,10 +39,8 @@ class BetaRadio : GLib.Object {
             if (is_running) return;
             is_running = true;
 
-            Gdk.threads_enter();
             var instance = new BetaRadio();
             Gtk.main();
-            Gdk.threads_leave();
         });
 
         return app.run();
@@ -54,8 +51,7 @@ class BetaRadio : GLib.Object {
         icon.set_text(_("Data Synchronizing ..."));
 
         try {
-            Thread.create<void*> ( () => {
-                Gdk.threads_enter();
+            Thread.create<void*>(() => {
                 menu = new Gtk.Menu();
                 unowned SList<Gtk.RadioMenuItem> group = null;
 
@@ -92,7 +88,6 @@ class BetaRadio : GLib.Object {
 
                 icon.set_text(_("BetaRadio Tuner"));
 
-                Gdk.threads_leave();
                 return null;
             }, true);
         } catch(GLib.ThreadError e) {
