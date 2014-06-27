@@ -32,7 +32,12 @@ class BetaRadio : GLib.Object {
         Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
         Intl.textdomain( Config.PACKAGE_NAME );
 
-        var app = new GLib.Application("org.sylee.betaradio", GLib.ApplicationFlags.FLAGS_NONE);
+        if (Thread.supported () == false) {
+            stderr.printf("Threads are not supported!\n");
+            return -1;
+        }
+
+        var app = new GLib.Application("com.google.code.p.betaradio", GLib.ApplicationFlags.FLAGS_NONE);
 
         bool is_running = false;
         app.activate.connect(() => {
@@ -41,6 +46,7 @@ class BetaRadio : GLib.Object {
 
             var instance = new BetaRadio();
             Gtk.main();
+            instance = null;
         });
 
         return app.run();
