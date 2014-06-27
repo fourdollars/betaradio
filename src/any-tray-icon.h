@@ -19,7 +19,7 @@
 #ifndef __ANY_TRAY_ICON_H__
 #define __ANY_TRAY_ICON_H__
 
-#include <gtk/gtkmenu.h>
+#include <glib-object.h>
 
 __BEGIN_DECLS
 
@@ -35,9 +35,8 @@ typedef struct _AnyTrayIconClass   AnyTrayIconClass;
 typedef struct _AnyTrayIconPrivate AnyTrayIconPrivate;
 
 struct _AnyTrayIcon {
-    GtkObject parent_instance;
-
-    AnyTrayIconPrivate *GSEAL (priv);
+    GObject parent_instance;
+    AnyTrayIconPrivate *priv;
 };
 
 struct _AnyTrayIconClass {

@@ -21,8 +21,8 @@ using Gtk;
 using Gst;
 
 class BetaRadio : GLib.Object {
-    private AnyTray.Icon icon = null;
     private Gtk.Menu menu = null;
+    private AnyTray.Icon icon = null;
 
     public static int main (string[] args) {
         Gst.init(ref args);

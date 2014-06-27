@@ -3,3 +3,4 @@
 set -e
 
 autoreconf -if
+./configure --prefix=/usr

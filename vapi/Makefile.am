@@ -1,3 +1,3 @@
-noinst_DATA = config.vapi any_tray_icon.vapi
+noinst_DATA = config.vapi any-tray-icon.vapi
 
 EXTRA_DIST = $(noinst_DATA)
