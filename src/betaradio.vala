@@ -102,7 +102,7 @@ class BetaRadio : GLib.Object {
     }
 
     private unowned SList<Gtk.RadioMenuItem> getMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group) {
-        var list = new JsonSoup.http("http://betaradio.googlecode.com/svn/trunk/utils/list.json");
+        var list = new JsonSoup.http("https://betaradio.googlecode.com/git/utils/list.json");
         if (list.is_array() == false) {
             var conn_err = new Gtk.MenuItem.with_label(_("Connection failed. Please restart this program."));
             menu.append(conn_err);
