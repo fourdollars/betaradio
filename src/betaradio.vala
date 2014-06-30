@@ -25,8 +25,8 @@ class BetaRadio : GLib.Object {
     private AnyTray.Icon icon = null;
 
     public static int main (string[] args) {
-        Gst.init(ref args);
         Gtk.init(ref args);
+        Gst.init(ref args);
 
         Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
         Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
@@ -149,7 +149,7 @@ class BetaRadio : GLib.Object {
                 submenu.append(radio);
                 radio.toggled.connect( (e) => {
                     if (e.get_active() == true) {
-                        GstPlayer.get_instance().play(url);
+                        GstPlayer.get_instance().play(title, url);
                         icon.set_text(title);
                     }
                 });
@@ -171,7 +171,7 @@ class BetaRadio : GLib.Object {
             menu.append(radio);
             radio.toggled.connect( (e) => {
                 if (e.get_active() == true) {
-                    GstPlayer.get_instance().play(url);
+                    GstPlayer.get_instance().play(title, url);
                     icon.set_text(title);
                 }
             });
