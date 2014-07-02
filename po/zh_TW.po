@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: betaradio 1.2\n"
 "Report-Msgid-Bugs-To: http://code.google.com/p/betaradio\n"
-"POT-Creation-Date: 2014-06-27 17:02+0800\n"
+"POT-Creation-Date: 2014-07-02 11:33+0800\n"
 "PO-Revision-Date: 2010-06-25 23:05+0800\n"
 "Last-Translator: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>\n"
 "Language-Team: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/betaradio.vala:56 src/betaradio.vala:70 src/betaradio.vala:86
-#: src/betaradio.vala:95
+#: src/betaradio.vala:58 src/betaradio.vala:72 src/betaradio.vala:88
+#: src/betaradio.vala:97
 msgid "BetaRadio Tuner"
 msgstr "BetaRadio 點播器"
 
-#: src/betaradio.vala:57
+#: src/betaradio.vala:59
 msgid "Data Synchronizing ..."
 msgstr "資料同步中..."
 
-#: src/betaradio.vala:64
+#: src/betaradio.vala:66
 msgid "Stop"
 msgstr "停止播放"
 
-#: src/betaradio.vala:80
+#: src/betaradio.vala:82
 msgid "Quit"
 msgstr "離開"
 
-#: src/betaradio.vala:107
+#: src/betaradio.vala:109
 msgid "Connection failed. Please restart this program."
 msgstr "連線失敗，請重新啟動程式。"
