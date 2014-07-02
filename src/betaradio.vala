@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using X;
 using Gtk;
 using Gst;
 
@@ -25,6 +26,7 @@ class BetaRadio : GLib.Object {
     private AnyTray.Icon icon = null;
 
     public static int main (string[] args) {
+        X.init_threads();
         Gtk.init(ref args);
         Gst.init(ref args);
 
