@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[CCode (prefix = "AnyTray_", lower_case_cprefix = "any_tray_", cheader_filename = "any_tray_icon.h")]
+[CCode (prefix = "AnyTray_", lower_case_cprefix = "any_tray_", cheader_filename = "any-tray-icon.h")]
 namespace AnyTray
 {
     public class Icon : GLib.Object {

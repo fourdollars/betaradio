@@ -18,9 +18,9 @@
 
 #include <stdlib.h>
 #include <ltdl.h>
-#include <gtk/gtkstatusicon.h>
+#include <gtk/gtk.h>
 
-#include "any_tray_icon.h"
+#include "any-tray-icon.h"
 
 enum
 {
@@ -59,7 +59,7 @@ static void     any_tray_icon_get_property (GObject               *object,
 static void     any_tray_icon_dispose      (GObject               *object);
 static void     any_tray_icon_finalize     (GObject               *object);
 
-G_DEFINE_TYPE (AnyTrayIcon, any_tray_icon, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (AnyTrayIcon, any_tray_icon, G_TYPE_OBJECT)
 
 static gboolean
 any_tray_check_unity (void)
@@ -92,8 +92,6 @@ any_tray_icon_class_init (AnyTrayIconClass *class)
                                                           "Text of this icon",
                                                           NULL,
                                                           G_PARAM_READWRITE|G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
-    g_type_class_add_private (class, sizeof (AnyTrayIconPrivate));
-
     lt_dlinit();
 
     return;
@@ -103,7 +101,6 @@ static void
 any_tray_icon_init (AnyTrayIcon *icon)
 {
     AnyTrayIconPrivate *priv = G_TYPE_INSTANCE_GET_PRIVATE (icon, ANY_TRAY_TYPE_ICON, AnyTrayIconPrivate);
-
     icon->priv = priv;
 
     priv->icon        = NULL;
@@ -113,7 +110,7 @@ any_tray_icon_init (AnyTrayIcon *icon)
     priv->indicator   = NULL;
     priv->visible     = TRUE;
 
-    priv->indicator = lt_dlopen("libappindicator.so.1");
+    priv->indicator = lt_dlopen("libappindicator3.so.1");
 
     return;
 }
@@ -136,7 +133,7 @@ any_tray_icon_set_property (GObject      *object,
     g_return_if_fail (ANY_TRAY_ICON (object));
 
     AnyTrayIcon        *icon = ANY_TRAY_ICON (object);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     switch (prop_id) {
         default:
@@ -160,7 +157,7 @@ any_tray_icon_get_property (GObject    *object,
     g_return_if_fail (ANY_TRAY_ICON (object));
 
     AnyTrayIcon        *icon = ANY_TRAY_ICON (object);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     switch (prop_id) {
         default:
@@ -178,7 +175,7 @@ static void
 any_tray_icon_dispose (GObject *object)
 {
     AnyTrayIcon        *icon = ANY_TRAY_ICON (object);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     if (priv->status_icon)
         g_object_unref (priv->status_icon);
@@ -194,7 +191,7 @@ static void
 any_tray_icon_finalize (GObject *object)
 {
     AnyTrayIcon        *icon = ANY_TRAY_ICON (object);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     if (priv->icon)
         g_free(priv->icon);
@@ -210,7 +207,7 @@ any_tray_icon_new (const gchar *icon,
                    const gchar *text)
 {
     AnyTrayIcon        *object = ANY_TRAY_ICON (g_object_new (ANY_TRAY_TYPE_ICON, "icon", icon, "text", text, NULL));
-    AnyTrayIconPrivate *priv   = object->priv;
+    AnyTrayIconPrivate *priv   = any_tray_icon_get_instance_private (object);
 
     if (priv->indicator) {
         void*(*app_indicator_new)(const gchar*, const gchar*, gint) =
@@ -234,7 +231,7 @@ static gboolean
 gtk_status_icon_button_press_event (GtkStatusIcon* sender, GdkEventButton* event, gpointer self)
 {
     AnyTrayIcon        *icon = ANY_TRAY_ICON (self);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     g_return_val_if_fail (event != NULL, FALSE);
     gtk_menu_popup (priv->menu, NULL, NULL, NULL, NULL, event->button, event->time);
@@ -248,7 +245,7 @@ any_tray_icon_set_menu (AnyTrayIcon *self,
     g_return_if_fail (ANY_TRAY_ICON (self));
 
     AnyTrayIcon        *icon = ANY_TRAY_ICON (self);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     if (priv->menu)
         g_object_unref (priv->menu);
@@ -275,7 +272,7 @@ any_tray_icon_set_visible (AnyTrayIcon *self,
     g_return_if_fail (ANY_TRAY_ICON (self));
 
     AnyTrayIcon        *icon = ANY_TRAY_ICON (self);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     priv->visible = visible;
 
@@ -296,7 +293,7 @@ any_tray_icon_set_text (AnyTrayIcon *self,
     g_return_if_fail (ANY_TRAY_ICON (self));
 
     AnyTrayIcon        *icon = ANY_TRAY_ICON (self);
-    AnyTrayIconPrivate *priv = icon->priv;
+    AnyTrayIconPrivate *priv = any_tray_icon_get_instance_private (icon);
 
     if (priv->text)
         g_free (priv->text);

@@ -1,9 +1,10 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: betaradio
-Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
-Source: http://code.google.com/p/betaradio/downloads/list
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: betaradio
+Upstream-Contact: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+Source: https://github.com/fourdollars/betaradio
 
-Copyright: 2007-2011 Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+Files: *
+Copyright: 2007-2014 Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 License: GPL-3+
 
 Files: data/betaradio.png
@@ -26,5 +27,5 @@ License: GPL-3+
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  .
  On Debian systems, the full text of the GNU General Public
- License version 2 can be found in the file
+ License version 3 can be found in the file
  `/usr/share/common-licenses/GPL-3'.

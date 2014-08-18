@@ -1,3 +1,19 @@
+betaradio (1.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Update Debian Policy version to 3.9.5
+  * debian/compat,
+    debian/control: 
+    - Update debhelper to 9
+  * debian/patches/fix_desktop.patch:
+    - Fix lintian tags: desktop-entry-lacks-keywords-entry and
+    desktop-entry-uses-reserved-category.
+  * debian/copyright: Fix lintian tag, out-of-date-copyright-format-uri.
+  * debian/control: Update Vcs-Browser to GitHub.
+
+ -- Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>  Mon, 18 Aug 2014 11:50:45 +0800
+
 betaradio (1.5-1) unstable; urgency=low
 
   * New upstream release.

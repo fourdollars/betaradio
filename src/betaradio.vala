@@ -17,33 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using X;
 using Gtk;
 using Gst;
 
 class BetaRadio : GLib.Object {
-    private AnyTray.Icon icon = null;
     private Gtk.Menu menu = null;
+    private AnyTray.Icon icon = null;
 
     public static int main (string[] args) {
-        Gdk.threads_init();
-        Gst.init(ref args);
+        X.init_threads();
         Gtk.init(ref args);
+        Gst.init(ref args);
 
         Intl.bindtextdomain( Config.PACKAGE_NAME, Config.LOCALEDIR );
         Intl.bind_textdomain_codeset( Config.PACKAGE_NAME, "UTF-8" );
         Intl.textdomain( Config.PACKAGE_NAME );
 
-        var app = new GLib.Application("org.sylee.betaradio", GLib.ApplicationFlags.FLAGS_NONE);
+        if (Thread.supported () == false) {
+            stderr.printf("Threads are not supported!\n");
+            return -1;
+        }
+
+        var app = new GLib.Application("com.google.code.p.betaradio", GLib.ApplicationFlags.FLAGS_NONE);
 
         bool is_running = false;
         app.activate.connect(() => {
             if (is_running) return;
             is_running = true;
 
-            Gdk.threads_enter();
             var instance = new BetaRadio();
             Gtk.main();
-            Gdk.threads_leave();
+            instance = null;
         });
 
         return app.run();
@@ -54,8 +59,7 @@ class BetaRadio : GLib.Object {
         icon.set_text(_("Data Synchronizing ..."));
 
         try {
-            Thread.create<void*> ( () => {
-                Gdk.threads_enter();
+            Thread.create<void*>(() => {
                 menu = new Gtk.Menu();
                 unowned SList<Gtk.RadioMenuItem> group = null;
 
@@ -92,7 +96,6 @@ class BetaRadio : GLib.Object {
 
                 icon.set_text(_("BetaRadio Tuner"));
 
-                Gdk.threads_leave();
                 return null;
             }, true);
         } catch(GLib.ThreadError e) {
@@ -101,7 +104,7 @@ class BetaRadio : GLib.Object {
     }
 
     private unowned SList<Gtk.RadioMenuItem> getMenu(Gtk.Menu menu, SList<Gtk.RadioMenuItem> group) {
-        var list = new JsonSoup.http("http://betaradio.googlecode.com/svn/trunk/utils/list.json");
+        var list = new JsonSoup.http("https://betaradio.googlecode.com/git/utils/list.json");
         if (list.is_array() == false) {
             var conn_err = new Gtk.MenuItem.with_label(_("Connection failed. Please restart this program."));
             menu.append(conn_err);
@@ -148,7 +151,7 @@ class BetaRadio : GLib.Object {
                 submenu.append(radio);
                 radio.toggled.connect( (e) => {
                     if (e.get_active() == true) {
-                        GstPlayer.get_instance().play(url);
+                        GstPlayer.get_instance().play(title, url);
                         icon.set_text(title);
                     }
                 });
@@ -170,7 +173,7 @@ class BetaRadio : GLib.Object {
             menu.append(radio);
             radio.toggled.connect( (e) => {
                 if (e.get_active() == true) {
-                    GstPlayer.get_instance().play(url);
+                    GstPlayer.get_instance().play(title, url);
                     icon.set_text(title);
                 }
             });

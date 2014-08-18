@@ -1,3 +1,57 @@
+2014-08-18  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/compat,
+	debian/control: Update debhelper and debian policy.
+	* configure.ac,
+	mkdeb.sh: Switch to xz.
+	* configure.ac,
+	debian/changelog: Bump to 1.6
+
+2014-07-02  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* po/zh_TW.po: Update po/zh_TW.po.
+	* configure.ac,
+	src/betaradio.vala: Using X.init_threads().
+
+2014-06-30  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala,
+	src/gst_player.vala: Polish gst_player.
+
+2014-06-27  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* src/betaradio.vala: Check thread support, change application_id and
+	follow the project's url.
+	* src/betaradio.vala,
+	utils/list.json: Fetch list.json from git repository.
+	* autogen.sh,
+	configure.ac,
+	debian/control,
+	po/zh_TW.po,
+	src/Makefile.am,
+	src/any-tray-icon.c,
+	src/any-tray-icon.h,
+	src/any_tray_icon.c,
+	src/any_tray_icon.h,
+	src/betaradio.vala,
+	vapi/Makefile.am,
+	vapi/any-tray-icon.vapi,
+	vapi/any_tray_icon.vapi: Switch to GTK+3.
+
+2014-03-03  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* configure.ac,
+	debian/control,
+	po/zh_TW.po,
+	src/betaradio.vala,
+	src/gst_player.vala: Upgrade the dependencies of GTK+, GLib and
+	GStreamer.
+
+2012-11-09  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+
+	* debian/control,
+	debian/changelog: Sync Debian package information.
+
 2012-10-21  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
 	* configure.ac,
