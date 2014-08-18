@@ -12,8 +12,7 @@ Build-Depends:
     libltdl-dev,
     libsoup2.4-dev
 Standards-Version: 3.9.5
-Vcs-Svn: http://betaradio.googlecode.com/svn/trunk/
-Vcs-Browser: http://code.google.com/p/betaradio/source/browse/
+Vcs-Browser: https://github.com/fourdollars/betaradio
 Homepage: http://code.google.com/p/betaradio/
 
 Package: betaradio
