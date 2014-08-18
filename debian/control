@@ -12,8 +12,9 @@ Build-Depends:
     libltdl-dev,
     libsoup2.4-dev
 Standards-Version: 3.9.5
-Vcs-Browser: https://github.com/fourdollars/betaradio
 Homepage: http://code.google.com/p/betaradio/
+Vcs-Browser: https://github.com/fourdollars/betaradio
+Vcs-Git: git://github.com/fourdollars/betaradio.git
 
 Package: betaradio
 Architecture: any
