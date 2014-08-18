@@ -4,6 +4,8 @@
 	debian/control: Update debhelper and debian policy.
 	* configure.ac,
 	mkdeb.sh: Switch to xz.
+	* configure.ac,
+	debian/changelog: Bump to 1.6
 
 2014-07-02  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
