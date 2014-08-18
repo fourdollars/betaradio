@@ -4,7 +4,7 @@ AM_MAINTAINER_MODE([enable])
 AC_CONFIG_SRCDIR([src/betaradio.vala])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([-Wall foreign no-dist-gzip dist-bzip2 silent-rules])
+AM_INIT_AUTOMAKE([-Wall foreign no-dist-gzip dist-xz silent-rules])
 AM_SILENT_RULES([yes])
 
 LT_PREREQ([2.2.6])
