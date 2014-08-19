@@ -24,7 +24,7 @@ Depends:
     gstreamer1.0-plugins-bad,
     gstreamer1.0-plugins-ugly
 Recommends: gstreamer1.0-libav
-Description: Internet radio of Taiwan
- With this client you can listen to internet radio of Taiwan without opening a
+Description: Internet radios of Taiwan
+ With this client you can listen to Internet radios of Taiwan without opening a
  browser. It displays a icon on system tray that you can click and select the
  channel you want to listen to.
