@@ -6,7 +6,6 @@
 	* debian/control: Avoid lintian warning.
 	* debian/changelog: New upstream release.
 	* mkdeb.sh: Update utilities script.
-	* debian/changelog: Fix a little typo.
 
 2011-07-05  Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
 
