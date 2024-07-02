@@ -1,8 +1,8 @@
 # BetaRadio - An easy way listening to Internet radios of Taiwan in GNU/Linux.
 
-![Demo](http://fd.idv.tw/projects/betaradio.png)
+![Demo](https://archive.sylee.org/projects/betaradio.png)
 
-With this client you can listen to [hiChannel radio](http://hichannel.hinet.net/radio.html) , [PTT Radio](http://pttradio.net/), [Pinewave Radio](http://radio.pinewave.tw/), and [THBS](http://media.club.nthu.edu.tw/) without opening a browser.
+With this client you was able to listen to hiChannel radio (disappeared) , PTT Radio (disappeared), Pinewave Radio (disappeared), and THBS (disappeared) without opening a browser, but those radio sites have stopped the service.
 
 It displays a icon on system tray that you can click and select the channel you want to listen to.
 
@@ -10,7 +10,7 @@ It displays a icon on system tray that you can click and select the channel you 
 
 ### Debian &amp; Ubuntu
 
-https://tracker.debian.org/pkg/betaradio & http://packages.ubuntu.com/source/betaradio
+https://tracker.debian.org/pkg/betaradio & https://packages.ubuntu.com/source/betaradio
 
     # apt-get install betaradio
 
