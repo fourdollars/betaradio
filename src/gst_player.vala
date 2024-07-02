@@ -78,7 +78,7 @@ class GstPlayer : GLib.Object {
                 /* ignore */
                 break;
             default:
-                message("message type: %s", Gst.MessageType.get_name(msg.type));
+                message("message type: %s", msg.type.get_name());
                 break;
         }
 

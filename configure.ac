@@ -44,11 +44,11 @@ PKG_CHECK_MODULES([JSON], [json-glib-1.0], [
                    VALA_CFLAGS="$VALA_CFLAGS $JSON_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $JSON_LIBS"
                    ], AC_MSG_ERROR([json-glib-1.0 not found]))
-PKG_CHECK_MODULES([SOUP], [libsoup-2.4], [
+PKG_CHECK_MODULES([SOUP], [libsoup-3.0], [
                    VALA_CFLAGS="$VALA_CFLAGS $SOUP_CFLAGS"
                    VALA_LIBS="$VALA_LIBS $SOUP_LIBS"
-                   ], AC_MSG_ERROR([libsoup-2.4 not found]))
-VALA_FLAGS="--thread --pkg libsoup-2.4 --pkg json-glib-1.0 --pkg gstreamer-1.0 --pkg gtk+-3.0 --pkg x11"
+                   ], AC_MSG_ERROR([libsoup-3.0 not found]))
+VALA_FLAGS="--thread --pkg libsoup-3.0 --pkg json-glib-1.0 --pkg gstreamer-1.0 --pkg gtk+-3.0 --pkg x11"
 
 AC_SUBST(VALA_CFLAGS)
 AC_SUBST(VALA_FLAGS)

@@ -59,7 +59,7 @@ class BetaRadio : GLib.Object {
         icon.set_text(_("Data Synchronizing ..."));
 
         try {
-            Thread.create<void*>(() => {
+            var thread = new Thread<void*>("menu", () => {
                 menu = new Gtk.Menu();
                 unowned SList<Gtk.RadioMenuItem> group = null;
 
@@ -97,7 +97,7 @@ class BetaRadio : GLib.Object {
                 icon.set_text(_("BetaRadio Tuner"));
 
                 return null;
-            }, true);
+            });
         } catch(GLib.ThreadError e) {
             debug("%s", e.message);
         }
