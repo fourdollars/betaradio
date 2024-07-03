@@ -1,10 +1,10 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: betaradio
-Upstream-Contact: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+Upstream-Contact: Shih-Yuan Lee (FourDollars) <fourdollars@debian.org>
 Source: https://github.com/fourdollars/betaradio
 
 Files: *
-Copyright: 2007-2014 Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+Copyright: 2007-2024 Shih-Yuan Lee (FourDollars) <fourdollars@debian.org>
 License: GPL-3+
 
 Files: data/betaradio.png
