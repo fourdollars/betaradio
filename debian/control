@@ -1,7 +1,7 @@
 Source: betaradio
 Section: x11
 Priority: optional
-Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@gmail.com>
+Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@debian.org>
 Build-Depends:
     autotools-dev,
     debhelper (>= 9),
