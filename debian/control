@@ -10,7 +10,7 @@ Build-Depends:
     libgtk-3-dev (>= 3.22.30),
     libjson-glib-dev,
     libltdl-dev,
-    libsoup3.0-dev
+    libsoup-3.0-dev
 Standards-Version: 4.7.0
 Homepage: https://github.com/fourdollars/betaradio
 Vcs-Browser: https://github.com/fourdollars/betaradio
