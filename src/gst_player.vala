@@ -17,8 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// modules: x11 gtk+-3.0 gstreamer-1.0 json-glib-1.0 libsoup-3.0
+// modules: any-tray-icon config x11 gtk+-3.0 gstreamer-1.0 json-glib-1.0 libsoup-3.0
 // sources: src/betaradio.vala src/json_soup.vala
+// vapidirs: vapi
+
 using Gst;
 
 class GstPlayer : GLib.Object {
