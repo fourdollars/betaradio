@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// modules: json-glib-1.0 libsoup-3.0
 using Json;
 using Soup;
 
@@ -44,14 +45,14 @@ class JsonSoup : GLib.Object {
         }
     }
     public JsonSoup.http(string url) {
-        var session = new Session();
-        var message = new Message.from_uri("GET", Uri.parse(url, UriFlags.NONE));
-        var response_body = session.send_and_read(message);
-        if (response_body == null) {
-            warning("Can not connect to %s", url);
-        }
-        parser = new Parser();
         try {
+            var session = new Session();
+            var message = new Message.from_uri("GET", Uri.parse(url, UriFlags.NONE));
+            var response_body = session.send_and_read(message);
+            if (response_body == null) {
+                warning("Can not connect to %s", url);
+            }
+            parser = new Parser();
             parser.load_from_data((string) response_body);
             node = parser.get_root();
         } catch (Error e) {

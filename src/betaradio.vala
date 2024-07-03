@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// modules: x11 gtk+-3.0 gstreamer-1.0 json-glib-1.0 libsoup-3.0
+// sources: src/json_soup.vala
 using X;
 using Gtk;
 using Gst;
