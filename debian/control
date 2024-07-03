@@ -3,7 +3,6 @@ Section: x11
 Priority: optional
 Maintainer: Shih-Yuan Lee (FourDollars) <fourdollars@debian.org>
 Build-Depends:
-    autotools-dev,
     debhelper-compat (= 13),
     libglib2.0-dev (>= 2.56.4),
     libgstreamer1.0-dev,
